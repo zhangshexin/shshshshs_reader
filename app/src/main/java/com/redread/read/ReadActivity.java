@@ -52,6 +52,7 @@ import com.example.newbiechen.ireader.utils.SystemBarUtils;
 import com.example.newbiechen.ireader.widget.page.PageLoader;
 import com.example.newbiechen.ireader.widget.page.PageView;
 import com.example.newbiechen.ireader.widget.page.TxtChapter;
+import com.redread.base.BaseMVPActivity;
 import com.redread.base.ReadContract;
 
 import java.util.List;
