@@ -8,30 +8,30 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.widget.Toolbar;
-//import android.util.Log;
-//import android.view.Menu;
-//import android.view.MenuItem;
-//import android.view.MotionEvent;
-//import android.view.accessibility.AccessibilityNodeProvider;
-//
-//import com.github.barteksc.pdfviewer.listener.OnDrawListener;
-//import com.github.barteksc.pdfviewer.listener.OnErrorListener;
-//import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
-//import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
-//import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
-//import com.github.barteksc.pdfviewer.listener.OnPageScrollListener;
-//import com.github.barteksc.pdfviewer.listener.OnRenderListener;
-//import com.github.barteksc.pdfviewer.listener.OnTapListener;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.accessibility.AccessibilityNodeProvider;
+
+import com.github.barteksc.pdfviewer.listener.OnDrawListener;
+import com.github.barteksc.pdfviewer.listener.OnErrorListener;
+import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
+import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
+import com.github.barteksc.pdfviewer.listener.OnPageScrollListener;
+import com.github.barteksc.pdfviewer.listener.OnRenderListener;
+import com.github.barteksc.pdfviewer.listener.OnTapListener;
 import com.redread.databinding.LayoutMainBinding;
-//import com.shockwave.pdfium.PdfDocument;
+import com.shockwave.pdfium.PdfDocument;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class Activity_Main extends AppCompatActivity {
+public class Activity_Main extends AppCompatActivity implements OnLoadCompleteListener {
 
     private LayoutMainBinding binding;
 
@@ -44,7 +44,7 @@ public class Activity_Main extends AppCompatActivity {
 
 
 
-/**
+
         binding.pdfView.fromAsset("tanke.pdf")
 //        .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
         .enableSwipe(true) // allows to block changing pages using swipe
@@ -53,7 +53,7 @@ public class Activity_Main extends AppCompatActivity {
         .defaultPage(0).onLoad(this)
 
         // allows to draw something on the current page, usually visible in the middle of the screen
-        .onDraw(new OnDrawListener() {
+        /**.onDraw(new OnDrawListener() {
             @Override
             public void onLayerDrawn(Canvas canvas, float pageWidth, float pageHeight, int displayedPage) {
 
@@ -113,14 +113,14 @@ public class Activity_Main extends AppCompatActivity {
         .spacing(0)
 //        .autoSpacing(false) // add dynamic spacing to fit each page on its own on the screen
 //        .linkHandler(DefaultLinkHandler)
-//        .pageFitPolicy(FitPolicy.WIDTH)
+//        .pageFitPolicy(FitPolicy.WIDTH)**/
         .pageSnap(true) // snap pages to screen boundaries
         .pageFling(true) // make a fling change only a single page like ViewPager
         .nightMode(false) // toggle night mode
-        .load();**/
+        .load();
 
     }
-/**
+
 private String TAG="kdkdkdkdkdkddk";
     @Override
     public void loadComplete(int nbPages) {
@@ -132,5 +132,5 @@ private String TAG="kdkdkdkdkdkddk";
         List<PdfDocument.Bookmark> bookmarks=binding.pdfView.getTableOfContents();
        AccessibilityNodeProvider provider= binding.pdfView.getAccessibilityNodeProvider();
 
-    }**/
+    }
 }

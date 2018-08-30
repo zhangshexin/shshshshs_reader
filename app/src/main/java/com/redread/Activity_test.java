@@ -1,6 +1,7 @@
 package com.redread;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,7 +22,8 @@ public class Activity_test extends Activity {
        binding.buttonPdf.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-
+               Intent intentPdf=new Intent(Activity_test.this,Activity_Main.class);
+               startActivity(intentPdf);
            }
        });
        binding.buttonTxt.setOnClickListener(new View.OnClickListener() {

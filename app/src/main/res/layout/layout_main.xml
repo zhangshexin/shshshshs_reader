@@ -8,11 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <!--  <com.github.barteksc.pdfviewer.PDFView
+        <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/pdfView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-      <android.support.v4.view.ViewPager-->
+        <!--<android.support.v4.view.ViewPager-->
             <!--android:id="@+id/main_pagers"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="match_parent"-->

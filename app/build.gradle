@@ -47,18 +47,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //https://github.com/barteksc/AndroidPdfViewer
     //    compile 'com.github.barteksc:android-pdf-viewer:2.8.2'
-//    implementation 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
-
-
-
-    // View injection
-    implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
-    // RxJava
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
-    // ORM Database
-    implementation "org.greenrobot:greendao:$rootProject.greendaoVersion"
-    // OpenCC to convert Simp. Chinese to Trad. Chinese
-    implementation 'com.zqc.opencc.android.lib:lib-opencc-android:0.8.0@aar'
+    implementation 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
 }
