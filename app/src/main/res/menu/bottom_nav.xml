@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_favorites"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="书架"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_schedules"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="出版"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_music"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="馆藏"
+        app:showAsAction="ifRoom" />
+
+</menu>
