@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package com.redread;
+package com.redread.bookrack;
 
 import android.content.ClipboardManager;
 import android.content.Context;

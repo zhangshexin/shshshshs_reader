@@ -1,4 +1,4 @@
-package com.redread;
+package com.redread.bookrack;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityNodeProvider;
 
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
+import com.redread.R;
 import com.redread.databinding.LayoutMainBinding;
 import com.shockwave.pdfium.PdfDocument;
 
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * pdf类型的阅读
  */
-public class Activity_pdf extends AppCompatActivity implements OnLoadCompleteListener {
+public class Activity_pdfReader extends AppCompatActivity implements OnLoadCompleteListener {
 
     private LayoutMainBinding binding;
 
@@ -24,7 +25,7 @@ public class Activity_pdf extends AppCompatActivity implements OnLoadCompleteLis
     protected void onCreate(Bundle savedInstanceState) {
         time= System.currentTimeMillis();
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.layout_main);
+        binding= DataBindingUtil.setContentView(this, R.layout.layout_main);
 
 
 

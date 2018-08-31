@@ -1,15 +1,6 @@
-package com.redread;
+package com.redread.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.Nullable;
-import android.util.Log;
-
-import com.bifan.txtreaderlib.bean.TxtMsg;
-import com.bifan.txtreaderlib.interfaces.ILoadListener;
-import com.redread.databinding.LayoutTxtBinding;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,41 +8,9 @@ import java.io.InputStream;
 
 /**
  * Created by zhangshexin on 2018/8/31.
- *
- * txt类型的阅读
  */
 
-public class Activity_txt extends Activity implements ILoadListener {
-    private String TAG=this.getClass().getName();
-    private LayoutTxtBinding binding;
-    private String assetFile="yuanzun.txt";
-    private String sdFile=Environment.getExternalStorageDirectory().getPath()+"/read";
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        putAssetsToSDCard(this,assetFile,sdFile);
-        Activity_txtReader.loadTxtFile(this, Environment.getExternalStorageDirectory().getPath()+"/read/yuanzun.txt");
-//        binding= DataBindingUtil.setContentView(this,R.layout.layout_txt);
-//        binding.activityTxtReader.loadTxtFile(Environment.getExternalStorageDirectory().getPath()+"/read/yuanzun.txt",this);
-    }
-
-    @Override
-    public void onSuccess() {
-        Log.e(TAG, "----------onSuccess: ");
-    }
-
-    @Override
-    public void onFail(TxtMsg txtMsg) {
-        Log.e(TAG, "------------onFail: " );
-    }
-
-    @Override
-    public void onMessage(String s) {
-        Log.e(TAG, "-------------onMessage: ");
-    }
-
-
+public class IOUtile {
     /**
      * 将assets下的文件放到sd指定目录下
      *
@@ -95,13 +54,9 @@ public class Activity_txt extends Activity implements ILoadListener {
                             + stringFile, sdCardPath);
                 }
             }
-        } catch (
-                Exception e
-                )
-
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
     }
-
 }
