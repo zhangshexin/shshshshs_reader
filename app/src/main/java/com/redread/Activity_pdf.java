@@ -1,37 +1,21 @@
 package com.redread;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Canvas;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.accessibility.AccessibilityNodeProvider;
 
-import com.github.barteksc.pdfviewer.listener.OnDrawListener;
-import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
-import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
-import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
-import com.github.barteksc.pdfviewer.listener.OnPageScrollListener;
-import com.github.barteksc.pdfviewer.listener.OnRenderListener;
-import com.github.barteksc.pdfviewer.listener.OnTapListener;
 import com.redread.databinding.LayoutMainBinding;
 import com.shockwave.pdfium.PdfDocument;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-public class Activity_Main extends AppCompatActivity implements OnLoadCompleteListener {
+/**
+ * pdf类型的阅读
+ */
+public class Activity_pdf extends AppCompatActivity implements OnLoadCompleteListener {
 
     private LayoutMainBinding binding;
 

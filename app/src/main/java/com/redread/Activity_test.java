@@ -22,14 +22,15 @@ public class Activity_test extends Activity {
        binding.buttonPdf.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent intentPdf=new Intent(Activity_test.this,Activity_Main.class);
+               Intent intentPdf=new Intent(Activity_test.this,Activity_pdf.class);
                startActivity(intentPdf);
            }
        });
        binding.buttonTxt.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-
+               Intent intentTxt=new Intent(Activity_test.this,Activity_txt.class);
+               startActivity(intentTxt);
            }
        });
 
