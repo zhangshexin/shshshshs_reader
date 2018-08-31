@@ -52,6 +52,6 @@ dependencies {
     // ORM Database
     implementation "org.greenrobot:greendao:$rootProject.greendaoVersion"
 
-    //txt reader
+    //txt reader https://github.com/bifan-wei/HwTxtReader
     implementation 'com.github.bifan-wei:HwTxtReader:V1.3.9'
 }
