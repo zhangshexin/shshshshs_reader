@@ -16,23 +16,23 @@
         <activity
             android:name=".Activity_splash"
             android:label="@string/app_name"
-            android:screenOrientation="landscape">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity_home" android:label="主页"/>
+        <activity android:name=".Activity_home" android:screenOrientation="portrait" android:label="主页"/>
         <activity
             android:name=".bookrack.Activity_pdfReader"
-            android:screenOrientation="landscape" android:label="pdf阅读页"/>
+            android:screenOrientation="portrait" android:label="pdf阅读页"/>
         <activity
             android:name=".Activity_txt"
-            android:screenOrientation="landscape" android:label="txt阅读页"/>
+            android:screenOrientation="portrait" android:label="txt阅读页"/>
         <activity
             android:name=".bookrack.Activity_txtReader"
-            android:screenOrientation="landscape" android:label="txt阅读页"/>
+            android:screenOrientation="portrait" android:label="txt阅读页"/>
     </application>
 
 </manifest>

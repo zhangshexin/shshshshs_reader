@@ -19,13 +19,59 @@
             android:id="@+id/home_bottom_lay"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"></LinearLayout>
+            app:layout_constraintVertical_bias="1.0">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+
+            <RadioGroup android:id="@+id/home_bottom_lay_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/home_bottom_lay_publish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="出版"
+                    android:textColor="@drawable/selector_home_bottom_btn" />
+
+                <RadioButton
+                    android:id="@+id/home_bottom_lay_libary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="馆藏"
+                    android:textColor="@drawable/selector_home_bottom_btn" />
+
+                <RadioButton
+                    android:id="@+id/home_bottom_lay_booktrack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="书架"
+                    android:textColor="@drawable/selector_home_bottom_btn" />
+            </RadioGroup>
+        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
 </layout>

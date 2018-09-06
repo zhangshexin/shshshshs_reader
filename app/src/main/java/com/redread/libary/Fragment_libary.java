@@ -3,6 +3,9 @@ package com.redread.libary;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.redread.R;
 import com.redread.base.BaseFragment;
@@ -16,9 +19,11 @@ import com.redread.databinding.FragmentLibaryBinding;
 public class Fragment_libary extends BaseFragment {
 
     private FragmentLibaryBinding binding;
+
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(getActivity(), R.layout.fragment_booktrack);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_libary,container,false);
+        return binding.getRoot();
     }
 }

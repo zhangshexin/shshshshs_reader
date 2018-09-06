@@ -1,6 +1,7 @@
 package com.redread.base;
 
-import android.app.Fragment;
+
+import android.support.v4.app.Fragment;
 
 /**
  * Created by zhangshexin on 2018/8/31.
