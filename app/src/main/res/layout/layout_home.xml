@@ -2,76 +2,99 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/home_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/home_viewPager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/home_bottom_lay"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:id="@+id/home_bottom_lay"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/black" />
-
-            <RadioGroup android:id="@+id/home_bottom_lay_radiogroup"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/home_viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_above="@+id/home_bottom_lay"
+                app:layout_constraintBottom_toTopOf="@+id/home_bottom_lay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <RadioButton
-                    android:id="@+id/home_bottom_lay_publish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:button="@null"
-                    android:checked="true"
-                    android:gravity="center"
-                    android:text="出版"
-                    android:textColor="@drawable/selector_home_bottom_btn" />
+            <LinearLayout android:layout_alignParentBottom="true"
+                android:id="@+id/home_bottom_lay"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0">
 
-                <RadioButton
-                    android:id="@+id/home_bottom_lay_libary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="馆藏"
-                    android:textColor="@drawable/selector_home_bottom_btn" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black" />
 
-                <RadioButton
-                    android:id="@+id/home_bottom_lay_booktrack"
-                    android:layout_width="wrap_content"
+                <RadioGroup
+                    android:id="@+id/home_bottom_lay_radiogroup"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="书架"
-                    android:textColor="@drawable/selector_home_bottom_btn" />
-            </RadioGroup>
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/home_bottom_lay_publish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="出版"
+                        android:textColor="@drawable/selector_home_bottom_btn" />
+
+                    <RadioButton
+                        android:id="@+id/home_bottom_lay_libary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="馆藏"
+                        android:textColor="@drawable/selector_home_bottom_btn" />
+
+                    <RadioButton
+                        android:id="@+id/home_bottom_lay_booktrack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="书架"
+                        android:textColor="@drawable/selector_home_bottom_btn" />
+                </RadioGroup>
+            </LinearLayout>
+        </RelativeLayout>
+        <!--侧滑栏-->
+        <LinearLayout
+            android:id="@+id/home_left_lay"
+            android:layout_width="120dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="start">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="35dp"/>
         </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
-
+    </android.support.v4.widget.DrawerLayout>
 </layout>

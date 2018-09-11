@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.redread.Activity_home;
 import com.redread.R;
 import com.redread.base.BaseFragment;
 import com.redread.databinding.FragmentPublishBinding;
@@ -25,5 +26,16 @@ public class Fragment_publish extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_publish,container,false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Activity_home) getActivity()).toggleSlidNav();
+            }
+        });
     }
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.widget.RadioGroup;
 
 import com.redread.base.BaseActivity;
@@ -43,7 +44,21 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
         binding.homeViewPager.setAdapter(adapter);
         binding.homeViewPager.addOnPageChangeListener(this);
         binding.homeBottomLayRadiogroup.setOnCheckedChangeListener(this);
+
+
     }
+
+    /**
+     * 打开/关闭左侧滑
+     */
+    public void toggleSlidNav(){
+        if(binding.homeDrawerLayout.isDrawerOpen(Gravity.START))
+            binding.homeDrawerLayout.closeDrawer(Gravity.START);
+        else
+            binding.homeDrawerLayout.openDrawer(Gravity.START);
+    }
+
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
