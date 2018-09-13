@@ -83,18 +83,53 @@
         <!--侧滑栏-->
         <LinearLayout
             android:id="@+id/home_left_lay"
-            android:layout_width="120dp"
+            android:layout_width="150dp"
             android:orientation="vertical"
+            android:background="@color/white"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
             android:layout_gravity="start">
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/default_head"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="35dp"
                 android:layout_marginTop="35dp"/>
+            <TextView
+                android:id="@+id/percenter_mybook"
+                android:text="@string/percenter_mybook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/percenter_order"
+                android:text="@string/percenter_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/percenter_portrayal"
+                android:text="@string/percenter_portrayal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/percenter_helper"
+                android:text="@string/percenter_helper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/percenter_setting"
+                android:text="@string/percenter_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/percenter_message"
+                android:text="@string/percenter_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/percenter_switchlib"
+                android:text="@string/percenter_switchlib"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 </layout>

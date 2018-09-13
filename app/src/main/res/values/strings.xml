@@ -5,4 +5,25 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!--个人中心-->
+    <string name="percenter_mybook">我的图书</string>
+    <string name="percenter_order">订单</string>
+    <string name="percenter_portrayal">阅读画像</string>
+    <string name="percenter_helper">客服</string>
+    <string name="percenter_setting">设置</string>
+    <string name="percenter_message">消息</string>
+    <string name="percenter_switchlib">切换图书馆</string>
+    <string name="percenter_msgpush">消息推送</string>
+    <string name="percenter_clear_cache">消除缓存</string>
+    <string name="percenter_help">使用帮助</string>
+    <string name="percenter_feedback">意见反馈</string>
+    <string name="percenter_about">关于</string>
+    <string name="percenter_cancel">退出当前帐号</string>
+    <!--出版-->
+    <string name="publish_ranking">排行</string>
+    <string name="publish_classify">分类</string>
+    <string name="publish_read">畅读</string>
+    <string name="publish_bookstore">书城</string>
+    <string name="publish_report">快报</string>
 </resources>

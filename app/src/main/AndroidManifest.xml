@@ -23,16 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity_home" android:screenOrientation="portrait" android:label="主页"/>
+        <activity android:name=".Activity_home" android:screenOrientation="portrait" android:label="主页" android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity
             android:name=".bookrack.Activity_pdfReader"
             android:screenOrientation="portrait" android:label="pdf阅读页"/>
         <activity
-            android:name=".Activity_txt"
-            android:screenOrientation="portrait" android:label="txt阅读页"/>
-        <activity
             android:name=".bookrack.Activity_txtReader"
             android:screenOrientation="portrait" android:label="txt阅读页"/>
+        <activity
+            android:name=".setting.Activity_setting"
+            android:screenOrientation="portrait" android:label="设置"/>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import com.redread.base.BaseActivity;
@@ -13,6 +14,7 @@ import com.redread.bookrack.Fragment_Booktrack;
 import com.redread.databinding.LayoutHomeBinding;
 import com.redread.libary.Fragment_libary;
 import com.redread.publish.Fragment_publish;
+import com.redread.setting.Activity_setting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.List;
  * Created by zhangshexin on 2018/8/31.
  */
 
-public class Activity_home extends BaseActivity implements ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
+public class Activity_home extends BaseActivity implements ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener,View.OnClickListener {
 
     private LayoutHomeBinding binding;
     @Override
@@ -44,8 +46,12 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
         binding.homeViewPager.setAdapter(adapter);
         binding.homeViewPager.addOnPageChangeListener(this);
         binding.homeBottomLayRadiogroup.setOnCheckedChangeListener(this);
+        initSlidView();
 
+    }
 
+    private void initSlidView() {
+        binding.percenterSetting.setOnClickListener(this);
     }
 
     /**
@@ -96,6 +102,15 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
                 break;
             case R.id.home_bottom_lay_publish:
                 binding.homeViewPager.setCurrentItem(0);
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.percenter_setting:
+                startActivity(Activity_setting.class);
                 break;
         }
     }

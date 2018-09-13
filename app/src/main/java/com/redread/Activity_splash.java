@@ -3,10 +3,12 @@ package com.redread;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.redread.base.BaseActivity;
 import com.redread.databinding.LayoutSplashBinding;
@@ -17,17 +19,23 @@ import com.redread.databinding.LayoutSplashBinding;
 
 public class Activity_splash extends BaseActivity {
     private LayoutSplashBinding binding;
-
+    private int plus = 0;
 
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            plus++;
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    Intent intent=new Intent(Activity_splash.this, Activity_home.class);
-                    startActivity(intent);
-                    finish();
+                    if (plus > 5) {
+                        Intent intent = new Intent(Activity_splash.this, Activity_home.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        binding.circleIndicator.setProgress(plus);
+                        mHandler.sendEmptyMessageDelayed(0, 1000);
+                    }
                     break;
             }
         }
@@ -37,13 +45,20 @@ public class Activity_splash extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.layout_splash);
+        binding.splashJump.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                plus=10;
+                mHandler.sendEmptyMessage(0);
+            }
+        });
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        mHandler.sendEmptyMessageDelayed(0, 3000);//延迟三秒
+        mHandler.sendEmptyMessageDelayed(0, 1000);
     }
 
     @Override

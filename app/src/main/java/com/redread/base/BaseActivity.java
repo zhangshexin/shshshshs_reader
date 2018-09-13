@@ -1,5 +1,7 @@
 package com.redread.base;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -8,4 +10,13 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
+    public void finish2(){
+        finish();
+    }
+
+    public void startActivity(Class<?> c){
+        Intent intent=new Intent(this,c);
+        startActivity(intent);
+    }
 }
