@@ -70,4 +70,8 @@ dependencies {
 
     //圆进度条
     compile 'com.github.yanjiabin:ExtendsRingPrigressBar:1.1.1'
+
+    //fast json
+    compile 'com.alibaba:fastjson:1.1.70.android'
+
 }

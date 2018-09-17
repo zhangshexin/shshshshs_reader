@@ -36,7 +36,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/black" />
+                    android:background="@color/line" />
 
                 <RadioGroup
                     android:id="@+id/home_bottom_lay_radiogroup"
@@ -89,6 +89,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start">
             <ImageView
+                android:id="@+id/percenter_default_head"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/default_head"

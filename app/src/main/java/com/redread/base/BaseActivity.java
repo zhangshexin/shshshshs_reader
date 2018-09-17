@@ -2,6 +2,8 @@ package com.redread.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -18,5 +20,24 @@ public class BaseActivity extends AppCompatActivity {
     public void startActivity(Class<?> c){
         Intent intent=new Intent(this,c);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        registerRxBus();
+    }
+
+    public void registerRxBus() {
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        removeRxBus();
+    }
+
+    public void removeRxBus() {
     }
 }

@@ -7,23 +7,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="读txt"
+        <include
+            android:id="@+id/book_track_include"
+            layout="@layout/layout_title_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button_pdf"
+        <View
+            android:id="@+id/line"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            android:text="读pdf"
+            android:layout_height="1dp"
+            android:background="@color/line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/book_track_include" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/book_track_delete_lay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line"></android.support.v7.widget.RecyclerView>
+        <!--删除，取消-->
+        <LinearLayout
+            android:id="@+id/book_track_delete_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/book_track_btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/booktrack_delete" />
+
+            <TextView
+                android:id="@+id/book_track_btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/booktrack_cancel" />
+        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

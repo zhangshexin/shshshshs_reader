@@ -13,6 +13,7 @@ import com.redread.base.BaseActivity;
 import com.redread.bookrack.Fragment_Booktrack;
 import com.redread.databinding.LayoutHomeBinding;
 import com.redread.libary.Fragment_libary;
+import com.redread.login.Activity_generalLogin;
 import com.redread.publish.Fragment_publish;
 import com.redread.setting.Activity_setting;
 
@@ -52,6 +53,7 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
 
     private void initSlidView() {
         binding.percenterSetting.setOnClickListener(this);
+        binding.percenterDefaultHead.setOnClickListener(this);
     }
 
     /**
@@ -111,6 +113,9 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
         switch(v.getId()){
             case R.id.percenter_setting:
                 startActivity(Activity_setting.class);
+                break;
+            case R.id.percenter_default_head:
+                startActivity(Activity_generalLogin.class);
                 break;
         }
     }
