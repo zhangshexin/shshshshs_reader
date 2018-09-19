@@ -3,7 +3,6 @@ package com.redread;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +11,13 @@ import android.view.View;
 
 import com.redread.base.BaseActivity;
 import com.redread.databinding.LayoutSplashBinding;
+import com.redread.model.entity.DownLoad;
+import com.redread.model.gen.DownLoadDao;
+import com.redread.utils.Constant;
+import com.redread.utils.IOUtile;
+import com.redread.utils.SharePreferenceUtil;
+
+import java.util.Date;
 
 /**
  * Created by zhangshexin on 2018/8/31.
@@ -52,8 +58,28 @@ public class Activity_splash extends BaseActivity {
                 mHandler.sendEmptyMessage(0);
             }
         });
+        initDBData();
     }
 
+
+    /**
+     * 初始化一些必要数据，写入一本书
+     */
+    private synchronized void initDBData(){
+        Boolean isFirstEntry=(Boolean)SharePreferenceUtil.getSimpleData(this,Constant.KEY_BOOLEAN_FIRST_USE,true);
+        if(!isFirstEntry)
+            return;
+        //把书放到sd卡下
+        IOUtile.putAssetsToSDCard(this, "defaultbook.txt",Constant.bookPath);
+        DownLoad downLoad=new DownLoad();
+        downLoad.setBookName("元尊");
+        downLoad.setBookDir(Constant.bookPath+ "/defaultbook.txt");
+        downLoad.setUpDate(new Date(System.currentTimeMillis()));
+        downLoad.setBookType(Constant.BOOK_TYPE_TXT);
+        DownLoadDao dao= MyApplication.getInstances().getDaoSession().getDownLoadDao();
+        dao.insert(downLoad);
+        SharePreferenceUtil.saveSimpleData(this,Constant.KEY_BOOLEAN_FIRST_USE,false);
+    }
 
     @Override
     protected void onResume() {

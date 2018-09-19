@@ -9,7 +9,7 @@
 
         <include
             android:id="@+id/book_track_include"
-            layout="@layout/layout_title_search"
+            layout="@layout/layout_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,18 +24,31 @@
             app:layout_constraintTop_toBottomOf="@+id/book_track_include" />
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/book_track"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="1dp"
             app:layout_constraintBottom_toTopOf="@+id/book_track_delete_lay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line"></android.support.v7.widget.RecyclerView>
+            app:layout_constraintTop_toBottomOf="@+id/book_track_include"></android.support.v7.widget.RecyclerView>
+        <!--空显示-->
+        <include
+            android:id="@+id/book_null"
+            layout="@layout/layout_null"
+            android:layout_marginTop="1dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/book_track_delete_lay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/book_track_include" />
         <!--删除，取消-->
         <LinearLayout
             android:id="@+id/book_track_delete_lay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -44,15 +57,19 @@
                 android:id="@+id/book_track_btn_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
                 android:padding="5dp"
-                android:text="@string/booktrack_delete" />
+                android:text="@string/booktrack_delete"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/book_track_btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/booktrack_cancel" />
+                android:text="@string/booktrack_cancel"
+                android:textColor="@color/black" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

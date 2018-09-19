@@ -40,6 +40,9 @@
         <activity
             android:name=".login.Activity_organizationLogin"
             android:screenOrientation="portrait" android:label="机构登录"/>
+        <activity
+            android:name=".bookrack.Activity_booktrack_search"
+            android:screenOrientation="portrait" android:label="搜索本地图书"/>
     </application>
 
 </manifest>

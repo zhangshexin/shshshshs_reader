@@ -80,7 +80,7 @@ public class Activity_txtReader extends AppCompatActivity {
     }
 
     protected int getContentViewLayout() {
-        return layout.activity_hwtxtpaly;
+        return com.bifan.txtreaderlib.R.layout.activity_hwtxtpaly;
     }
 
     protected void getIntentData() {

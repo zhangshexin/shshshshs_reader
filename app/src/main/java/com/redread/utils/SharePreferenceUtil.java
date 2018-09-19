@@ -46,7 +46,7 @@ public class SharePreferenceUtil {
      * @param defValue
      * @return
      */
-    public static Object getData(Context context, String key, Object defValue){
+    public static Object getSimpleData(Context context, String key, Object defValue){
 
         String type = defValue.getClass().getSimpleName();
         SharedPreferences sharedPreferences = context.getSharedPreferences

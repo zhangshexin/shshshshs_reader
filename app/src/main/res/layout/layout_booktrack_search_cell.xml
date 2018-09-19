@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/booktracksearch_cell_cover"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/default_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/booktracksearch_cell_bookname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:lines="1"
+            android:text="书名"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/booktracksearch_cell_cover"
+            app:layout_constraintTop_toTopOf="@+id/booktracksearch_cell_cover" />
+
+        <TextView
+            android:id="@+id/booktracksearch_cell_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:lines="1"
+            android:text="作者"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/booktracksearch_cell_cover"
+            app:layout_constraintTop_toBottomOf="@+id/booktracksearch_cell_bookname" />
+
+        <TextView
+            android:id="@+id/booktracksearch_cell_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="2018-10-11读过"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/booktracksearch_cell_cover"
+            app:layout_constraintTop_toBottomOf="@+id/booktracksearch_cell_author" />
+
+        <TextView
+            android:id="@+id/booktracksearch_cell_progress_int"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="0%"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/booktracksearch_cell_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/booktracksearch_cell_date" />
+
+        <ProgressBar
+            android:id="@+id/booktracksearch_cell_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/booktracksearch_cell_cover"
+            app:layout_constraintEnd_toStartOf="@+id/booktracksearch_cell_progress_int"
+            app:layout_constraintStart_toEndOf="@+id/booktracksearch_cell_cover"
+            app:layout_constraintTop_toBottomOf="@+id/booktracksearch_cell_date" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

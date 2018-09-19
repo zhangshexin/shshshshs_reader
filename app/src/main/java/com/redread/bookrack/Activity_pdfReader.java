@@ -9,8 +9,11 @@ import android.view.accessibility.AccessibilityNodeProvider;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.redread.R;
 import com.redread.databinding.LayoutMainBinding;
+import com.redread.model.bean.Book;
+import com.redread.model.entity.DownLoad;
 import com.shockwave.pdfium.PdfDocument;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -21,16 +24,18 @@ public class Activity_pdfReader extends AppCompatActivity implements OnLoadCompl
     private LayoutMainBinding binding;
 
     private long time;
+
+    private Book book;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //处理一些需要的参数
+        book=(Book) getIntent().getSerializableExtra("book");
         time= System.currentTimeMillis();
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this, R.layout.layout_main);
-
-
-
-
-        binding.pdfView.fromAsset("tanke.pdf")
+//        binding.pdfView.fromAsset("tanke.pdf")
+        binding.pdfView.fromFile(new File(book.getBookDir()))
 //        .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
         .enableSwipe(true) // allows to block changing pages using swipe
         .swipeHorizontal(true)
