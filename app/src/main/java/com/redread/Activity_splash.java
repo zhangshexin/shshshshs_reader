@@ -51,7 +51,7 @@ public class Activity_splash extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.layout_splash);
-        binding.splashJump.setOnClickListener(new View.OnClickListener() {
+        binding.circleIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 plus=10;

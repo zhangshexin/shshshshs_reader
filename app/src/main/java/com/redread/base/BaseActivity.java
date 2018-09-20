@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 
 /**
@@ -39,5 +40,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void removeRxBus() {
+    }
+
+    public void showToast(int res){
+        showToast(getString(res));
+    }
+    public void showToast(String toast){
+        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
     }
 }
