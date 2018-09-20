@@ -14,13 +14,125 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.youth.banner.Banner
-            android:id="@+id/libary_banner"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            app:image_scale_type="fit_xy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include3" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/include3">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/libary_banner"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    app:image_scale_type="fit_xy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="通知"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/libary_banner"
+                    app:layout_constraintTop_toBottomOf="@+id/libary_banner" />
+
+                <com.sunfusheng.marqueeview.MarqueeView
+                    android:id="@+id/marqueeView"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                    app:layout_constraintEnd_toStartOf="@+id/libary_notifydetail_bnt"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toTopOf="@+id/textView2"
+                    app:mvAnimDuration="500"
+                    app:mvDirection="bottom_to_top"
+                    app:mvInterval="1000"
+                    app:mvSingleLine="true"
+                    app:mvTextColor="@color/black"
+                    app:mvTextSize="14sp">
+
+                </com.sunfusheng.marqueeview.MarqueeView>
+
+                <ImageView
+                    android:id="@+id/libary_notifydetail_bnt"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="@+id/libary_banner"
+                    app:layout_constraintTop_toTopOf="@+id/textView2"
+                    app:srcCompat="@drawable/icon_right_raw"
+                    tools:layout_editor_absoluteY="68dp" />
+                <!--分类检索，主题阅读，新书上架-->
+                <LinearLayout
+                    android:id="@+id/libary_model_lay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/marqueeView">
+
+                    <TextView
+                        android:id="@+id/libary_newbook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/drawable_rectangle_1"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/libary_newbook"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/libary_themine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/drawable_rectangle_2"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/libary_themine"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/libary_typesearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/drawable_rectangle_3"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/libary_typesearch"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+                <!--专业阅读-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/libary_model_lay">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/libary_modellist"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
     </android.support.constraint.ConstraintLayout>
 </layout>
