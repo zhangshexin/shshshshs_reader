@@ -5,6 +5,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <!--标签-->
+    <string name="label_publish">出版</string>
+    <string name="label_libary">馆藏</string>
+    <string name="label_booktrack">书架</string>
 
     <!--个人中心-->
     <string name="percenter_mybook">我的图书</string>
@@ -46,4 +50,8 @@
     <string name="dialog_title_notify">提醒</string>
     <string name="dialog_msg_clear_book">这些书将本地和书架同时删除！</string>
     <string name="dialog_delete_title">正在删除</string>
+    <!--馆藏-->
+    <string name="libary_newbook">新书上架</string>
+    <string name="libary_themine">主题阅读</string>
+    <string name="libary_typesearch">分类检索</string>
 </resources>

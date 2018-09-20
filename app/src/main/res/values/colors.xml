@@ -28,6 +28,6 @@
 
     <color name="red">#d81e06</color>
 
-    <color name="transparent">#00000000</color>
+    <color name="transparent">#90000000</color>
     <color name="unclick">#CCCCCC</color>
 </resources>

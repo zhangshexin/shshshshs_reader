@@ -43,6 +43,24 @@
         <activity
             android:name=".bookrack.Activity_booktrack_search"
             android:screenOrientation="portrait" android:label="搜索本地图书"/>
+        <activity
+            android:name=".libary.Activity_bookDetail" android:theme="@style/translucent"
+            android:screenOrientation="portrait" android:label="图书详情页"/>
+        <activity
+            android:name=".libary.Activity_modeDetaillList"
+            android:screenOrientation="portrait" android:label="模块详情列表"/>
+        <activity
+            android:name=".libary.Activity_recommend"
+            android:screenOrientation="portrait" android:label="推荐馆藏"/>
+        <activity
+            android:name=".libary.Activity_typeSearch"
+            android:screenOrientation="portrait" android:label="分类检索"/>
+        <activity
+            android:name=".libary.WebView_borrow"
+            android:screenOrientation="portrait" android:label="借阅馆藏"/>
+        <activity
+            android:name=".libary.Activity_notifyList"
+            android:screenOrientation="portrait" android:label="通知列表"/>
     </application>
 
 </manifest>

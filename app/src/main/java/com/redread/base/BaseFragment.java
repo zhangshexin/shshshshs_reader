@@ -1,6 +1,7 @@
 package com.redread.base;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,5 +29,11 @@ public class BaseFragment extends Fragment {
     }
 
     public void removeRxBus() {
+    }
+
+
+    public void startActivity(Class<?> c){
+        Intent intent=new Intent(getContext(),c);
+        startActivity(intent);
     }
 }
