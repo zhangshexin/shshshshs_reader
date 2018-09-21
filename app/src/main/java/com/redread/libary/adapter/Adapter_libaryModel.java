@@ -31,7 +31,7 @@ public class Adapter_libaryModel extends BaseRecycelAdapter<BaseViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 10;
+        return models.size();
     }
 
     @Override
