@@ -20,10 +20,12 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textSize="12sp"
             android:layout_weight="1"
             android:focusedByDefault="false"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/title_right"

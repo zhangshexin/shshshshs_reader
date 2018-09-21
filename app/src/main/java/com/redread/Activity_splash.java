@@ -23,7 +23,7 @@ import java.util.Date;
  * Created by zhangshexin on 2018/8/31.
  */
 
-public class Activity_splash extends BaseActivity {
+public class Activity_splash extends BaseActivity implements View.OnClickListener {
     private LayoutSplashBinding binding;
     private int plus = 0;
 
@@ -51,13 +51,8 @@ public class Activity_splash extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.layout_splash);
-        binding.circleIndicator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                plus=10;
-                mHandler.sendEmptyMessage(0);
-            }
-        });
+        binding.splashJump.setOnClickListener(this);
+        binding.circleIndicator.setOnClickListener(this);
         initDBData();
     }
 
@@ -97,5 +92,16 @@ public class Activity_splash extends BaseActivity {
     public void onBackPressed() {
         mHandler.removeMessages(0);
         super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.splash_jump:
+            case R.id.circleIndicator:
+                plus=10;
+                mHandler.sendEmptyMessage(0);
+                break;
+        }
     }
 }

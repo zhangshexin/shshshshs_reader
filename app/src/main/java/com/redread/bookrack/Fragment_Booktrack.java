@@ -75,6 +75,7 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
     private RecyclerViewUtil recyclerViewUtil;
     //是否可点击操作,在长按未归位前不可以执行
     private boolean clickEnable=true;
+    private Context mContext;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,7 +86,12 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        adapter = new Adapter_booktrack(context, books);
+        mContext=context;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -102,6 +108,7 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
         //隐藏显示底部操作
         binding.bookTrackDeleteLay.setVisibility(View.GONE);
 
+        adapter = new Adapter_booktrack(mContext, books);
         //TODO
         //监听滑动是否到底部，准备加载更多
         recyclerViewUtil.setOnLoadMoreListener(new RecyclerViewUtil.OnLoadMoreListener() {

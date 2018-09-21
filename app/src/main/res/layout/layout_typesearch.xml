@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include4"
+            layout="@layout/layout_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/typeSearch_type"
+            android:layout_width="80dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include4"></android.support.v7.widget.RecyclerView>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/typeSearch_type"
+            app:layout_constraintStart_toEndOf="@+id/typeSearch_type"
+            app:layout_constraintTop_toTopOf="@+id/typeSearch_type" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/typeSearch_typeContent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/line"
+            app:layout_constraintTop_toBottomOf="@+id/include4" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

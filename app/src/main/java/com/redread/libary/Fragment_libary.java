@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.redread.Activity_home;
 import com.redread.R;
@@ -16,6 +17,7 @@ import com.redread.databinding.FragmentLibaryBinding;
 import com.redread.libary.adapter.Adapter_libaryModel;
 import com.redread.net.netbean.NetBeanLibaryModel;
 import com.redread.utils.GlideImageLoader;
+import com.sunfusheng.marqueeview.MarqueeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +90,12 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
         info.add("55555555555555");
         info.add("66666666666666");
         binding.marqueeView.startWithList(info);
+        binding.marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, TextView textView) {
+                startActivity(Activity_bookDetail.class);
+            }
+        });
 
         //专业阅读
         for (int i=0;i<4;i++){
@@ -106,11 +114,15 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.title_right://TODO
                 //去搜索馆藏
+                startActivity(Activity_libarySearch.class);
                 break;
             case R.id.libary_newbook:
+                //去查看该模块的列表
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.EXTRA_TITLE,"新书上架");
+                break;
             case R.id.libary_themine:
                 //去查看该模块的列表
-                startActivity(Activity_modeDetaillList.class);
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.EXTRA_TITLE,"主题阅读");
                 break;
             case R.id.libary_typesearch://TODO
                 startActivity(Activity_typeSearch.class);

@@ -36,4 +36,10 @@ public class BaseFragment extends Fragment {
         Intent intent=new Intent(getContext(),c);
         startActivity(intent);
     }
+    public void startActivity(Class<?> c,String ex1,String ex1Value){
+        Intent intent=new Intent(getContext(),c);
+        intent.putExtra(ex1,ex1Value);
+        startActivity(intent);
+    }
+
 }

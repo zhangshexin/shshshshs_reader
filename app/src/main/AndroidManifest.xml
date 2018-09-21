@@ -61,6 +61,9 @@
         <activity
             android:name=".libary.Activity_notifyList"
             android:screenOrientation="portrait" android:label="通知列表"/>
+        <activity
+            android:name=".libary.Activity_libarySearch"
+            android:screenOrientation="portrait" android:label="馆藏搜索"/>
     </application>
 
 </manifest>

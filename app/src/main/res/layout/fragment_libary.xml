@@ -46,23 +46,6 @@
                     app:layout_constraintStart_toStartOf="@+id/libary_banner"
                     app:layout_constraintTop_toBottomOf="@+id/libary_banner" />
 
-                <com.sunfusheng.marqueeview.MarqueeView
-                    android:id="@+id/marqueeView"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                    app:layout_constraintEnd_toStartOf="@+id/libary_notifydetail_bnt"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="@+id/textView2"
-                    app:mvAnimDuration="500"
-                    app:mvDirection="bottom_to_top"
-                    app:mvInterval="1000"
-                    app:mvSingleLine="true"
-                    app:mvTextColor="@color/black"
-                    app:mvTextSize="14sp">
-
-                </com.sunfusheng.marqueeview.MarqueeView>
-
                 <ImageView
                     android:id="@+id/libary_notifydetail_bnt"
                     android:layout_width="25dp"
@@ -135,6 +118,24 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp" />
                 </RelativeLayout>
+
+                <com.sunfusheng.marqueeview.MarqueeView
+                    android:id="@+id/marqueeView"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toTopOf="@+id/textView2"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:mvAnimDuration="500"
+                    app:mvDirection="bottom_to_top"
+                    app:mvInterval="1000"
+                    app:mvSingleLine="true"
+                    app:mvTextColor="@color/black"
+                    app:mvTextSize="14sp">
+
+                </com.sunfusheng.marqueeview.MarqueeView>
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.constraint.ConstraintLayout>

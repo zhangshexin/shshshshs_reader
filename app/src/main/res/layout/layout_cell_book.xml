@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/bookCover"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/default_cover"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bookName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:lines="1"
+            android:text="脑洞再一次开"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/bookCover"
+            app:layout_constraintTop_toTopOf="@+id/bookCover" />
+
+        <TextView
+            android:id="@+id/bookAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:lines="1"
+            android:text="豆腐罗"
+            android:textColor="@color/hwtxtreader_bottom_menu_textclor"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/bookName"
+            app:layout_constraintTop_toBottomOf="@+id/bookName" />
+
+        <TextView
+            android:id="@+id/bookDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="3"
+            android:text="切克切克切克脑，大家大家一起闹"
+            android:textColor="@color/line"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/bookCover"
+            app:layout_constraintStart_toEndOf="@+id/bookCover"
+            app:layout_constraintTop_toBottomOf="@+id/bookAuthor"
+            app:layout_constraintVertical_bias="1.0" />
+    </android.support.constraint.ConstraintLayout>
+</layout>
