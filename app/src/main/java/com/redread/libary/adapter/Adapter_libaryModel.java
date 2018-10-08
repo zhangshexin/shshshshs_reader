@@ -1,11 +1,13 @@
 package com.redread.libary.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import com.redread.Activity_home;
 import com.redread.R;
 import com.redread.base.BaseRecycelAdapter;
 import com.redread.base.BaseViewHolder;
@@ -56,6 +58,7 @@ public class Adapter_libaryModel extends BaseRecycelAdapter<BaseViewHolder> {
         Log.e(TAG, bookP+"--------goBookDetail: =================="+position );
         Intent intent=new Intent(mContext,Activity_bookDetail.class);
         mContext.startActivity(intent);
+        ((Activity_home)mContext).overridePendingTransition(R.anim.bottom_in,R.anim.bottom_out);
     }
 
     /**

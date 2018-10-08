@@ -94,6 +94,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
             @Override
             public void onItemClick(int position, TextView textView) {
                 startActivity(Activity_bookDetail.class);
+                getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_out);
             }
         });
 

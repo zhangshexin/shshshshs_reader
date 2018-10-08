@@ -157,6 +157,11 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
     //加载书架中的书
     private void initData() {
         try {
+            //重新初始化参数
+            currentPage=1;
+            recyclerViewUtil.setLoadMoreEnable(true);
+            books.clear();
+
             dao = MyApplication.getInstances().getDaoSession().getDownLoadDao();
             List<DownLoad> temp = dao.queryBuilder().offset(currentPage == 1 ? 0 * pageCount : currentPage * pageCount).limit(pageCount).list();
             if (temp .size()!=0) {
@@ -191,10 +196,6 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
      * 刷新书架，当有下载新书或删除书时刷新
      */
     private void refreshBookTrack() {
-        //重新初始化参数
-        currentPage=1;
-        recyclerViewUtil.setLoadMoreEnable(true);
-        books.clear();
         //重新加载
         initData();
         showBottomDeleteLay(false);

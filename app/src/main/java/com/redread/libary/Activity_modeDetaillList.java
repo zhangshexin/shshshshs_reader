@@ -48,6 +48,7 @@ public class Activity_modeDetaillList extends BaseActivity implements View.OnCli
             public void onItemClick(int position, View view) {
                 //显示图书详情
                 startActivity(Activity_bookDetail.class);
+                overridePendingTransition(R.anim.bottom_in,R.anim.bottom_out);
             }
         });
     }

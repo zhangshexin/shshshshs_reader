@@ -33,4 +33,5 @@ public class Activity_bookDetail extends BaseActivity implements View.OnClickLis
                 break;
         }
     }
+    // overridePendingTransition(R.anim.bottom_in,R.anim.bottom_out);
 }

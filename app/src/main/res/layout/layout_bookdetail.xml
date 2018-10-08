@@ -10,9 +10,10 @@
         <include
             android:id="@+id/bookDetail_include"
             layout="@layout/layout_title"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:visibility="gone"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +42,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text="上下五千年"
             android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/bookDetail_cover"
@@ -65,10 +66,12 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_rectangle_yellow"
+                android:background="@color/red"
                 android:gravity="center"
-                android:padding="3dp"
-                android:text="立即阅读" />
+                android:padding="5dp"
+                android:text="立即阅读"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/bookDetail_borrow"
@@ -77,37 +80,50 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/drawable_rectangle_yellow"
+                android:background="@drawable/drawable_rectangle_black"
                 android:gravity="center"
-                android:padding="3dp"
-                android:text="借阅纸书" />
+                android:padding="5dp"
+                android:text="借阅纸书"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/bookDetail_des_text"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="31dp"
             android:text="图书简介"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-        <TextView
-            android:id="@+id/textView5"
+        <View
             android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/red"
+            app:layout_constraintBottom_toBottomOf="@+id/bookDetail_des_text"
+            app:layout_constraintEnd_toEndOf="@+id/bookDetail_des_text"
+            app:layout_constraintStart_toStartOf="@+id/bookDetail_des_text" />
+
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="TextView"
-            android:textColor="@color/black"
-            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/bookDetail_des_text"
             app:layout_constraintStart_toStartOf="@+id/bookDetail_des_text"
-            app:layout_constraintTop_toBottomOf="@+id/bookDetail_des_text" />
+            app:layout_constraintTop_toBottomOf="@+id/bookDetail_des_text">
 
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="《上下五千年》是外文出版社出版图书，为现代著名语言学家、教育学家林汉达所著，讲述了中国的实史，上至三皇五帝，下至辛亥革命，是一本集中国发展史、重大历史事件及名人简介为一身的优秀历史读物。作者选择重要和著名的人物和事件，根据史籍材料，加以组织和剪裁，用现代语言写出来，通俗易懂。中国是世界四大文明古国之一，约有五千多年的历史渊源，所以“上下五千年”也就代指整个中国历史。"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </ScrollView>
     </android.support.constraint.ConstraintLayout>
 </layout>

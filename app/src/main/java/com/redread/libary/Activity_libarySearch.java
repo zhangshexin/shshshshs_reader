@@ -40,6 +40,7 @@ public class Activity_libarySearch extends BaseActivity {
             @Override
             public void onItemClick(int position, View view) {
                 startActivity(Activity_bookDetail.class);
+                overridePendingTransition(R.anim.bottom_in,R.anim.bottom_out);
             }
         });
         binding.include6.titleLeft.setImageResource(R.drawable.icon_back);
