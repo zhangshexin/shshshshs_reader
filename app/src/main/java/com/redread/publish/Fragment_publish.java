@@ -43,12 +43,12 @@ public class Fragment_publish extends BaseFragment {
         binding.publishBanner.start();
         //垂直滚动
         List<String> info = new ArrayList<>();
-        info.add("11111111111111");
-        info.add("22222222222222");
-        info.add("33333333333333");
-        info.add("44444444444444");
-        info.add("55555555555555");
-        info.add("66666666666666");
+        info.add("最新图书《啦啦卡》");
+        info.add("男生女生向前冲");
+        info.add("开学了，让我们一起学新知识，读绘本");
+        info.add("《三只小熊》外译版即将发售");
+        info.add("《小狗比利》所有人都喜欢的书");
+        info.add("9月18日北京大剧院上映《爱国不是英雄才行》");
         binding.marqueeView.startWithList(info);
 
         binding.include2.titleLeft.setOnClickListener(new View.OnClickListener() {

@@ -48,14 +48,13 @@
 
                 <ImageView
                     android:id="@+id/libary_notifydetail_bnt"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                    app:layout_constraintEnd_toEndOf="@+id/libary_banner"
-                    app:layout_constraintTop_toTopOf="@+id/textView2"
-                    app:srcCompat="@drawable/icon_right_raw"
-                    tools:layout_editor_absoluteY="68dp" />
+                    app:layout_constraintBottom_toBottomOf="@+id/marqueeView"
+                    app:layout_constraintEnd_toEndOf="@+id/marqueeView"
+                    app:layout_constraintTop_toTopOf="@+id/marqueeView"
+                    app:srcCompat="@drawable/icon_right_raw"/>
                 <!--分类检索，主题阅读，新书上架-->
                 <LinearLayout
                     android:id="@+id/libary_model_lay"
@@ -121,8 +120,10 @@
 
                 <com.sunfusheng.marqueeview.MarqueeView
                     android:id="@+id/marqueeView"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView2"
@@ -130,7 +131,7 @@
                     app:layout_constraintVertical_bias="1.0"
                     app:mvAnimDuration="500"
                     app:mvDirection="bottom_to_top"
-                    app:mvInterval="1000"
+                    app:mvInterval="2000"
                     app:mvSingleLine="true"
                     app:mvTextColor="@color/black"
                     app:mvTextSize="14sp">
