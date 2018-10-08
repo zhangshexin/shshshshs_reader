@@ -23,6 +23,12 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    public void startActivity(Class<?> c,String ex1,String ex1Value){
+        Intent intent=new Intent(this,c);
+        intent.putExtra(ex1,ex1Value);
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

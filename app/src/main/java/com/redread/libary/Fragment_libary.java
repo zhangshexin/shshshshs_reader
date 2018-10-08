@@ -83,12 +83,12 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
 
         //通知
         List<String> info = new ArrayList<>();
-        info.add("11111111111111");
-        info.add("22222222222222");
-        info.add("33333333333333");
-        info.add("44444444444444");
-        info.add("55555555555555");
-        info.add("66666666666666");
+        info.add("明天将开始新一轮");
+        info.add("中国之崛起就靠你我了");
+        info.add("打倒小日本就是明天，向前冲");
+        info.add("走上人生巅峰，迎娶白富美，梦醒了");
+        info.add("水水水水……");
+        info.add("啦啦啦，写不出来了￥_￥");
         binding.marqueeView.startWithList(info);
         binding.marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
             @Override
@@ -125,6 +125,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                 startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.EXTRA_TITLE,"主题阅读");
                 break;
             case R.id.libary_typesearch://TODO
+                //去分类检索
                 startActivity(Activity_typeSearch.class);
                 break;
             case R.id.libary_notifydetail_bnt:

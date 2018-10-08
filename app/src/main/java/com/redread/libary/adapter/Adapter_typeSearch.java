@@ -2,6 +2,7 @@ package com.redread.libary.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.redread.R;
@@ -27,12 +28,24 @@ public class Adapter_typeSearch extends BaseRecycelAdapter<BaseViewHolder> {
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutTypesearchCellBinding binding= DataBindingUtil.inflate(inflater, R.layout.layout_typesearch_cell,parent,false);
+        LayoutTypesearchCellBinding binding = DataBindingUtil.inflate(inflater, R.layout.layout_typesearch_cell, parent, false);
         return new BaseViewHolder(binding);
+    }
+
+
+    private int clickPosition = 0;//默认选中第一个
+
+    public void setClickPosition(int position){
+        this.clickPosition=position;
+        notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
+        LayoutTypesearchCellBinding binding = (LayoutTypesearchCellBinding) holder.getBinding();
+        if (position == clickPosition)
+            binding.typeSearchTag.setVisibility(View.VISIBLE);
+        else
+            binding.typeSearchTag.setVisibility(View.GONE);
     }
 }

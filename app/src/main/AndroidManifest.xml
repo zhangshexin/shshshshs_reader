@@ -24,46 +24,64 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity_home" android:screenOrientation="portrait" android:label="主页" android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name=".Activity_home"
+            android:label="主页"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".bookrack.Activity_pdfReader"
-            android:screenOrientation="portrait" android:label="pdf阅读页"/>
+            android:label="pdf阅读页"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".bookrack.Activity_txtReader"
-            android:screenOrientation="portrait" android:label="txt阅读页"/>
+            android:label="txt阅读页"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".setting.Activity_setting"
-            android:screenOrientation="portrait" android:label="设置"/>
+            android:label="设置"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.Activity_generalLogin"
-            android:screenOrientation="portrait" android:label="登录"/>
+            android:label="登录"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.Activity_organizationLogin"
-            android:screenOrientation="portrait" android:label="机构登录"/>
+            android:label="机构登录"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".bookrack.Activity_booktrack_search"
-            android:screenOrientation="portrait" android:label="搜索本地图书"/>
+            android:label="搜索本地图书"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".libary.Activity_bookDetail" android:theme="@style/translucent"
-            android:screenOrientation="portrait" android:label="图书详情页"/>
+            android:name=".libary.Activity_bookDetail"
+            android:label="图书详情页"
+            android:screenOrientation="portrait"
+            android:theme="@style/translucent" />
         <activity
             android:name=".libary.Activity_modeDetaillList"
-            android:screenOrientation="portrait" android:label="模块详情列表"/>
+            android:label="模块详情列表"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".libary.Activity_recommend"
-            android:screenOrientation="portrait" android:label="推荐馆藏"/>
+            android:label="推荐馆藏"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".libary.Activity_typeSearch"
-            android:screenOrientation="portrait" android:label="分类检索"/>
+            android:label="分类检索"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".libary.WebView_borrow"
-            android:screenOrientation="portrait" android:label="借阅馆藏"/>
+            android:label="借阅馆藏"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".libary.Activity_notifyList"
-            android:screenOrientation="portrait" android:label="通知列表"/>
+            android:label="通知列表"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".libary.Activity_libarySearch"
-            android:screenOrientation="portrait" android:label="馆藏搜索"/>
+            android:label="馆藏搜索"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

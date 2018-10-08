@@ -17,16 +17,15 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
+            android:id="@+id/imageView15"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            app:layout_constraintBottom_toBottomOf="@+id/libarymodel_cell_modelName"
-            android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/libarymodel_cell_modelName"
             android:src="@drawable/icon_right_raw"
-            tools:layout_editor_absoluteX="253dp"
-            tools:layout_editor_absoluteY="0dp" />
+            app:layout_constraintBottom_toBottomOf="@+id/libarymodel_cell_modelName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/libarymodel_cell_modelName" />
 
         <TextView
             android:id="@+id/libarymodel_cell_modelName"
@@ -46,10 +45,12 @@
             android:id="@+id/libarymodel_cell_descript"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:lines="1"
             android:text="模块描述"
-            android:textColor="@color/hwtxtreader_bottom_menu_textclor"
             android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/libarymodel_cell_modelName" />
 
@@ -104,7 +105,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:lines="1"
-                android:text="中国好" />
+                android:text="中国好"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/libarymodel_cell_name2"
@@ -113,7 +115,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:lines="1"
-                android:text="中国好" />
+                android:text="中国好"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/libarymodel_cell_name3"
@@ -122,7 +125,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:lines="1"
-                android:text="中国好" />
+                android:text="中国好"
+                android:textColor="@color/black" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

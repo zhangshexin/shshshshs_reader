@@ -11,6 +11,7 @@ import com.redread.R;
 import com.redread.base.BaseActivity;
 import com.redread.databinding.LayoutTypesearchBinding;
 import com.redread.libary.adapter.Adapter_typeSearch;
+import com.redread.utils.RecyclerViewUtil;
 
 /**
  * Created by zhangshexin on 2018/9/20.
@@ -29,13 +30,40 @@ public class Activity_typeSearch extends BaseActivity implements View.OnClickLis
 
     private Adapter_typeSearch typeAdapter;
     private Adapter_typeSearch typeContentAdapter;
+
+    private RecyclerViewUtil typeClickUtil;
+    private RecyclerViewUtil typeContentClickUtil;
     private void initView() {
         binding.include4.titleTitle.setText(getTitle());
 
         binding.include4.titleLeft.setOnClickListener(this);
 
-        typeAdapter=new Adapter_typeSearch(this);
-        typeContentAdapter=new Adapter_typeSearch(this);
+
+        typeClickUtil=new RecyclerViewUtil(this,binding.typeSearchType);
+        typeClickUtil.setOnItemClickListener(new RecyclerViewUtil.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View view) {
+                //类型单击事件,更换类型
+                typeAdapter.setClickPosition(position);
+                //刷新类型显示
+                //TODO
+            }
+        });
+
+        typeContentClickUtil=new RecyclerViewUtil(this,binding.typeSearchTypeContent);
+        typeContentClickUtil.setOnItemClickListener(new RecyclerViewUtil.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View view) {
+                //类型内容单击，跳转到内容列表
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.EXTRA_TITLE,"中图分类-1");
+            }
+        });
+
+
+
+        typeAdapter=new Adapter_typeSearch(this);//类型适配器
+        typeContentAdapter=new Adapter_typeSearch(this);//类型内容适配器
+        typeContentAdapter.setClickPosition(-1);
 
         LinearLayoutManager typeManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         binding.typeSearchType.setLayoutManager(typeManager);
