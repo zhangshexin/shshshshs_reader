@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:text="跳过"
+            android:text="跳过" android:padding="8dp"
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="@+id/circleIndicator"
             app:layout_constraintEnd_toEndOf="@+id/circleIndicator"

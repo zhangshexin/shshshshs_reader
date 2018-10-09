@@ -3,6 +3,7 @@ package com.redread.libary;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.redread.R;
 import com.redread.base.BaseActivity;
@@ -13,7 +14,7 @@ import com.redread.databinding.LayoutLibaryRecommendBinding;
  * 推荐馆藏
  */
 
-public class Activity_recommend extends BaseActivity {
+public class Activity_recommend extends BaseActivity implements View.OnClickListener {
     private LayoutLibaryRecommendBinding binding;
 
     @Override
@@ -25,5 +26,20 @@ public class Activity_recommend extends BaseActivity {
 
     private void initView() {
         binding.recommendInclude.titleTitle.setText(getTitle());
+
+        binding.recommendInclude.titleLeft.setOnClickListener(this);
+        binding.recommendSure.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.title_left:
+                finish2();
+                break;
+            case R.id.recommend_sure:
+                //提交馆藏
+                break;
+        }
     }
 }

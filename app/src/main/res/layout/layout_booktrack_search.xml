@@ -10,9 +10,18 @@
         <include
             android:id="@+id/book_track_include"
             layout="@layout/layout_title_search"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@+id/book_track_include"
+            app:layout_constraintEnd_toEndOf="@+id/book_track_include"
+            app:layout_constraintStart_toStartOf="@+id/book_track_include" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/booktrack_search_list"

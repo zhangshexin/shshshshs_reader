@@ -54,4 +54,5 @@
     <string name="libary_newbook">新书上架</string>
     <string name="libary_themine">主题阅读</string>
     <string name="libary_typesearch">分类检索</string>
+    <string name="libary_commit">提交</string>
 </resources>

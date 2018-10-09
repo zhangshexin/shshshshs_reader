@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,10 +16,15 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="暂无此书可以推荐馆藏"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:text="暂无此书,可以推荐馆藏"
+            android:textColor="@color/black"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recommend_include" />
 
@@ -27,36 +32,63 @@
             android:id="@+id/recommend_bookName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
+            android:background="@null"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="请输入书名"
+            android:inputType="textPersonName"
+            android:lines="1"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/nb.read.bg_3"
+            app:layout_constraintBottom_toBottomOf="@+id/recommend_bookName"
+            app:layout_constraintEnd_toEndOf="@+id/recommend_bookName"
+            app:layout_constraintStart_toStartOf="@+id/recommend_bookName" />
 
         <EditText
             android:id="@+id/recommend_isbn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@null"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="请输入ISBN号"
+            android:inputType="textPersonName"
+            android:lines="1"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/recommend_bookName"
+            app:layout_constraintStart_toStartOf="@+id/recommend_bookName"
             app:layout_constraintTop_toBottomOf="@+id/recommend_bookName" />
-
-        <Button
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/nb.read.bg_3"
+            app:layout_constraintBottom_toBottomOf="@+id/recommend_isbn"
+            app:layout_constraintEnd_toEndOf="@+id/recommend_isbn"
+            app:layout_constraintStart_toStartOf="@+id/recommend_isbn" />
+        <TextView
             android:id="@+id/recommend_sure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/dialog_ok"
+            android:padding="8dp"
+            android:text="@string/libary_commit"
+            android:textColor="@color/red"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/recommend_include"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recommend_isbn" />
+            app:layout_constraintTop_toTopOf="@+id/recommend_include" />
     </android.support.constraint.ConstraintLayout>
 </layout>
