@@ -30,4 +30,6 @@
 
     <color name="transparent">#90000000</color>
     <color name="unclick">#CCCCCC</color>
+
+    <color name="background">#efefef</color>
 </resources>

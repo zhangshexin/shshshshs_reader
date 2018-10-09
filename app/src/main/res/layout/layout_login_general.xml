@@ -1,67 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <include layout="@layout/layout_title" android:id="@+id/login_general_include"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <EditText
-        android:id="@+id/login_general_phone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:ems="10"
-        android:hint="@string/login_phone"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_general_include" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
-    <EditText
-        android:id="@+id/login_general_input_verification_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/login_input_verification_code"
-        app:layout_constraintEnd_toStartOf="@+id/login_general_verification_code"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_general_phone" />
+        <include
+            android:id="@+id/login_general_include"
+            layout="@layout/layout_title" />
 
-    <Button
-        android:id="@+id/login_general_verification_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_verification_code"
-        app:layout_constraintBottom_toBottomOf="@+id/login_general_input_verification_code"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/login_general_input_verification_code" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@+id/login_general_include"
+            app:layout_constraintEnd_toEndOf="@+id/login_general_include"
+            app:layout_constraintStart_toStartOf="@+id/login_general_include" />
 
-    <Button
-        android:id="@+id/login_general_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:text="@string/login_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_general_input_verification_code" />
+        <LinearLayout
+            android:id="@+id/login_general_phone_lay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_general_include">
 
-    <Button
-        android:id="@+id/login_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="108dp"
-        android:text="@string/login_switch"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_general_login" />
-</android.support.constraint.ConstraintLayout>
+            <ImageView android:id="@+id/icon_login_account"
+                android:layout_width="12dp" android:layout_marginLeft="8dp"
+                android:layout_height="12dp"
+                android:src="@drawable/icon_login_account" />
+
+            <EditText
+                android:id="@+id/login_general_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:ems="10"
+                android:hint="@string/login_phone"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_general_phone_lay">
+
+            <ImageView android:id="@+id/icon_login_pwd"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/icon_login_pwd" />
+
+            <EditText
+                android:id="@+id/login_general_input_verification_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:ems="10"
+                android:hint="@string/login_input_verification_code"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/login_general_verification_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/drawable_rectangle_red"
+                android:paddingBottom="3dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="3dp"
+                android:text="@string/login_verification_code"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/login_general_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:padding="5dp"
+            android:text="@string/login_login"
+            android:textColor="@color/red"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="@+id/login_general_include"
+            app:layout_constraintTop_toTopOf="@+id/login_general_include"
+            app:layout_constraintVertical_bias="0.615" />
+
+        <TextView
+            android:id="@+id/login_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/login_switch"
+            android:textColor="@color/red"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+    </android.support.constraint.ConstraintLayout>
 </layout>
