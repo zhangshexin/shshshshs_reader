@@ -138,15 +138,15 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         binding.libaryBanner.startAutoPlay();
         binding.marqueeView.startFlipping();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         binding.libaryBanner.stopAutoPlay();
         binding.marqueeView.stopFlipping();
     }

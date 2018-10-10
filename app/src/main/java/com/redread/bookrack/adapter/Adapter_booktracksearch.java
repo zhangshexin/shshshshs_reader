@@ -60,7 +60,7 @@ public class Adapter_booktracksearch extends BaseRecycelAdapter<BaseViewHolder> 
         }
         //如果有封面则显示
         if (!TextUtils.isEmpty(book.getCoverUrl())) {
-            GlideUtils.glideLoader(mContext, book.getCoverUrl(), R.drawable.default_cover, R.drawable.default_cover, binding.booktracksearchCellCover);
+            GlideUtils.glideLoader(mContext, book.getCoverUrl(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.booktracksearchCellCover);
         }
         //日期
         String redDate= DateUtil.dateFormat.format(book.getUpDate());

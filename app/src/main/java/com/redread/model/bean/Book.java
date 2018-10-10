@@ -1,5 +1,6 @@
 package com.redread.model.bean;
 
+import com.alibaba.fastjson.JSON;
 import com.redread.model.entity.DownLoad;
 
 import java.io.Serializable;
@@ -65,10 +66,8 @@ public class Book extends DownLoad implements Serializable{
 
 
     public static List<Book> conver2ListBook(List<DownLoad> downLoads){
-        List<Book> books=new ArrayList<>();
-        for (int i=0;i<downLoads.size();i++){
-            books.add(conver2Book(downLoads.get(i)));
-        }
+        String json=JSON.toJSONString(downLoads);
+        List<Book> books=JSON.parseArray(json,Book.class);
         return books;
     }
 }

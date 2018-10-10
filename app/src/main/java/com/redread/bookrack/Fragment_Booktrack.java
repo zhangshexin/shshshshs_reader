@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import com.redread.rxbus.RxSubscriptions;
 import com.redread.rxbus.bean.RXRefreshBooktract;
 import com.redread.utils.Constant;
 import com.redread.utils.RecyclerViewUtil;
+import com.redread.utils.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +44,7 @@ import rx.functions.Action1;
  */
 
 public class Fragment_Booktrack extends BaseFragment implements View.OnClickListener {
-
+    private String TAG=getClass().getName();
     //分页参数
     private int pageCount = 20;//一页几条
     private int currentPage = 1;//当前第几页
@@ -55,6 +58,7 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
     private final int what_notify=1;
     private final int what_refresh=2;//刷新数据
     private final int what_cancel=3;//取消删除按钮
+    private final int what_null=4;//没有书
     private Handler myHandler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -68,6 +72,9 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
                 case what_cancel:
                     showBottomDeleteLay(false);
                     break;
+                case what_null:
+                    binding.bookNull.setVisibility(View.VISIBLE);
+                    break;
             }
         }
     };
@@ -79,13 +86,15 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_booktrack, container, false);
+        if(binding==null)
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_booktrack, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        dao = MyApplication.getInstances().getDaoSession().getDownLoadDao();
         mContext=context;
     }
 
@@ -150,32 +159,51 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
         GridLayoutManager manager = new GridLayoutManager(MyApplication.getInstances(), 3);
         binding.bookTrack.setLayoutManager(manager);
         binding.bookTrack.setAdapter(adapter);
-        initData();
+
     }
 
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+            }
+        }).start();
+    }
+
+
+
+    private  boolean isLoading=false;
     //加载书架中的书
     private void initData() {
         try {
+            if(isLoading)
+                return;
+            isLoading=true;
             //重新初始化参数
             currentPage=1;
             recyclerViewUtil.setLoadMoreEnable(true);
             books.clear();
-
-            dao = MyApplication.getInstances().getDaoSession().getDownLoadDao();
             List<DownLoad> temp = dao.queryBuilder().offset(currentPage == 1 ? 0 * pageCount : currentPage * pageCount).limit(pageCount).list();
             if (temp .size()!=0) {
                 //没有更多了
+                Log.e(TAG, "initData: ============="+ System.currentTimeMillis());
                 books.addAll(Book.conver2ListBook(temp));
+                Log.e(TAG, "initData: -------------"+ System.currentTimeMillis());
                 //如果不足一页将不再加载更多
                 if(temp.size() < pageCount)
                     recyclerViewUtil.setLoadMoreEnable(false);
                 myHandler.sendEmptyMessage(what_notify);
             } else{
-                binding.bookNull.setVisibility(View.VISIBLE);
+                myHandler.sendEmptyMessage(what_null);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            isLoading=false;
         }
     }
 
@@ -245,5 +273,15 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
     public void removeRxBus() {
         super.removeRxBus();
         RxSubscriptions.remove(mSubscription);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 }

@@ -61,16 +61,17 @@ public class Fragment_publish extends BaseFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         binding.publishBanner.startAutoPlay();
         binding.marqueeView.startFlipping();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         binding.publishBanner.stopAutoPlay();
         binding.marqueeView.stopFlipping();
     }
+
 }

@@ -44,6 +44,7 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
         fragments.add(fragmentLibary);
         fragments.add(fragmentBooktrack);
         adapter=new HomePageAdapter(getSupportFragmentManager(),fragments);
+        binding.homeViewPager.setOffscreenPageLimit(3);
         binding.homeViewPager.setAdapter(adapter);
         binding.homeViewPager.addOnPageChangeListener(this);
         binding.homeBottomLayRadiogroup.setOnCheckedChangeListener(this);

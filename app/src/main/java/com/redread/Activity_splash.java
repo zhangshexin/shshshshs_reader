@@ -14,6 +14,7 @@ import com.redread.databinding.LayoutSplashBinding;
 import com.redread.model.entity.DownLoad;
 import com.redread.model.gen.DownLoadDao;
 import com.redread.utils.Constant;
+import com.redread.utils.GlideUtils;
 import com.redread.utils.IOUtile;
 import com.redread.utils.SharePreferenceUtil;
 
@@ -53,6 +54,7 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
         binding = DataBindingUtil.setContentView(this, R.layout.layout_splash);
         binding.splashJump.setOnClickListener(this);
         binding.circleIndicator.setOnClickListener(this);
+        GlideUtils.LoadImageWithLocation(this,R.drawable.default_splash,binding.splashImg);
         initDBData();
     }
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,9 +69,7 @@ public class Adapter_booktrack extends BaseRecycelAdapter<BaseViewHolder> {
         //阅读进度
         binding.booktrackCellProgress.setText(book.getReadProgress() + "%");
         //如果有封面则显示
-        if (!TextUtils.isEmpty(book.getCoverUrl())) {
-            GlideUtils.glideLoader(mContext, book.getCoverUrl(), R.drawable.default_cover, R.drawable.default_cover, binding.booktrackCellCover);
-        }
+        GlideUtils.glideLoader(mContext, book.getCoverUrl(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.booktrackCellCover);
         //显示隐藏选中按钮
         binding.booktrackCellCheck.setVisibility(book.isShowCheckBtn() ? View.VISIBLE : View.GONE);
     }

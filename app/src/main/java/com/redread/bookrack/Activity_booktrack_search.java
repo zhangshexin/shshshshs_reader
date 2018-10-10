@@ -8,18 +8,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.redread.MyApplication;
 import com.redread.R;
 import com.redread.base.BaseActivity;
 import com.redread.bookrack.adapter.Adapter_booktracksearch;
 import com.redread.databinding.LayoutBooktrackSearchBinding;
+import com.redread.libary.Activity_libarySearch;
 import com.redread.model.bean.Book;
 import com.redread.model.entity.DownLoad;
 import com.redread.model.gen.DownLoadDao;
 import com.redread.utils.Constant;
 import com.redread.utils.RecyclerViewUtil;
+import com.redread.utils.SystemUtil;
 
 import org.greenrobot.greendao.query.WhereCondition;
 
@@ -108,6 +113,19 @@ public class Activity_booktrack_search extends BaseActivity implements View.OnCl
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        binding.bookTrackInclude.titleSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {//搜索按键action
+                    SystemUtil.hide_keyboard_from(Activity_booktrack_search.this, binding.bookTrackInclude.titleSearch);
+                    //"开始搜索");
+                    doSearch();
+                    return true;
+                }
+                return false;
             }
         });
 
