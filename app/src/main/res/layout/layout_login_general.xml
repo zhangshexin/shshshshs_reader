@@ -34,9 +34,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_general_include">
 
-            <ImageView android:id="@+id/icon_login_account"
-                android:layout_width="12dp" android:layout_marginLeft="8dp"
+            <ImageView
+                android:id="@+id/icon_login_account"
+                android:layout_width="12dp"
                 android:layout_height="12dp"
+                android:layout_marginLeft="8dp"
                 android:src="@drawable/icon_login_account" />
 
             <EditText
@@ -67,7 +69,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_general_phone_lay">
 
-            <ImageView android:id="@+id/icon_login_pwd"
+            <ImageView
+                android:id="@+id/icon_login_pwd"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="8dp"
@@ -101,11 +104,13 @@
                 android:textColor="@color/white"
                 android:textSize="10sp" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/login_general_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:clickable="true"
             android:padding="5dp"
             android:text="@string/login_login"
             android:textColor="@color/red"

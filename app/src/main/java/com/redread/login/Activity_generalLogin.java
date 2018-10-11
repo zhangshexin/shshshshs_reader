@@ -3,17 +3,30 @@ package com.redread.login;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.redread.R;
 import com.redread.base.BaseActivity;
 import com.redread.databinding.LayoutLoginGeneralBinding;
+import com.redread.net.Api;
+import com.redread.net.OkHttpManager;
 import com.redread.rxbus.RxBus;
 import com.redread.rxbus.RxSubscriptions;
 import com.redread.rxbus.bean.FinishRX;
 
+import java.io.IOException;
+import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -24,9 +37,13 @@ import rx.functions.Action1;
  */
 
 public class Activity_generalLogin extends BaseActivity implements View.OnClickListener {
+
+    private String TAG=getClass().getName();
+
     private LayoutLoginGeneralBinding binding;
     private int time = 60;//60秒限制
     private final int what_code = 0;
+    private final int what_net_fail=1;//网络失败
     private Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -41,6 +58,9 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
                         binding.loginGeneralVerificationCode.setText("(" + time-- + ")秒后重新获取");
                         myHandler.sendEmptyMessageDelayed(what_code, 1000);
                     }
+                    break;
+                case what_net_fail:
+                    showToast("网络开小差了！");
                     break;
             }
         }
@@ -58,6 +78,11 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
         binding.loginGeneralInclude.titleTitle.setText(getTitle().toString());
         binding.loginGeneralVerificationCode.setOnClickListener(this);
         binding.loginSwitch.setOnClickListener(this);
+
+        binding.loginGeneralPhone.setText("guoguoping");
+        binding.loginGeneralInputVerificationCode.setText("123456");
+
+        binding.loginGeneralLogin.setOnClickListener(this);
     }
 
     @Override
@@ -78,8 +103,46 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
         }
     }
 
+
+    private Call mCall;
     private void doLogin(){
-        finish2();
+        ableBtn(false);
+        Editable phoneNum=binding.loginGeneralPhone.getText();
+        Editable pwd=binding.loginGeneralInputVerificationCode.getText();
+        if(TextUtils.isEmpty(phoneNum)||TextUtils.isEmpty(pwd))
+        {
+            ableBtn(true);
+            showToast("帐号和验证码为必填！");
+            return;
+        }
+
+        HashMap<String,String> params=new HashMap<>();
+        params.put("username",phoneNum.toString());
+        params.put("password",pwd.toString());
+        Request request=Api.loginPost(this,params);
+        mCall= OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
+        mCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                myHandler.sendEmptyMessage(what_net_fail);
+                ableBtn(true);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json=response.body().string();
+                Log.e(TAG, "onResponse: 登录了"+ json);
+                finish2();
+            }
+        });
+    }
+
+    /**
+     * 按钮是否可点击
+     * @param able
+     */
+    private void ableBtn(boolean able){
+        binding.loginGeneralLogin.setClickable(able);
     }
 
     @Override

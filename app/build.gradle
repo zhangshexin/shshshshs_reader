@@ -6,8 +6,8 @@ android {
         applicationId "com.redread"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 12
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -75,4 +75,6 @@ dependencies {
     //fast json
     compile 'com.alibaba:fastjson:1.1.70.android'
 
+    //okhttp3
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
 }
