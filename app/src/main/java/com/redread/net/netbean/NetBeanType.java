@@ -9,9 +9,9 @@ import java.util.List;
  */
 
 public class NetBeanType {
-    private String typeCode;//类型码
+    private String typeCode;//类型码/版块码
     private String typeName;//类型名
-    private List<NetBeanType> typeContents;//类型内容
+    private List<NetBeanType> typeContents;//类型内容，以列表形式返回类型对象
 
     public String getTypeCode() {
         return typeCode;

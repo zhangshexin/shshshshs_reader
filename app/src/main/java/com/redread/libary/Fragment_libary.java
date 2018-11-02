@@ -15,7 +15,7 @@ import com.redread.R;
 import com.redread.base.BaseFragment;
 import com.redread.databinding.FragmentLibaryBinding;
 import com.redread.libary.adapter.Adapter_libaryModel;
-import com.redread.net.netbean.NetBeanLibaryModel;
+import com.redread.net.netbean.NetBeanModel;
 import com.redread.utils.GlideImageLoader;
 import com.sunfusheng.marqueeview.MarqueeView;
 
@@ -31,7 +31,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
 
     private FragmentLibaryBinding binding;
     private Context mContext;
-    private List<NetBeanLibaryModel> modelList=new ArrayList<>();
+    private List<NetBeanModel> modelList=new ArrayList<>();
     private Adapter_libaryModel adapter;
     @Nullable
     @Override
@@ -100,7 +100,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
 
         //专业阅读
         for (int i=0;i<4;i++){
-            NetBeanLibaryModel model=new NetBeanLibaryModel();
+            NetBeanModel model=new NetBeanModel();
             modelList.add(model);
         }
         adapter.notifyDataSetChanged();

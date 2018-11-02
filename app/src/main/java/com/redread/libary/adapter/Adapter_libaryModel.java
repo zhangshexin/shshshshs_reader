@@ -1,6 +1,5 @@
 package com.redread.libary.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -14,7 +13,7 @@ import com.redread.base.BaseViewHolder;
 import com.redread.databinding.LayoutLibarymodelCellBinding;
 import com.redread.libary.Activity_bookDetail;
 import com.redread.libary.Activity_modeDetaillList;
-import com.redread.net.netbean.NetBeanLibaryModel;
+import com.redread.net.netbean.NetBeanModel;
 
 import java.util.List;
 
@@ -24,9 +23,9 @@ import java.util.List;
 
 public class Adapter_libaryModel extends BaseRecycelAdapter<BaseViewHolder> {
     private String TAG=getClass().getName();
-    private List<NetBeanLibaryModel> models;
+    private List<NetBeanModel> models;
 
-    public Adapter_libaryModel(Context context, List<NetBeanLibaryModel> models) {
+    public Adapter_libaryModel(Context context, List<NetBeanModel> models) {
         super(context);
         this.models = models;
     }
@@ -44,7 +43,7 @@ public class Adapter_libaryModel extends BaseRecycelAdapter<BaseViewHolder> {
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        NetBeanLibaryModel model = models.get(0);
+        NetBeanModel model = models.get(0);
         LayoutLibarymodelCellBinding binding = (LayoutLibarymodelCellBinding) holder.getBinding();
         binding.setAdapter(this);
         binding.setPosition(0);
