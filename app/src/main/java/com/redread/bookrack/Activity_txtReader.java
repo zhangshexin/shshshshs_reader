@@ -41,6 +41,10 @@ import com.bifan.txtreaderlib.interfaces.ITextSelectListener;
 import com.bifan.txtreaderlib.main.TxtConfig;
 import com.bifan.txtreaderlib.main.TxtReaderView;
 import com.bifan.txtreaderlib.ui.ChapterList;
+import com.redread.MyApplication;
+import com.redread.R;
+import com.redread.model.entity.DownLoad;
+import com.redread.model.gen.DownLoadDao;
 
 import java.io.File;
 
@@ -64,15 +68,18 @@ public class Activity_txtReader extends AppCompatActivity {
     private final int[] StyleTextColors = new int[]{Color.parseColor("#4a453a"), Color.parseColor("#505550"), Color.parseColor("#453e33"), Color.parseColor("#8f8e88"), Color.parseColor("#27576c")};
     protected String FilePath = null;
     protected String FileName = null;
+    private long id;
     private Toast t;
     boolean hasExisted = false;
 
+    private DownLoadDao dao;
     public Activity_txtReader() {
     }
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(this.getContentViewLayout());
+        dao = MyApplication.getInstances().getDaoSession().getDownLoadDao();
         this.getIntentData();
         this.init();
         this.loadFile();
@@ -86,55 +93,57 @@ public class Activity_txtReader extends AppCompatActivity {
     protected void getIntentData() {
         this.FilePath = this.getIntent().getStringExtra("FilePath");
         this.FileName = this.getIntent().getStringExtra("FileName");
+        this.id=getIntent().getLongExtra("id",0);
     }
 
-    public static void loadTxtFile(Context context, String FilePath) {
-        loadTxtFile(context, FilePath, (String)null);
+    public static void loadTxtFile(Context context, String FilePath,long id) {
+        loadTxtFile(context, FilePath, (String)null,id);
     }
 
-    public static void loadTxtFile(Context context, String FilePath, String FileName) {
+    public static void loadTxtFile(Context context, String FilePath, String FileName,long id) {
         Intent intent = new Intent();
         intent.putExtra("FilePath", FilePath);
         intent.putExtra("FileName", FileName);
+        intent.putExtra("id", id);
         intent.setClass(context, Activity_txtReader.class);
         context.startActivity(intent);
     }
 
     protected void init() {
         this.mHandler = new Handler();
-        this.mTopDecoration = this.findViewById(id.activity_hwtxtplay_top);
-        this.mBottomDecoration = this.findViewById(id.activity_hwtxtplay_bottom);
-        this.mTxtReaderView = (TxtReaderView)this.findViewById(id.activity_hwtxtplay_readerView);
-        this.mChapterNameText = (TextView)this.findViewById(id.activity_hwtxtplay_chaptername);
-        this.mChapterMenuText = (TextView)this.findViewById(id.activity_hwtxtplay_chapter_menutext);
-        this.mProgressText = (TextView)this.findViewById(id.activity_hwtxtplay_progress_text);
-        this.mSettingText = (TextView)this.findViewById(id.activity_hwtxtplay_setting_text);
-        this.mTopMenu = this.findViewById(id.activity_hwtxtplay_menu_top);
-        this.mBottomMenu = this.findViewById(id.activity_hwtxtplay_menu_bottom);
-        this.mCoverView = this.findViewById(id.activity_hwtxtplay_cover);
-        this.ClipboardView = this.findViewById(id.activity_hwtxtplay_Clipboar);
-        this.mSelectedText = (TextView)this.findViewById(id.activity_hwtxtplay_selected_text);
-        this.mMenuHolder.mTitle = (TextView)this.findViewById(id.txtreadr_menu_title);
-        this.mMenuHolder.mPreChapter = (TextView)this.findViewById(id.txtreadr_menu_chapter_pre);
-        this.mMenuHolder.mNextChapter = (TextView)this.findViewById(id.txtreadr_menu_chapter_next);
-        this.mMenuHolder.mSeekBar = (SeekBar)this.findViewById(id.txtreadr_menu_seekbar);
-        this.mMenuHolder.mTextSizeDel = (TextView)this.findViewById(id.txtreadr_menu_textsize_del);
-        this.mMenuHolder.mTextSize = (TextView)this.findViewById(id.txtreadr_menu_textsize);
-        this.mMenuHolder.mTextSizeAdd = (TextView)this.findViewById(id.txtreadr_menu_textsize_add);
-        this.mMenuHolder.mBoldSelectedLayout = this.findViewById(id.txtreadr_menu_textsetting1_bold);
-        this.mMenuHolder.mBoldSelectedPic = (ImageView)this.findViewById(id.txtreadr_menu_textsetting1_boldpic);
-        this.mMenuHolder.mNormalSelectedLayout = this.findViewById(id.txtreadr_menu_textsetting1_normal);
-        this.mMenuHolder.mNormalSelectedPic = (ImageView)this.findViewById(id.txtreadr_menu_textsetting1_normalpic);
-        this.mMenuHolder.mCoverSelectedLayout = this.findViewById(id.txtreadr_menu_textsetting2_cover);
-        this.mMenuHolder.mCoverSelectedPic = (ImageView)this.findViewById(id.txtreadr_menu_textsetting2_coverpic);
-        this.mMenuHolder.mTranslateSelectedLayout = this.findViewById(id.txtreadr_menu_textsetting2_translate);
-        this.mMenuHolder.mTranslateSelectedPc = (ImageView)this.findViewById(id.txtreadr_menu_textsetting2_translatepic);
-        this.mMenuHolder.mTextSize = (TextView)this.findViewById(id.txtreadr_menu_textsize);
-        this.mMenuHolder.mStyle1 = this.findViewById(id.hwtxtreader_menu_style1);
-        this.mMenuHolder.mStyle2 = this.findViewById(id.hwtxtreader_menu_style2);
-        this.mMenuHolder.mStyle3 = this.findViewById(id.hwtxtreader_menu_style3);
-        this.mMenuHolder.mStyle4 = this.findViewById(id.hwtxtreader_menu_style4);
-        this.mMenuHolder.mStyle5 = this.findViewById(id.hwtxtreader_menu_style5);
+        this.mTopDecoration = this.findViewById(R.id.activity_hwtxtplay_top);
+        this.mBottomDecoration = this.findViewById(R.id.activity_hwtxtplay_bottom);
+        this.mTxtReaderView = (TxtReaderView)this.findViewById(R.id.activity_hwtxtplay_readerView);
+        this.mChapterNameText = (TextView)this.findViewById(R.id.activity_hwtxtplay_chaptername);
+        this.mChapterMenuText = (TextView)this.findViewById(R.id.activity_hwtxtplay_chapter_menutext);
+        this.mProgressText = (TextView)this.findViewById(R.id.activity_hwtxtplay_progress_text);
+        this.mSettingText = (TextView)this.findViewById(R.id.activity_hwtxtplay_setting_text);
+        this.mTopMenu = this.findViewById(R.id.activity_hwtxtplay_menu_top);
+        this.mBottomMenu = this.findViewById(R.id.activity_hwtxtplay_menu_bottom);
+        this.mCoverView = this.findViewById(R.id.activity_hwtxtplay_cover);
+        this.ClipboardView = this.findViewById(R.id.activity_hwtxtplay_Clipboar);
+        this.mSelectedText = (TextView)this.findViewById(R.id.activity_hwtxtplay_selected_text);
+        this.mMenuHolder.mTitle = (TextView)this.findViewById(R.id.txtreadr_menu_title);
+        this.mMenuHolder.mPreChapter = (TextView)this.findViewById(R.id.txtreadr_menu_chapter_pre);
+        this.mMenuHolder.mNextChapter = (TextView)this.findViewById(R.id.txtreadr_menu_chapter_next);
+        this.mMenuHolder.mSeekBar = (SeekBar)this.findViewById(R.id.txtreadr_menu_seekbar);
+        this.mMenuHolder.mTextSizeDel = (TextView)this.findViewById(R.id.txtreadr_menu_textsize_del);
+        this.mMenuHolder.mTextSize = (TextView)this.findViewById(R.id.txtreadr_menu_textsize);
+        this.mMenuHolder.mTextSizeAdd = (TextView)this.findViewById(R.id.txtreadr_menu_textsize_add);
+        this.mMenuHolder.mBoldSelectedLayout = this.findViewById(R.id.txtreadr_menu_textsetting1_bold);
+        this.mMenuHolder.mBoldSelectedPic = (ImageView)this.findViewById(R.id.txtreadr_menu_textsetting1_boldpic);
+        this.mMenuHolder.mNormalSelectedLayout = this.findViewById(R.id.txtreadr_menu_textsetting1_normal);
+        this.mMenuHolder.mNormalSelectedPic = (ImageView)this.findViewById(R.id.txtreadr_menu_textsetting1_normalpic);
+        this.mMenuHolder.mCoverSelectedLayout = this.findViewById(R.id.txtreadr_menu_textsetting2_cover);
+        this.mMenuHolder.mCoverSelectedPic = (ImageView)this.findViewById(R.id.txtreadr_menu_textsetting2_coverpic);
+        this.mMenuHolder.mTranslateSelectedLayout = this.findViewById(R.id.txtreadr_menu_textsetting2_translate);
+        this.mMenuHolder.mTranslateSelectedPc = (ImageView)this.findViewById(R.id.txtreadr_menu_textsetting2_translatepic);
+        this.mMenuHolder.mTextSize = (TextView)this.findViewById(R.id.txtreadr_menu_textsize);
+        this.mMenuHolder.mStyle1 = this.findViewById(R.id.hwtxtreader_menu_style1);
+        this.mMenuHolder.mStyle2 = this.findViewById(R.id.hwtxtreader_menu_style2);
+        this.mMenuHolder.mStyle3 = this.findViewById(R.id.hwtxtreader_menu_style3);
+        this.mMenuHolder.mStyle4 = this.findViewById(R.id.hwtxtreader_menu_style4);
+        this.mMenuHolder.mStyle5 = this.findViewById(R.id.hwtxtreader_menu_style5);
     }
 
     protected void loadFile() {
@@ -305,6 +314,11 @@ public class Activity_txtReader extends AppCompatActivity {
             public void onCurrentPage(float progress) {
                 int p = (int)(progress * 1000.0F);
                 Activity_txtReader.this.mProgressText.setText((float)p / 10.0F + "%");
+                //进度写入我的数据库，哈哈
+                DownLoad d=dao.load(id);
+                d.setReadProgress(((int)((float)p / 10.0)));
+                dao.update(d);
+
                 Activity_txtReader.this.mMenuHolder.mSeekBar.setProgress((int)(progress * 100.0F));
                 IChapter currentChapter = Activity_txtReader.this.mTxtReaderView.getCurrentChapter();
                 if(currentChapter != null) {
