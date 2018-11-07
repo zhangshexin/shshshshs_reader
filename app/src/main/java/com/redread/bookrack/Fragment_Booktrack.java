@@ -91,6 +91,13 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
         return binding.getRoot();
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshBookTrack();
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -134,7 +141,7 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
                     DownLoad book= books.get(position);
                     //去阅读
                     if(book.getBookType().equals(Constant.BOOK_TYPE_TXT))
-                        Activity_txtReader.loadTxtFile(getContext(),book.getBookDir(),book.getBookName());
+                        Activity_txtReader.loadTxtFile(getContext(),book.getBookDir(),book.getBookName(),book.getId());
                     else if(book.getBookType().equals(Constant.BOOK_TYPE_PDF))
                     {
                         Intent intent=new Intent(getContext(),Activity_pdfReader.class);
