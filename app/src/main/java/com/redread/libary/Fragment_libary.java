@@ -119,11 +119,11 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.libary_newbook:
                 //去查看该模块的列表
-                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.EXTRA_TITLE,"新书上架");
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"9");
                 break;
             case R.id.libary_themine:
                 //去查看该模块的列表
-                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.EXTRA_TITLE,"主题阅读");
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"9");
                 break;
             case R.id.libary_typesearch://TODO
                 //去分类检索

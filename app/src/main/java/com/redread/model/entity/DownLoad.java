@@ -19,7 +19,7 @@ public class DownLoad {
     private long id;
     private String bookName;//书名
     private String author;//作者
-    private String url;//下载链接
+    private String url;//下载链接,不存服务器地址，只存书的地址
     private String bookDir;//存入本地的路径
     private String bookType;//书的类型，暂只支持pdf和txt
     private int readProgress=0;//阅读进度
@@ -27,10 +27,19 @@ public class DownLoad {
     private int currentPage=0;//当前页数
     private Date upDate;//更新日期，用于阅读排序
     private String coverUrl;//封面url
-    @Generated(hash = 1426816711)
+    private String coverDir;//封面的本地路径
+
+    private long dataLongth=0;//数据长度
+    private long downProgress=0;//当前下载位置
+    /**
+     * @see com.redread.utils.Constant
+     */
+    private int status=-1;//0失败,1完成，2下载中，3暂停,-1等待下载
+    @Generated(hash = 1129904559)
     public DownLoad(long id, String bookName, String author, String url,
             String bookDir, String bookType, int readProgress, int totalPage,
-            int currentPage, Date upDate, String coverUrl) {
+            int currentPage, Date upDate, String coverUrl, String coverDir,
+            long dataLongth, long downProgress, int status) {
         this.id = id;
         this.bookName = bookName;
         this.author = author;
@@ -42,6 +51,10 @@ public class DownLoad {
         this.currentPage = currentPage;
         this.upDate = upDate;
         this.coverUrl = coverUrl;
+        this.coverDir = coverDir;
+        this.dataLongth = dataLongth;
+        this.downProgress = downProgress;
+        this.status = status;
     }
 
     @Generated(hash = 89475367)
@@ -112,5 +125,37 @@ public class DownLoad {
     }
     public void setBookDir(String bookDir) {
         this.bookDir = bookDir;
+    }
+
+    public String getCoverDir() {
+        return this.coverDir;
+    }
+
+    public void setCoverDir(String coverDir) {
+        this.coverDir = coverDir;
+    }
+
+    public long getDataLongth() {
+        return this.dataLongth;
+    }
+
+    public void setDataLongth(long dataLongth) {
+        this.dataLongth = dataLongth;
+    }
+
+    public long getDownProgress() {
+        return this.downProgress;
+    }
+
+    public void setDownProgress(long downProgress) {
+        this.downProgress = downProgress;
+    }
+
+    public int getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

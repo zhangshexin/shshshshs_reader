@@ -28,10 +28,14 @@ import com.redread.rxbus.RxBus;
 import com.redread.rxbus.RxSubscriptions;
 import com.redread.rxbus.bean.RXRefreshBooktract;
 import com.redread.utils.Constant;
+import com.redread.utils.DownLoadThread;
 import com.redread.utils.RecyclerViewUtil;
 import com.redread.utils.SystemUtil;
 
+import org.greenrobot.greendao.query.WhereCondition;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import rx.Subscription;
@@ -91,12 +95,15 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
         return binding.getRoot();
     }
 
-
     @Override
-    public void onResume() {
-        super.onResume();
-        refreshBookTrack();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser)
+            downRefreshHandler.sendEmptyMessageDelayed(2,1000);
+        else
+            downRefreshHandler.removeMessages(2);
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -109,6 +116,17 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+
+    //用于刷新下载进度ui显示
+    private Handler downRefreshHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            adapter.notifyDataSetChanged();
+            Log.e(TAG, "----notifyDataSetChanged: ------" );
+            sendEmptyMessageDelayed(2,1000);
+        }
+    };
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -139,15 +157,36 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
             public void onItemClick(int position, View view) {
                 if(clickEnable){
                     DownLoad book= books.get(position);
-                    //去阅读
-                    if(book.getBookType().equals(Constant.BOOK_TYPE_TXT))
-                        Activity_txtReader.loadTxtFile(getContext(),book.getBookDir(),book.getBookName(),book.getId());
-                    else if(book.getBookType().equals(Constant.BOOK_TYPE_PDF))
-                    {
-                        Intent intent=new Intent(getContext(),Activity_pdfReader.class);
-                        Book _book=Book.conver2Book(book);
-                        intent.putExtra("book",_book);
-                        getActivity().startActivity(intent);
+                    DownLoad resTask= dao.load(book.getId());
+                    //判断是下载完的还是没有
+                    switch (book.getStatus()){
+                        case Constant.DOWN_STATUS_ING:
+                        case Constant.DOWN_STATUS_WAIT:
+                            // 下载中/等待变成暂停
+                            resTask.setStatus(Constant.DOWN_STATUS_PAUS);
+                            resTask.setUpDate(new Date(System.currentTimeMillis()));
+                            dao.update(resTask);
+                            break;
+                        case Constant.DOWN_STATUS_FAILE:
+                        case Constant.DOWN_STATUS_PAUS:
+                            // 由失败/暂停变成等待下载
+                            resTask.setStatus(Constant.DOWN_STATUS_WAIT);
+                            resTask.setUpDate(new Date(System.currentTimeMillis()));
+                            dao.update(resTask);
+                            DownLoadThread.getInstanc().downLoad(resTask);
+                            break;
+                        case Constant.DOWN_STATUS_SUCCESS:
+                            //去阅读
+                            if(book.getBookType().equals(Constant.BOOK_TYPE_TXT))
+                                Activity_txtReader.loadTxtFile(getContext(),book.getBookDir(),book.getBookName(),book.getId());
+                            else if(book.getBookType().equals(Constant.BOOK_TYPE_PDF))
+                            {
+                                Intent intent=new Intent(getContext(),Activity_pdfReader.class);
+                                Book _book=Book.conver2Book(book);
+                                intent.putExtra("book",_book);
+                                getActivity().startActivity(intent);
+                            }
+                            break;
                     }
                 }else{
                     CheckBox checkBox=view.findViewById(R.id.booktrack_cell_check);
@@ -194,7 +233,8 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
             currentPage=1;
             recyclerViewUtil.setLoadMoreEnable(true);
             books.clear();
-            List<DownLoad> temp = dao.queryBuilder().offset(currentPage == 1 ? 0 * pageCount : currentPage * pageCount).limit(pageCount).list();
+            //按日期降序,不要标记为删除的
+            List<DownLoad> temp = dao.queryBuilder().orderDesc(DownLoadDao.Properties.UpDate).where(new WhereCondition.StringCondition("status !=" +Constant.DOWN_STATUS_CLEAR)).offset(currentPage == 1 ? 0 * pageCount : currentPage * pageCount).limit(pageCount).list();
             if (temp .size()!=0) {
                 //没有更多了
                 Log.e(TAG, "initData: ============="+ System.currentTimeMillis());

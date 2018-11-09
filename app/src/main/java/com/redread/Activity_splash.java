@@ -7,24 +7,40 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.redread.base.BaseActivity;
 import com.redread.databinding.LayoutSplashBinding;
 import com.redread.model.entity.DownLoad;
 import com.redread.model.gen.DownLoadDao;
+import com.redread.net.Api;
+import com.redread.net.OkHttpManager;
 import com.redread.utils.Constant;
 import com.redread.utils.GlideUtils;
 import com.redread.utils.IOUtile;
 import com.redread.utils.SharePreferenceUtil;
 
+import org.greenrobot.greendao.query.WhereCondition;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by zhangshexin on 2018/8/31.
  */
 
 public class Activity_splash extends BaseActivity implements View.OnClickListener {
+    private final String TAG=getClass().getName();
     private LayoutSplashBinding binding;
     private int plus = 0;
 
@@ -44,6 +60,10 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
                         mHandler.sendEmptyMessageDelayed(0, 1000);
                     }
                     break;
+                case 1:
+                    GlideUtils.glideLoader(Activity_splash.this,Constant.picture+"/splash.jpg",R.drawable.ad,R.drawable.ad,binding.splashImg);
+                    mHandler.sendEmptyMessageDelayed(0, 1000);
+                    break;
             }
         }
     };
@@ -54,8 +74,51 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
         binding = DataBindingUtil.setContentView(this, R.layout.layout_splash);
         binding.splashJump.setOnClickListener(this);
         binding.circleIndicator.setOnClickListener(this);
-        GlideUtils.LoadImageWithLocation(this,R.drawable.default_splash,binding.splashImg);
+        File splashFile=new File(Constant.picture+"/splash.jpg");
+        if(splashFile.exists()){
+            GlideUtils.glideLoader(this,Constant.picture+"/splash.jpg",R.drawable.ad,R.drawable.ad,binding.splashImg);
+        }else{
+            GlideUtils.LoadImageWithLocation(this,R.drawable.ad,binding.splashImg);
+        }
         initDBData();
+        loadSplashPic();
+    }
+
+    /**
+     * 下载启动图
+     */
+    private void loadSplashPic() {
+        Request request= new Request.Builder().url(Api.downUrl + "splash.jpg").build();
+        Call mCall= OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
+        mCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mHandler.sendEmptyMessageDelayed(0, 1000);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    File picDir=new File(Constant.picture);
+                    if(!picDir.isDirectory())
+                        picDir.mkdirs();
+                    File splashFile=new File(picDir,"splash.jpg");
+                    InputStream ins=response.body().byteStream();
+                    FileOutputStream fos=new FileOutputStream(splashFile);
+                    byte[] buf=new byte[1024];
+                    int length;
+                    while((length=ins.read(buf))!=-1){
+                        fos.write(buf,0,length);
+                    }
+                    fos.flush();
+                    ins.close();
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mHandler.sendEmptyMessageDelayed(1, 1000);
+            }
+        });
     }
 
 
@@ -69,6 +132,7 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
         //把书放到sd卡下
         IOUtile.putAssetsToSDCard(this, "defaultbook.txt",Constant.bookPath);
         DownLoad downLoad=new DownLoad();
+        downLoad.setStatus(Constant.DOWN_STATUS_SUCCESS);
         downLoad.setBookName("元尊");
         downLoad.setBookDir(Constant.bookPath+ "/defaultbook.txt");
         downLoad.setUpDate(new Date(System.currentTimeMillis()));
@@ -76,12 +140,18 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
         DownLoadDao dao= MyApplication.getInstances().getDaoSession().getDownLoadDao();
         dao.insert(downLoad);
         SharePreferenceUtil.saveSimpleData(this,Constant.KEY_BOOLEAN_FIRST_USE,false);
+
+        //把所有等待下载的更新为暂停
+        List<DownLoad> searchResult = dao.queryBuilder().where(new WhereCondition.StringCondition("status =" + Constant.DOWN_STATUS_WAIT )).list();
+        for (int i=0;i<searchResult.size();i++){
+            searchResult.get(i).setStatus(Constant.DOWN_STATUS_PAUS);
+        }
+        dao.updateInTx(searchResult);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mHandler.sendEmptyMessageDelayed(0, 1000);
     }
 
     @Override

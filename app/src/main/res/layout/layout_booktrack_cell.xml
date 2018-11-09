@@ -18,7 +18,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/side_nav_bar" />
-
+        <com.czp.library.ArcProgress
+            android:id="@+id/circleIndicator"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:arcCapRound="true"
+            android:visibility="gone"
+            app:degree="0"
+            app:layout_constraintBottom_toBottomOf="@+id/booktrack_cell_cover"
+            app:layout_constraintEnd_toEndOf="@+id/booktrack_cell_cover"
+            app:layout_constraintStart_toStartOf="@+id/booktrack_cell_cover"
+            app:layout_constraintTop_toTopOf="@+id/booktrack_cell_cover"
+            app:progressColor="@color/red"
+            app:progressStyle="tick"
+            app:radius="50dp"
+            app:tickDensity="8" android:max="100" android:progress="50"/>
         <TextView
             android:id="@+id/booktrack_cell_name"
             android:layout_width="wrap_content"

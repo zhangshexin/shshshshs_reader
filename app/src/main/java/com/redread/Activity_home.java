@@ -1,10 +1,12 @@
 package com.redread;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -16,6 +18,7 @@ import com.redread.libary.Fragment_libary;
 import com.redread.login.Activity_generalLogin;
 import com.redread.publish.Fragment_publish;
 import com.redread.setting.Activity_setting;
+import com.redread.utils.SharePreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +52,6 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
         binding.homeViewPager.addOnPageChangeListener(this);
         binding.homeBottomLayRadiogroup.setOnCheckedChangeListener(this);
         initSlidView();
-
     }
 
     private void initSlidView() {
@@ -87,6 +89,30 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
                 binding.homeBottomLayBooktrack.setChecked(true);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //判断是否已登录，没登录跳转登录
+        checkLogin();
+    }
+    //判断是否已登录，没登录跳转登录
+    private void checkLogin() {
+        String userName= (String)SharePreferenceUtil.getSimpleData(this,Activity_generalLogin.USER_NAME,null);
+        if(TextUtils.isEmpty(userName)){
+            startActivity(Activity_generalLogin.class);
+        }
+        binding.userName.setText(userName);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        // 为Intent设置Action、Category属性
+        intent.setAction(Intent.ACTION_MAIN);// "android.intent.action.MAIN"
+        intent.addCategory(Intent.CATEGORY_HOME); //"android.intent.category.HOME"
+        startActivity(intent);
     }
 
     @Override

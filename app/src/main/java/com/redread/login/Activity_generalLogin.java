@@ -1,5 +1,6 @@
 package com.redread.login;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import com.redread.net.OkHttpManager;
 import com.redread.rxbus.RxBus;
 import com.redread.rxbus.RxSubscriptions;
 import com.redread.rxbus.bean.FinishRX;
+import com.redread.utils.SharePreferenceUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -40,6 +42,7 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
 
     private String TAG=getClass().getName();
 
+    public static String USER_NAME="user_name";
     private LayoutLoginGeneralBinding binding;
     private int time = 60;//60秒限制
     private final int what_code = 0;
@@ -132,9 +135,22 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
             public void onResponse(Call call, Response response) throws IOException {
                 String json=response.body().string();
                 Log.e(TAG, "onResponse: 登录了"+ json);
+                //记录用户信息
+                //TODO
+                SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this,USER_NAME,pwd);
                 finish2();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //回home
+        Intent intent = new Intent();
+        // 为Intent设置Action、Category属性
+        intent.setAction(Intent.ACTION_MAIN);// "android.intent.action.MAIN"
+        intent.addCategory(Intent.CATEGORY_HOME); //"android.intent.category.HOME"
+        startActivity(intent);
     }
 
     /**

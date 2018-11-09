@@ -12,6 +12,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.redread.R;
 
 /**
@@ -59,7 +62,17 @@ public class GlideUtils {
      */
     public static void LoadImage(Context mContext, String path,
                                  ImageView imageview) {
-        Glide.with(mContext).load(path).centerCrop().placeholder(R.mipmap.ic_launcher)
+        Glide.with(mContext).load(path).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                return false;
+            }
+        }).centerCrop().placeholder(R.mipmap.ic_launcher)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
     }
 

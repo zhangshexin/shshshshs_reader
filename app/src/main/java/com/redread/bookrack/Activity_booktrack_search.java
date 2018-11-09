@@ -136,7 +136,7 @@ public class Activity_booktrack_search extends BaseActivity implements View.OnCl
                 Book book= books.get(position);
                 //去阅读
                 if(book.getBookType().equals(Constant.BOOK_TYPE_TXT))
-                    Activity_txtReader.loadTxtFile(Activity_booktrack_search.this,book.getBookDir(),book.getBookName());
+                    Activity_txtReader.loadTxtFile(Activity_booktrack_search.this,book.getBookDir(),book.getBookName(),book.getId());
                 else if(book.getBookType().equals(Constant.BOOK_TYPE_PDF))
                 {
                     Intent intent=new Intent(Activity_booktrack_search.this,Activity_pdfReader.class);

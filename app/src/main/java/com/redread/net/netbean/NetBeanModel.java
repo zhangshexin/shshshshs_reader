@@ -9,10 +9,34 @@ import java.util.List;
  */
 
 public class NetBeanModel {
-    private int modelId;//模块id，用于获取对应模块的图书列表
-    private String modelName;//模块名
-    private String modelDescript;//模块描述
+    private int id;//模块id，用于获取对应模块的图书列表
+    private String name;//模块名
+    private String description;//模块描述
     private List<NetBeanBook> books;//图书列表
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public List<NetBeanBook> getBooks() {
         return books;
@@ -20,29 +44,5 @@ public class NetBeanModel {
 
     public void setBooks(List<NetBeanBook> books) {
         this.books = books;
-    }
-
-    public int getModelId() {
-        return modelId;
-    }
-
-    public void setModelId(int modelId) {
-        this.modelId = modelId;
-    }
-
-    public String getModelName() {
-        return modelName;
-    }
-
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
-    public String getModelDescript() {
-        return modelDescript;
-    }
-
-    public void setModelDescript(String modelDescript) {
-        this.modelDescript = modelDescript;
     }
 }

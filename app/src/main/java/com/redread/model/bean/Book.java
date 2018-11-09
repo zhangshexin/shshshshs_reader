@@ -34,33 +34,13 @@ public class Book extends DownLoad implements Serializable{
     }
 
     public static DownLoad conver2Download(Book book){
-        DownLoad downLoad=new DownLoad();
-        downLoad.setBookDir(book.getBookDir());
-        downLoad.setBookName(book.getBookName());
-        downLoad.setAuthor(book.getAuthor());
-        downLoad.setBookType(book.getBookType());
-        downLoad.setCoverUrl(book.getCoverUrl());
-        downLoad.setCurrentPage(book.getCurrentPage());
-        downLoad.setId(book.getId());
-        downLoad.setTotalPage(book.getTotalPage());
-        downLoad.setReadProgress(book.getReadProgress());
-        downLoad.setUpDate(book.getUpDate());
-        downLoad.setUrl(book.getUrl());
+        String json=JSON.toJSONString(book);
+        DownLoad downLoad=JSON.parseObject(json,DownLoad.class);
         return downLoad;
     }
     public static Book conver2Book(DownLoad downLoad){
-        Book book=new Book();
-        book.setBookDir(downLoad.getBookDir());
-        book.setBookName(downLoad.getBookName());
-        book.setAuthor(downLoad.getAuthor());
-        book.setBookType(downLoad.getBookType());
-        book.setCoverUrl(downLoad.getCoverUrl());
-        book.setCurrentPage(downLoad.getCurrentPage());
-        book.setId(downLoad.getId());
-        book.setTotalPage(downLoad.getTotalPage());
-        book.setReadProgress(downLoad.getReadProgress());
-        book.setUpDate(downLoad.getUpDate());
-        book.setUrl(downLoad.getUrl());
+        String json=JSON.toJSONString(downLoad);
+        Book book=JSON.parseObject(json,Book.class);
         return  book;
     }
 

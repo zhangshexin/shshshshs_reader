@@ -55,7 +55,7 @@ public class Activity_typeSearch extends BaseActivity implements View.OnClickLis
             @Override
             public void onItemClick(int position, View view) {
                 //类型内容单击，跳转到内容列表
-                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.EXTRA_TITLE,"中图分类-1");
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"9");
             }
         });
 

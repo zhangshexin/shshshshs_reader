@@ -1,6 +1,9 @@
 package com.redread.utils;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.redread.model.entity.DownLoad;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -65,4 +68,31 @@ public class IOUtile {
         File file=new File(path);
         file.delete();
     }
+
+    //是否正在执行中
+    private static boolean ing=false;
+
+    /**
+     * 下载方法
+     */
+    public static synchronized void downLoadBook(DownLoad task){
+        ing=true;
+        new Thread(){
+
+
+            private boolean haveTask(){
+                return true;
+            }
+            @Override
+            public void run() {
+                //只要表里还有待下载任务就一直下
+                do{
+                //1、先下图片
+
+                //2、再下图书
+                }while(haveTask());
+            }
+        }.start();
+    }
+
 }
