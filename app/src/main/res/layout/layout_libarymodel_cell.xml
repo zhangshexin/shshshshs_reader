@@ -19,7 +19,6 @@
         android:layout_height="wrap_content">
 
 
-
         <ImageView
             android:id="@+id/imageView15"
             android:layout_width="25dp"
@@ -33,10 +32,11 @@
             android:id="@+id/libarymodel_cell_modelName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" android:padding="5dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:lines="1"
             android:onClick="@{()->adapter.goModelDetailList(position)}"
+            android:padding="5dp"
             android:text="模块名"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,8 @@
             android:layout_marginStart="16dp"
             android:lines="1"
             android:text="模块描述"
-            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/imageView15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/libarymodel_cell_modelName" />
@@ -60,75 +61,110 @@
             android:id="@+id/libarymodel_cell_coversLay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
+            android:weightSum="3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/libarymodel_cell_descript">
 
-            <ImageView
-                android:id="@+id/libarymodel_cell_cover1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="@{()->adapter.goBookDetail(position,1)}"
-                android:src="@drawable/default_book_1" />
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/libarymodel_cell1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/libarymodel_cell_cover2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="@{()->adapter.goBookDetail(position,2)}"
-                android:src="@drawable/default_book_2" />
+                <ImageView
+                    android:id="@+id/libarymodel_cell_cover1"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:onClick="@{()->adapter.goBookDetail(position,1)}"
+                    android:src="@drawable/default_book_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/libarymodel_cell_cover3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="@{()->adapter.goBookDetail(position,3)}"
-                android:src="@drawable/default_book_3" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/libarymodel_cell_name1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="中国好"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/libarymodel_cell_cover1"
+                    app:layout_constraintStart_toStartOf="@+id/libarymodel_cell_cover1"
+                    app:layout_constraintTop_toBottomOf="@+id/libarymodel_cell_cover1" />
+            </android.support.constraint.ConstraintLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/libarymodel_cell_coversLay">
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/libarymodel_cell2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/libarymodel_cell_name1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:lines="1"
-                android:text="中国好"
-                android:textColor="@color/black" />
+                <ImageView
+                    android:id="@+id/libarymodel_cell_cover2"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:onClick="@{()->adapter.goBookDetail(position,2)}"
+                    android:src="@drawable/default_book_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/libarymodel_cell_name2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:lines="1"
-                android:text="中国好"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/libarymodel_cell_name2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="中国好"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/libarymodel_cell_cover2"
+                    app:layout_constraintStart_toStartOf="@+id/libarymodel_cell_cover2"
+                    app:layout_constraintTop_toBottomOf="@+id/libarymodel_cell_cover2" />
+            </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/libarymodel_cell_name3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:lines="1"
-                android:text="中国好"
-                android:textColor="@color/black" />
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/libarymodel_cell3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/libarymodel_cell_cover3"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:onClick="@{()->adapter.goBookDetail(position,3)}"
+                    android:src="@drawable/default_book_3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/libarymodel_cell_name3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="中国好"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/libarymodel_cell_cover3"
+                    app:layout_constraintStart_toStartOf="@+id/libarymodel_cell_cover3"
+                    app:layout_constraintTop_toBottomOf="@+id/libarymodel_cell_cover3" />
+            </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

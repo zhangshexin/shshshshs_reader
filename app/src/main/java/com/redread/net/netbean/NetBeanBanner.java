@@ -6,31 +6,49 @@ package com.redread.net.netbean;
  */
 
 public class NetBeanBanner {
-    private String bannerUrl;//banner图的url
-    private String bannerDes;//banner的描述
-    private String bannerWebUrl;//banner跳转web页url
+    private String id;
+    private String name;
+    private String imageUrl;//banner图的url
+    private String description;//banner的描述
+    private String webUrl;//banner跳转web页url
 
-    public String getBannerUrl() {
-        return bannerUrl;
+    public String getId() {
+        return id;
     }
 
-    public void setBannerUrl(String bannerUrl) {
-        this.bannerUrl = bannerUrl;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getBannerDes() {
-        return bannerDes;
+    public String getName() {
+        return name;
     }
 
-    public void setBannerDes(String bannerDes) {
-        this.bannerDes = bannerDes;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBannerWebUrl() {
-        return bannerWebUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setBannerWebUrl(String bannerWebUrl) {
-        this.bannerWebUrl = bannerWebUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getWebUrl() {
+        return webUrl;
+    }
+
+    public void setWebUrl(String webUrl) {
+        this.webUrl = webUrl;
     }
 }

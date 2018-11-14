@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.webkit.URLUtil;
 
 import com.czp.library.ArcProgress;
 import com.redread.MyApplication;
@@ -38,7 +39,7 @@ import java.util.List;
  */
 
 public class Activity_bookDetail extends BaseActivity implements View.OnClickListener {
-
+    private String TAG = getClass().getName();
     private LayoutBookdetailBinding binding;
 
     public static String EXTR_BOOK = "book";
@@ -105,6 +106,7 @@ public class Activity_bookDetail extends BaseActivity implements View.OnClickLis
         }
     };
 
+
     private void initView() {
         book = (NetBeanBook) getIntent().getSerializableExtra(EXTR_BOOK);
         binding.circleIndicator.setOnCenterDraw(new ArcProgress.OnCenterDraw() {
@@ -127,6 +129,9 @@ public class Activity_bookDetail extends BaseActivity implements View.OnClickLis
         binding.bookDetailBookName.setText(book.getName());
         binding.introduction.setText(book.getIntroduction());
         downUrl = Api.downUrl + book.getBrowsPath();
+
+        binding.bookDetailRed.setOnClickListener(this);
+        binding.bookDetailBorrow.setOnClickListener(this);
     }
 
     @Override
@@ -144,9 +149,18 @@ public class Activity_bookDetail extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        if (book == null)
+            return;
         switch (v.getId()) {
-            case R.id.bookDetail_borrow://推荐馆茂
-                startActivity(Activity_recommend.class);
+            case R.id.bookDetail_borrow://如果没有借阅地址则跳转到推荐馆茂
+                if (URLUtil.isHttpUrl(book.getBorrowAddress())) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("bookName", book.getName());
+                    bundle.putString("bookId", book.getId());//TODO id要重处理
+                    startActivity(Activity_recommend.class, bundle);
+                } else {
+                    WebView_borrow.goMe(this,"借阅",book.getBorrowAddress());
+                }
                 break;
             case R.id.bookDetail_red:
                 //判断是否已下载，没下载先下，下了直接看
@@ -154,6 +168,7 @@ public class Activity_bookDetail extends BaseActivity implements View.OnClickLis
                 break;
         }
     }
+
 
     /**
      * 执行下载或打开

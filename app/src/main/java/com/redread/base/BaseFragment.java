@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import java.io.Serializable;
+
 /**
  * Created by zhangshexin on 2018/8/31.
  */
@@ -41,5 +43,9 @@ public class BaseFragment extends Fragment {
         intent.putExtra(ex1,ex1Value);
         startActivity(intent);
     }
-
+    public void startActivity(Class<?> c,String name, Serializable extr){
+        Intent intent=new Intent(getContext(),c);
+        intent.putExtra(name,extr);
+        startActivity(intent);
+    }
 }

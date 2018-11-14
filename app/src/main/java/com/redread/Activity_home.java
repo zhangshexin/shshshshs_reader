@@ -16,6 +16,7 @@ import com.redread.bookrack.Fragment_Booktrack;
 import com.redread.databinding.LayoutHomeBinding;
 import com.redread.libary.Fragment_libary;
 import com.redread.login.Activity_generalLogin;
+import com.redread.login.Activity_organizationLogin;
 import com.redread.publish.Fragment_publish;
 import com.redread.setting.Activity_setting;
 import com.redread.utils.SharePreferenceUtil;
@@ -99,9 +100,9 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
     }
     //判断是否已登录，没登录跳转登录
     private void checkLogin() {
-        String userName= (String)SharePreferenceUtil.getSimpleData(this,Activity_generalLogin.USER_NAME,null);
-        if(TextUtils.isEmpty(userName)){
-            startActivity(Activity_generalLogin.class);
+        String userName= (String)SharePreferenceUtil.getSimpleData(this,Activity_generalLogin.USER_NAME,"null");
+        if(TextUtils.isEmpty(userName)||userName.equals("null")){
+            startActivity(Activity_organizationLogin.class);
         }
         binding.userName.setText(userName);
     }

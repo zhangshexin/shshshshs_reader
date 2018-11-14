@@ -88,6 +88,6 @@ public class NetBeanBook implements Serializable{
     private String id;//图书id，用于获取图书详情
     private String type;//类型，是txt还是pdf
     private String browsPath;//图书下载地址
-    private String borrowAddress;//借阅纸书，图书馆地址
+    private String borrowAddress="http://www.baidu.com";//借阅纸书，图书馆地址 TODO 正式的这里要删除
 
 }

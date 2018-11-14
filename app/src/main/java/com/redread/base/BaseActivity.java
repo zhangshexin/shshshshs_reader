@@ -23,7 +23,11 @@ public class BaseActivity extends AppCompatActivity {
         Intent intent=new Intent(this,c);
         startActivity(intent);
     }
-
+    public void startActivity(Class<?> c,Bundle bundle){
+        Intent intent=new Intent(this,c);
+        intent.putExtra("bundle",bundle);
+        startActivity(intent);
+    }
     public void startActivity(Class<?> c,String name, Serializable extr){
         Intent intent=new Intent(this,c);
         intent.putExtra(name,extr);

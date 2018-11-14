@@ -35,7 +35,7 @@
     <string name="login_verification_code">获取验证码</string>
     <string name="login_input_verification_code">输入验证码</string>
     <string name="login_organization_unit">学校/单位</string>
-    <string name="login_organization_no">学号/工号</string>
+    <string name="login_organization_no">学号/工号/帐号</string>
     <string name="login_pwd">密码</string>
     <string name="login_login">登录</string>
     <string name="login_switch">其他登录方式</string>
@@ -62,5 +62,9 @@
     <string name="down_text_ing">下载中</string>
     <string name="down_text_wait">等待下载</string>
     <string name="down_text_pause">已暂停</string>
+
+    <!--网络提示语-->
+    <string name="net_notify_fail">网络开小差了，稍后再试！</string>
+    <string name="net_notify_success">我们收到了！</string>
 
 </resources>

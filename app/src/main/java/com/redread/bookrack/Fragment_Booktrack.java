@@ -174,6 +174,7 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
                             resTask.setUpDate(new Date(System.currentTimeMillis()));
                             dao.update(resTask);
                             DownLoadThread.getInstanc().downLoad(resTask);
+                            adapter.notifyDataSetChanged();
                             break;
                         case Constant.DOWN_STATUS_SUCCESS:
                             //去阅读

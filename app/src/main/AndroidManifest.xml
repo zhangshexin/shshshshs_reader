@@ -44,10 +44,12 @@
         <activity
             android:name=".login.Activity_generalLogin"
             android:label="登录"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.Activity_organizationLogin"
             android:label="机构登录"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".bookrack.Activity_booktrack_search"

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.redread.R;
 import com.youth.banner.loader.ImageLoader;
 
 public class GlideImageLoader extends ImageLoader {
@@ -25,7 +26,7 @@ public class GlideImageLoader extends ImageLoader {
             Log.e(TAG, "displayImage: ");
         }else{
             //Glide 加载图片简单用法
-            Glide.with(context).load(path).into(imageView);
+            Glide.with(context).load(path).error(R.drawable.side_nav_bar).into(imageView);
         }
 //
 //        //Picasso 加载图片简单用法

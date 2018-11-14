@@ -3,24 +3,40 @@ package com.redread.libary;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.redread.Activity_home;
 import com.redread.R;
 import com.redread.base.BaseFragment;
 import com.redread.databinding.FragmentLibaryBinding;
 import com.redread.libary.adapter.Adapter_libaryModel;
+import com.redread.login.Activity_generalLogin;
+import com.redread.net.Api;
+import com.redread.net.OkHttpManager;
+import com.redread.net.netbean.NetBeanLibary;
 import com.redread.net.netbean.NetBeanModel;
 import com.redread.utils.GlideImageLoader;
+import com.redread.utils.SharePreferenceUtil;
 import com.sunfusheng.marqueeview.MarqueeView;
+import com.youth.banner.listener.OnBannerListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by zhangshexin on 2018/8/31.
@@ -29,6 +45,7 @@ import java.util.List;
 
 public class Fragment_libary extends BaseFragment implements View.OnClickListener {
 
+    private String TAG=getClass().getName();
     private FragmentLibaryBinding binding;
     private Context mContext;
     private List<NetBeanModel> modelList=new ArrayList<>();
@@ -65,45 +82,100 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
         binding.libaryTypesearch.setOnClickListener(this);
         //去通知页
         binding.libaryNotifydetailBnt.setOnClickListener(this);
+
+        //banner的点击事件
+        binding.libaryBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Log.e(TAG, "OnBannerClick: ----"+position );
+            }
+        });
+
+        //通知的点击事件
+        binding.marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, TextView textView) {
+                startActivity(Activity_bookDetail.class,Activity_bookDetail.EXTR_BOOK,libaryInfo.getNotifyList().get(position));
+                getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_out);
+            }
+        });
         loadDataFromNet();
     }
 
+
+
+    private final int what_net_faile=-1;
+    private final int what_net_success=0;
+    private Handler mHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case what_net_faile:
+                    binding.failLay.setVisibility(View.VISIBLE);
+                    binding.showLay.setVisibility(View.GONE);
+                    //显示失败提示，收起加载提示
+                    binding.loadingPb.setVisibility(View.GONE);
+                    binding.cryImgNotify.setVisibility(View.VISIBLE);
+                    break;
+                case what_net_success:
+                    //直接收起失败布局
+                    binding.failLay.setVisibility(View.GONE);
+                    binding.showLay.setVisibility(View.VISIBLE);
+                    //banner
+                    List images=new ArrayList<String>();
+                    List titles=new ArrayList<String>();
+                    for (int i=0;i<libaryInfo.getBannerList().size();i++){
+                        images.add(libaryInfo.getBannerList().get(i).getImageUrl());
+                        titles.add(libaryInfo.getBannerList().get(i).getName());
+                    }
+                    binding.libaryBanner.setImageLoader(new GlideImageLoader());
+                    binding.libaryBanner.setImages(images);
+                    binding.libaryBanner.setBannerTitles(titles);
+                    binding.libaryBanner.start();
+
+                    //通知
+                    List<String> info = new ArrayList<>();
+                    for (int i=0;i<libaryInfo.getNotifyList().size();i++){
+                        info.add(libaryInfo.getNotifyList().get(i).getName());
+                    }
+                    binding.marqueeView.startWithList(info);
+
+                    //专业阅读
+                    modelList.addAll(libaryInfo.getModelList());
+                    adapter.notifyDataSetChanged();
+                    break;
+            }
+
+        }
+    };
+    private Call mCall;
+    private NetBeanLibary libaryInfo;
     /**
      * 从网络请求数据
      */
     private void loadDataFromNet() {
-        //banner
-        List images=new ArrayList<Integer>();
-        images.add(R.drawable.defalut_publish_banner_0);
-        images.add(R.drawable.defalut_publish_banner_1);
-        images.add(R.drawable.defalut_publish_banner_2);
-        binding.libaryBanner.setImageLoader(new GlideImageLoader());
-        binding.libaryBanner.setImages(images);
-        binding.libaryBanner.start();
-
-        //通知
-        List<String> info = new ArrayList<>();
-        info.add("明天将开始新一轮");
-        info.add("中国之崛起就靠你我了");
-        info.add("打倒小日本就是明天，向前冲");
-        info.add("走上人生巅峰，迎娶白富美，梦醒了");
-        info.add("水水水水……");
-        info.add("啦啦啦，写不出来了￥_￥");
-        binding.marqueeView.startWithList(info);
-        binding.marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+        Request request= Api.libaryInfoGet();
+        mCall= OkHttpManager.getInstance(mContext).getmOkHttpClient().newCall(request);
+        mCall.enqueue(new Callback() {
             @Override
-            public void onItemClick(int position, TextView textView) {
-                startActivity(Activity_bookDetail.class);
-                getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_out);
+            public void onFailure(Call call, IOException e) {
+                mHandler.sendEmptyMessage(what_net_faile);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String json=response.body().string();
+                    Log.e(TAG, "onResponse:页面信息"+ json);
+                    libaryInfo= JSON.parseObject(json,NetBeanLibary.class);
+                    mHandler.sendEmptyMessage(what_net_success);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //不管怎样，反正错了，提示吧
+                    mHandler.sendEmptyMessage(what_net_faile);
+                }
             }
         });
-
-        //专业阅读
-        for (int i=0;i<4;i++){
-            NetBeanModel model=new NetBeanModel();
-            modelList.add(model);
-        }
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -131,7 +203,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.libary_notifydetail_bnt:
                 //去通知页
-                //TODO
+                //TODO---暂不处理
                 startActivity(Activity_notifyList.class);
                 break;
         }

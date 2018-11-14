@@ -71,5 +71,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/login_organization_include"
             app:layout_constraintEnd_toEndOf="@+id/login_organization_include"
             app:layout_constraintTop_toTopOf="@+id/login_organization_include" />
+
+        <TextView
+            android:id="@+id/login_organization_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="其他登录方式"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/login_organization_pwd"
+            app:layout_constraintTop_toBottomOf="@+id/login_organization_pwd" />
     </android.support.constraint.ConstraintLayout>
 </layout>

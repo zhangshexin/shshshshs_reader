@@ -47,6 +47,7 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
     private int time = 60;//60秒限制
     private final int what_code = 0;
     private final int what_net_fail=1;//网络失败
+    private final int what_success=2;
     private Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -65,6 +66,8 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
                 case what_net_fail:
                     showToast("网络开小差了！");
                     break;
+                case what_success:
+                    closeOtherLogin();
             }
         }
     };
@@ -77,13 +80,14 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
     }
 
     private void initView() {
+        binding.loginGeneralInclude.titleLeft.setVisibility(View.INVISIBLE);
         binding.loginGeneralInclude.titleLeft.setOnClickListener(this);
         binding.loginGeneralInclude.titleTitle.setText(getTitle().toString());
         binding.loginGeneralVerificationCode.setOnClickListener(this);
         binding.loginSwitch.setOnClickListener(this);
 
-        binding.loginGeneralPhone.setText("guoguoping");
-        binding.loginGeneralInputVerificationCode.setText("123456");
+        binding.loginGeneralPhone.setText("admin");
+        binding.loginGeneralInputVerificationCode.setText("111111");
 
         binding.loginGeneralLogin.setOnClickListener(this);
     }
@@ -92,7 +96,7 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.title_left:
-                finish2();
+//                finish2();
                 break;
             case R.id.login_general_verification_code://获取验证码,倒计时
                 myHandler.sendEmptyMessage(what_code);
@@ -137,7 +141,7 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
                 Log.e(TAG, "onResponse: 登录了"+ json);
                 //记录用户信息
                 //TODO
-                SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this,USER_NAME,pwd);
+                SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this,USER_NAME,phoneNum.toString());
                 finish2();
             }
         });
@@ -167,6 +171,12 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
         myHandler.removeMessages(what_code);
     }
 
+    private void closeOtherLogin() {
+        FinishRX finishRX = new FinishRX();
+        finishRX.setWhat(FinishRX.ActivityName.organizationLogin);
+        RxBus.getDefault().post(finishRX);
+        finish2();
+    }
 
     private Subscription mSubscription;
     @Override

@@ -86,8 +86,16 @@ public class Adapter_booktrack extends BaseRecycelAdapter<BaseViewHolder> {
         //显示隐藏选中按钮
         binding.booktrackCellCheck.setVisibility(book.isShowCheckBtn() ? View.VISIBLE : View.GONE);
         //判断是否显示进度
-        if (book.getStatus() == Constant.DOWN_STATUS_ING) {
+        if (book.getStatus() != Constant.DOWN_STATUS_SUCCESS) {
             binding.circleIndicator.setVisibility(View.VISIBLE);
+            int max=(int)book.getDataLongth();
+            int progress=(int)book.getDownProgress();
+            if(progress==0){
+                binding.circleIndicator.setProgress(0);
+            }else{
+                binding.circleIndicator.setProgress(progress);
+                binding.circleIndicator.setMax(max);
+            }
         } else {
             binding.circleIndicator.setVisibility(View.GONE);
         }

@@ -20,7 +20,7 @@ public class FinishRX {
 
 
     public enum ActivityName {
-        organizationLogin("Activity_organizationLogin.class", 0);
+        organizationLogin("Activity_organizationLogin.class", 0),generalLogin("Activity_generalLogin.class", 1);
 
         public String getName() {
             return name;

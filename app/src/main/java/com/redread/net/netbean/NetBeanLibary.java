@@ -8,16 +8,17 @@ import java.util.List;
  */
 
 public class NetBeanLibary {
-    private NetBeanBanner banner;//banner图
+    private List<NetBeanBanner> bannerList;//banner图
     private List<NetBeanBook> notifyList;//滚动通知
     private List<NetBeanModel> modelList;//版块列表
 
-    public NetBeanBanner getBanner() {
-        return banner;
+
+    public List<NetBeanBanner> getBannerList() {
+        return bannerList;
     }
 
-    public void setBanner(NetBeanBanner banner) {
-        this.banner = banner;
+    public void setBannerList(List<NetBeanBanner> bannerList) {
+        this.bannerList = bannerList;
     }
 
     public List<NetBeanBook> getNotifyList() {

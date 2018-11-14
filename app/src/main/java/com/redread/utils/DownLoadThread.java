@@ -65,8 +65,10 @@ public class DownLoadThread {
                         String coverUrlStr = Api.downUrl + task.getCoverUrl();
                         URL coverUrl = new URL(coverUrlStr);
                         URLConnection connection = coverUrl.openConnection();
+                        connection.addRequestProperty("Accept-Encoding", "identity");
+                        connection.connect();
                         InputStream coverIns = connection.getInputStream();
-                        long coverLongth = coverIns.available();
+                        long coverLongth = connection.getContentLength();
                         if (coverLongth > 0) {
                             //下图片
                             File picDir = new File(Constant.picture);
@@ -81,17 +83,10 @@ public class DownLoadThread {
                             if (!coverFile.exists()) {
                                 FileOutputStream coverFos = new FileOutputStream(coverFile);
                                 byte buf[] = new byte[1024];
-                                int downLoadFileSize = 0;
-                                do {
-                                    //循环读取
-                                    int numread = coverIns.read(buf);
-                                    if (numread == -1) {
-                                        break;
-                                    }
-                                    coverFos.write(buf, 0, numread);
-                                    downLoadFileSize += numread;
-                                    //更新进度条
-                                } while (true);
+                                int len=0;
+                                while((len=coverIns.read(buf))!=-1){
+                                    coverFos.write(buf, 0, len);
+                                }
                                 coverFos.flush();
                                 coverFos.close();
                             }
@@ -113,9 +108,10 @@ public class DownLoadThread {
                         URL bookUrl = new URL(bookUrlStr);
                         HttpURLConnection bookUrlConnection = (HttpURLConnection) bookUrl.openConnection();
                         bookUrlConnection.setRequestProperty("Range", "bytes=" + currentLength + "-" + totalLength);//设置下载范围
+                        bookUrlConnection.connect();
                         bookRWDFile.seek(currentLength);//指向上次的位置
                         InputStream bookIns = bookUrlConnection.getInputStream();
-                        if (bookIns.available() > 0) {
+                        if (bookUrlConnection.getContentLength() > 0) {
                             byte[] buffer = new byte[1024 * 4];
                             int len;
                             boolean isInterrupt=false;//是否打断了当前的循环,对在下载过程中用户手动操作处理
@@ -165,6 +161,12 @@ public class DownLoadThread {
                             //下载完成
                             bookRWDFile.close();
                             bookIns.close();
+                        }else{
+                            //下载失败
+                            //更新为下载失败，并更新状态
+                            DownLoad resTask = dao.load(task.getId());
+                            resTask.setStatus(Constant.DOWN_STATUS_FAILE);
+                            dao.update(resTask);
                         }
 
 
@@ -173,10 +175,11 @@ public class DownLoadThread {
                         //更新为下载失败，并更新状态
                         DownLoad resTask = dao.load(task.getId());
                         resTask.setStatus(Constant.DOWN_STATUS_FAILE);
-
+                        dao.update(resTask);
                     }
 
                 } while ((task = getLastedTask()) != null);
+                ing=false;
             }
         }.start();
     }

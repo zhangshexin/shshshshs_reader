@@ -15,8 +15,8 @@ import java.util.Date;
 public class DownLoad {
 
 
-    @Id
-    private long id;
+    @Id(autoincrement = true)
+    private Long id;
     private String bookName;//书名
     private String author;//作者
     private String url;//下载链接,不存服务器地址，只存书的地址
@@ -35,8 +35,8 @@ public class DownLoad {
      * @see com.redread.utils.Constant
      */
     private int status=-1;//0失败,1完成，2下载中，3暂停,-1等待下载
-    @Generated(hash = 1129904559)
-    public DownLoad(long id, String bookName, String author, String url,
+    @Generated(hash = 1587849519)
+    public DownLoad(Long id, String bookName, String author, String url,
             String bookDir, String bookType, int readProgress, int totalPage,
             int currentPage, Date upDate, String coverUrl, String coverDir,
             long dataLongth, long downProgress, int status) {
@@ -60,12 +60,10 @@ public class DownLoad {
     @Generated(hash = 89475367)
     public DownLoad() {
     }
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
-    public void setId(long id) {
-        this.id = id;
-    }
+
     public String getBookName() {
         return this.bookName;
     }
@@ -157,5 +155,9 @@ public class DownLoad {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -113,10 +113,10 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
                     fos.flush();
                     ins.close();
                     fos.close();
+                    mHandler.sendEmptyMessageDelayed(1, 1000);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                mHandler.sendEmptyMessageDelayed(1, 1000);
             }
         });
     }
@@ -126,6 +126,14 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
      * 初始化一些必要数据，写入一本书
      */
     private synchronized void initDBData(){
+        DownLoadDao dao= MyApplication.getInstances().getDaoSession().getDownLoadDao();
+        //把所有等待下载的更新为暂停
+        List<DownLoad> searchResult = dao.queryBuilder().where(new WhereCondition.StringCondition("status =" + Constant.DOWN_STATUS_WAIT )).list();
+        for (int i=0;i<searchResult.size();i++){
+            searchResult.get(i).setStatus(Constant.DOWN_STATUS_PAUS);
+        }
+        dao.updateInTx(searchResult);
+
         Boolean isFirstEntry=(Boolean)SharePreferenceUtil.getSimpleData(this,Constant.KEY_BOOLEAN_FIRST_USE,true);
         if(!isFirstEntry)
             return;
@@ -137,16 +145,10 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
         downLoad.setBookDir(Constant.bookPath+ "/defaultbook.txt");
         downLoad.setUpDate(new Date(System.currentTimeMillis()));
         downLoad.setBookType(Constant.BOOK_TYPE_TXT);
-        DownLoadDao dao= MyApplication.getInstances().getDaoSession().getDownLoadDao();
         dao.insert(downLoad);
         SharePreferenceUtil.saveSimpleData(this,Constant.KEY_BOOLEAN_FIRST_USE,false);
 
-        //把所有等待下载的更新为暂停
-        List<DownLoad> searchResult = dao.queryBuilder().where(new WhereCondition.StringCondition("status =" + Constant.DOWN_STATUS_WAIT )).list();
-        for (int i=0;i<searchResult.size();i++){
-            searchResult.get(i).setStatus(Constant.DOWN_STATUS_PAUS);
-        }
-        dao.updateInTx(searchResult);
+
     }
 
     @Override
