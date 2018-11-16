@@ -8,6 +8,7 @@ import android.view.View;
 import com.redread.R;
 import com.redread.base.BaseActivity;
 import com.redread.databinding.LayoutSettingBinding;
+import com.redread.utils.SharePreferenceUtil;
 
 /**
  * Created by zhangshexin on 2018/9/12.
@@ -38,6 +39,8 @@ public class Activity_setting extends BaseActivity implements View.OnClickListen
                 finish2();
                 break;
             case R.id.percenter_cancel:
+                //退出登录
+                SharePreferenceUtil.clearAll(this);
                 finish2();
                 break;
         }

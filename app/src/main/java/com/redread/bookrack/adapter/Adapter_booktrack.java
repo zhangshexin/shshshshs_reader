@@ -1,6 +1,7 @@
 package com.redread.bookrack.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.czp.library.ArcProgress;
+import com.redread.widget.ArcProgress2;
 import com.redread.MyApplication;
 import com.redread.R;
 import com.redread.base.BaseRecycelAdapter;
@@ -76,7 +77,7 @@ public class Adapter_booktrack extends BaseRecycelAdapter<BaseViewHolder> {
         book=Book.conver2Book(resTask);
         binding.booktrackCellName.setText(book.getBookName());
 
-        //如果是下载完成的显示本地的封面否则显示网络的
+        //如果是下载完成的显示本地的封面否则显示网络的/sdcard/hanchuang/picture/4vza.jpg
         if (book.getStatus() == Constant.DOWN_STATUS_SUCCESS) {
             GlideUtils.glideLoader(mContext, book.getCoverDir(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.booktrackCellCover);
         } else {
@@ -99,18 +100,26 @@ public class Adapter_booktrack extends BaseRecycelAdapter<BaseViewHolder> {
         } else {
             binding.circleIndicator.setVisibility(View.GONE);
         }
-        binding.circleIndicator.setOnCenterDraw(new ArcProgress.OnCenterDraw() {
+        binding.circleIndicator.setOnCenterDraw(new ArcProgress2.OnCenterDraw() {
             @Override
             public void draw(Canvas canvas, RectF rectF, float x, float y, float storkeWidth, int progress) {
-                Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-                textPaint.setStrokeWidth(35);
-                textPaint.setTextSize(20);
-                textPaint.setColor(mContext.getResources().getColor(R.color.textColor));
-                int p = (int) (progress * 1000F);
-                String progressStr = String.valueOf((float) p / 1000F + "%");
-                float textX = x - (textPaint.measureText(progressStr) / 2);
-                float textY = y - ((textPaint.descent() + textPaint.ascent()) / 2);
-                canvas.drawText(progressStr, textX, textY, textPaint);
+                try {
+                    Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                    textPaint.setStrokeWidth(35);
+                    textPaint.setTextSize(20);
+                    textPaint.setColor(mContext.getResources().getColor(R.color.red));
+                    float p = progress / (float)binding.circleIndicator.getMax();
+                    String progressStr = String.valueOf(p * 100F);
+                    if(progressStr.length()>3){
+                        progressStr=progressStr.substring(0,3)+"%";
+                    }
+                    float textX = x - (textPaint.measureText(progressStr) / 2);
+                    float textY = y - ((textPaint.descent() + textPaint.ascent()) / 2);
+                    canvas.drawText(progressStr, textX, textY, textPaint);
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "无法更新进度");
+                }
             }
         });
         //只要不是完成的显示状态名称

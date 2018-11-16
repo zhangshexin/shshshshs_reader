@@ -11,6 +11,14 @@ public class SharePreferenceUtil {
     //存储的sharedpreferences文件名
     private static final String FILE_NAME = "save_file_name";
 
+
+    public static void clearAll(Context context){
+        SharedPreferences sharedPreferences = context
+                .getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
     /**
      * 保存简单类型数据到文件
      * @param context

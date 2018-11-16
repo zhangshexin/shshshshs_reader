@@ -37,6 +37,18 @@ public class GlideUtils {
         Glide.with(context).load(url).placeholder(emptyImg).error(erroImg).into(iv);
     }
     /**
+     * load normal  for img
+     *
+     * @param url
+     * @param erroImg
+     * @param emptyImg
+     * @param iv
+     */
+    public static void glideLoader2(Context context,String url, int erroImg, int emptyImg, ImageView iv) {
+        //原生 API
+        Glide.with(context).load(url).placeholder(emptyImg).error(erroImg).fitCenter().into(iv);
+    }
+    /**
      * load normal  for  circle or round img
      *
      * @param url

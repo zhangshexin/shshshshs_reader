@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.webkit.URLUtil;
 
-import com.czp.library.ArcProgress;
 import com.redread.MyApplication;
 import com.redread.R;
 import com.redread.base.BaseActivity;
@@ -24,9 +23,12 @@ import com.redread.model.entity.DownLoad;
 import com.redread.model.gen.DownLoadDao;
 import com.redread.net.Api;
 import com.redread.net.netbean.NetBeanBook;
+import com.redread.rxbus.RxBus;
+import com.redread.rxbus.bean.RXRefreshBooktract;
 import com.redread.utils.Constant;
 import com.redread.utils.DownLoadThread;
 import com.redread.utils.GlideUtils;
+import com.redread.widget.ArcProgress2;
 
 import org.greenrobot.greendao.query.WhereCondition;
 
@@ -109,15 +111,30 @@ public class Activity_bookDetail extends BaseActivity implements View.OnClickLis
 
     private void initView() {
         book = (NetBeanBook) getIntent().getSerializableExtra(EXTR_BOOK);
-        binding.circleIndicator.setOnCenterDraw(new ArcProgress.OnCenterDraw() {
+        List<DownLoad> searchResult = dao.queryBuilder().where(new WhereCondition.StringCondition("url ='" + book.getBrowsPath() + "'")).list();
+        DownLoad data=null;
+        if (searchResult.size() > 0)
+            if ((data = searchResult.get(0)).getStatus() == Constant.DOWN_STATUS_SUCCESS) {
+                binding.circleIndicator.setVisibility(View.GONE);
+            } else {
+                binding.circleIndicator.setVisibility(View.VISIBLE);
+                if (data != null && data.getDataLongth() > 0)
+                    binding.circleIndicator.setMax((int) data.getDataLongth());
+                if (data != null)
+                    binding.circleIndicator.setProgress((int) data.getDownProgress());
+            }
+        binding.circleIndicator.setOnCenterDraw(new ArcProgress2.OnCenterDraw() {
             @Override
             public void draw(Canvas canvas, RectF rectF, float x, float y, float storkeWidth, int progress) {
                 Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 textPaint.setStrokeWidth(35);
                 textPaint.setTextSize(20);
-                textPaint.setColor(getResources().getColor(R.color.textColor));
-                int p = (int) (progress * 1000F);
-                String progressStr = String.valueOf((float) p / 1000F + "%");
+                textPaint.setColor(getResources().getColor(R.color.red));
+                float p = progress / (float)binding.circleIndicator.getMax();
+                String progressStr = String.valueOf(p * 100F);
+                if(progressStr.length()>3){
+                    progressStr=progressStr.substring(0,3)+"%";
+                }
                 float textX = x - (textPaint.measureText(progressStr) / 2);
                 float textY = y - ((textPaint.descent() + textPaint.ascent()) / 2);
                 canvas.drawText(progressStr, textX, textY, textPaint);
@@ -153,7 +170,7 @@ public class Activity_bookDetail extends BaseActivity implements View.OnClickLis
             return;
         switch (v.getId()) {
             case R.id.bookDetail_borrow://如果没有借阅地址则跳转到推荐馆茂
-                if (URLUtil.isHttpUrl(book.getBorrowAddress())) {
+                if (!URLUtil.isHttpUrl(book.getBorrowAddress())) {
                     Bundle bundle = new Bundle();
                     bundle.putString("bookName", book.getName());
                     bundle.putString("bookId", book.getId());//TODO id要重处理
@@ -201,6 +218,8 @@ public class Activity_bookDetail extends BaseActivity implements View.OnClickLis
             task.setBookName(book.getName());
             //嗥，没找着，下吧
             DownLoadThread.getInstanc().downLoad(task);
+            //删完了更新一下页面展示
+            RxBus.getDefault().post(new RXRefreshBooktract(RXRefreshBooktract.STATUE_REFRESH));
         } else {
             //有但需要改状态和时间
             DownLoad taskOld = searchResult.get(0);

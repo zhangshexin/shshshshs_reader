@@ -21,6 +21,7 @@ import com.redread.R;
 import com.redread.base.BaseFragment;
 import com.redread.bookrack.adapter.Adapter_booktrack;
 import com.redread.databinding.FragmentBooktrackBinding;
+import com.redread.databinding.LayoutBooktrackCellBinding;
 import com.redread.model.bean.Book;
 import com.redread.model.entity.DownLoad;
 import com.redread.model.gen.DownLoadDao;
@@ -117,13 +118,37 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
         super.onCreate(savedInstanceState);
     }
 
+    private GridLayoutManager manager;
 
     //用于刷新下载进度ui显示
     private Handler downRefreshHandler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            adapter.notifyDataSetChanged();
-            Log.e(TAG, "----notifyDataSetChanged: ------" );
+            //一个一个取出来更新进度，因为只有一个在变化所以不用走线程，效果影响不大
+            Log.e(TAG, "我要更新一下进度--start" );
+            //找到正在下载的那个
+            List<DownLoad> searchResult = dao.queryBuilder().where(new WhereCondition.StringCondition("status =" + Constant.DOWN_STATUS_ING )).list();
+            if(searchResult.size()>0){
+                DownLoad task=searchResult.get(0);
+                int position=-1;
+                for (int i=0;i<books.size();i++){
+                    if(books.get(i).getId()==task.getId()){
+                        position=i;
+                        i=books.size()+100;//找到位置了跳出
+                    }
+                }
+                //从adapter中找到item
+                if(position>=0){
+                    View item=manager.findViewByPosition(position);
+                    LayoutBooktrackCellBinding layoutBooktrackCellBinding =DataBindingUtil.getBinding(item);
+                    layoutBooktrackCellBinding.circleIndicator.setMax((int)task.getDataLongth());
+                    layoutBooktrackCellBinding.circleIndicator.setProgress((int)task.getDownProgress());
+                }
+
+                //对期状态也要处理，所以nofity一下
+                adapter.notifyDataSetChanged();
+            }
+
             sendEmptyMessageDelayed(2,1000);
         }
     };
@@ -203,7 +228,7 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
             }
         });
         //处理recyclerview
-        GridLayoutManager manager = new GridLayoutManager(MyApplication.getInstances(), 3);
+        manager = new GridLayoutManager(MyApplication.getInstances(), 3);
         binding.bookTrack.setLayoutManager(manager);
         binding.bookTrack.setAdapter(adapter);
 

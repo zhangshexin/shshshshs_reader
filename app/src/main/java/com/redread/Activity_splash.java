@@ -40,7 +40,7 @@ import okhttp3.Response;
  */
 
 public class Activity_splash extends BaseActivity implements View.OnClickListener {
-    private final String TAG=getClass().getName();
+    private final String TAG = getClass().getName();
     private LayoutSplashBinding binding;
     private int plus = 0;
 
@@ -61,7 +61,7 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
                     }
                     break;
                 case 1:
-                    GlideUtils.glideLoader(Activity_splash.this,Constant.picture+"/splash.jpg",R.drawable.ad,R.drawable.ad,binding.splashImg);
+                    GlideUtils.glideLoader2(Activity_splash.this, Constant.picture + "/splash.jpg", R.drawable.ad, R.drawable.ad, binding.splashImg);
                     mHandler.sendEmptyMessageDelayed(0, 1000);
                     break;
             }
@@ -74,11 +74,11 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
         binding = DataBindingUtil.setContentView(this, R.layout.layout_splash);
         binding.splashJump.setOnClickListener(this);
         binding.circleIndicator.setOnClickListener(this);
-        File splashFile=new File(Constant.picture+"/splash.jpg");
-        if(splashFile.exists()){
-            GlideUtils.glideLoader(this,Constant.picture+"/splash.jpg",R.drawable.ad,R.drawable.ad,binding.splashImg);
-        }else{
-            GlideUtils.LoadImageWithLocation(this,R.drawable.ad,binding.splashImg);
+        File splashFile = new File(Constant.picture + "/splash.jpg");
+        if (splashFile.exists()) {
+            GlideUtils.glideLoader2(this, Constant.picture + "/splash.jpg", R.drawable.ad, R.drawable.ad, binding.splashImg);
+        } else {
+            GlideUtils.LoadImageWithLocation(this, R.drawable.ad, binding.splashImg);
         }
         initDBData();
         loadSplashPic();
@@ -88,8 +88,8 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
      * 下载启动图
      */
     private void loadSplashPic() {
-        Request request= new Request.Builder().url(Api.downUrl + "splash.jpg").build();
-        Call mCall= OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
+        Request request = new Request.Builder().url(Api.downUrl + "splash.jpg").build();
+        Call mCall = OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
         mCall.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -99,20 +99,25 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                    File picDir=new File(Constant.picture);
-                    if(!picDir.isDirectory())
+                    File picDir = new File(Constant.picture);
+                    if (!picDir.isDirectory())
                         picDir.mkdirs();
-                    File splashFile=new File(picDir,"splash.jpg");
-                    InputStream ins=response.body().byteStream();
-                    FileOutputStream fos=new FileOutputStream(splashFile);
-                    byte[] buf=new byte[1024];
-                    int length;
-                    while((length=ins.read(buf))!=-1){
-                        fos.write(buf,0,length);
+                    File splashFile = new File(picDir, "splash.jpg");
+                    InputStream ins = response.body().byteStream();
+                    if(splashFile.exists() && ins.available() != splashFile.length()){
+                        splashFile.delete();
                     }
-                    fos.flush();
-                    ins.close();
-                    fos.close();
+                    if (!splashFile.exists()) {
+                        FileOutputStream fos = new FileOutputStream(splashFile);
+                        byte[] buf = new byte[1024];
+                        int length;
+                        while ((length = ins.read(buf)) != -1) {
+                            fos.write(buf, 0, length);
+                        }
+                        fos.flush();
+                        ins.close();
+                        fos.close();
+                    }
                     mHandler.sendEmptyMessageDelayed(1, 1000);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -125,28 +130,28 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
     /**
      * 初始化一些必要数据，写入一本书
      */
-    private synchronized void initDBData(){
-        DownLoadDao dao= MyApplication.getInstances().getDaoSession().getDownLoadDao();
-        //把所有等待下载的更新为暂停
-        List<DownLoad> searchResult = dao.queryBuilder().where(new WhereCondition.StringCondition("status =" + Constant.DOWN_STATUS_WAIT )).list();
-        for (int i=0;i<searchResult.size();i++){
+    private synchronized void initDBData() {
+        DownLoadDao dao = MyApplication.getInstances().getDaoSession().getDownLoadDao();
+        //把所有等待下载和下载中的更新为暂停
+        List<DownLoad> searchResult = dao.queryBuilder().where(new WhereCondition.StringCondition("status =" + Constant.DOWN_STATUS_WAIT + " or status = " + Constant.DOWN_STATUS_ING)).list();
+        for (int i = 0; i < searchResult.size(); i++) {
             searchResult.get(i).setStatus(Constant.DOWN_STATUS_PAUS);
         }
         dao.updateInTx(searchResult);
 
-        Boolean isFirstEntry=(Boolean)SharePreferenceUtil.getSimpleData(this,Constant.KEY_BOOLEAN_FIRST_USE,true);
-        if(!isFirstEntry)
+        Boolean isFirstEntry = (Boolean) SharePreferenceUtil.getSimpleData(this, Constant.KEY_BOOLEAN_FIRST_USE, true);
+        if (!isFirstEntry)
             return;
         //把书放到sd卡下
-        IOUtile.putAssetsToSDCard(this, "defaultbook.txt",Constant.bookPath);
-        DownLoad downLoad=new DownLoad();
+        IOUtile.putAssetsToSDCard(this, "defaultbook.txt", Constant.bookPath);
+        DownLoad downLoad = new DownLoad();
         downLoad.setStatus(Constant.DOWN_STATUS_SUCCESS);
         downLoad.setBookName("元尊");
-        downLoad.setBookDir(Constant.bookPath+ "/defaultbook.txt");
+        downLoad.setBookDir(Constant.bookPath + "/defaultbook.txt");
         downLoad.setUpDate(new Date(System.currentTimeMillis()));
         downLoad.setBookType(Constant.BOOK_TYPE_TXT);
         dao.insert(downLoad);
-        SharePreferenceUtil.saveSimpleData(this,Constant.KEY_BOOLEAN_FIRST_USE,false);
+        SharePreferenceUtil.saveSimpleData(this, Constant.KEY_BOOLEAN_FIRST_USE, false);
 
 
     }
@@ -170,10 +175,10 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.splash_jump:
             case R.id.circleIndicator:
-                plus=10;
+                plus = 10;
                 mHandler.sendEmptyMessage(0);
                 break;
         }

@@ -61,8 +61,7 @@ public class WebView_borrow extends BaseActivity implements View.OnClickListener
                 return true;
             }
         });
-        WebSettings seting=binding.webView.getSettings();
-        seting.setJavaScriptEnabled(true);//设置webview支持javascript脚本
+        binding.webView.getSettings().setJavaScriptEnabled(true);//设置webview支持javascript脚本
         binding.webView.setWebChromeClient(new WebChromeClient(){
             @Override
             public void onProgressChanged(WebView view, int newProgress) {

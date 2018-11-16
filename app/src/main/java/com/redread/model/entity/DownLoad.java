@@ -1,5 +1,7 @@
 package com.redread.model.entity;
 
+import com.redread.utils.Constant;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
@@ -34,7 +36,7 @@ public class DownLoad {
     /**
      * @see com.redread.utils.Constant
      */
-    private int status=-1;//0失败,1完成，2下载中，3暂停,-1等待下载
+    private int status= Constant.DOWN_STATUS_CLEAR;
     @Generated(hash = 1587849519)
     public DownLoad(Long id, String bookName, String author, String url,
             String bookDir, String bookType, int readProgress, int totalPage,

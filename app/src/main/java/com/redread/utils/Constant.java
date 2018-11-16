@@ -22,6 +22,7 @@ public class Constant {
      * 完成
      */
     public static final int DOWN_STATUS_SUCCESS=1;
+
     /**
      * 下载中
      */
@@ -84,9 +85,9 @@ public class Constant {
     public static String sdCardPath= Environment.getExternalStorageDirectory().getPath()+"/hanchuang";
 
     //下载的书的路径
-    public static String bookPath=sdCardPath+"/bookstore";
+    public static String bookPath=sdCardPath+"/bookstore/";
     //封面等图片所在的路径
-    public static String picture=sdCardPath+"/picture";
+    public static String picture=sdCardPath+"/picture/";
 
     /**
      * 书的类型-txt

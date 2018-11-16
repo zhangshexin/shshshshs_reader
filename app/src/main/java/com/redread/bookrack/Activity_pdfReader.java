@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeProvider;
+import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
+import com.redread.MyApplication;
 import com.redread.R;
 import com.redread.databinding.LayoutMainBinding;
 import com.redread.model.bean.Book;
 import com.redread.model.entity.DownLoad;
+import com.redread.model.gen.DownLoadDao;
+import com.redread.utils.Constant;
 import com.shockwave.pdfium.PdfDocument;
 
 import java.io.File;
@@ -35,7 +39,18 @@ public class Activity_pdfReader extends AppCompatActivity implements OnLoadCompl
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this, R.layout.layout_main);
 //        binding.pdfView.fromAsset("tanke.pdf")
-        binding.pdfView.fromFile(new File(book.getBookDir()))
+        File bookDir=new File(book.getBookDir());
+        if(!bookDir.exists()){
+            Toast.makeText(this,"书不见了，重新下载吧！",Toast.LENGTH_LONG).show();
+            //将书的状态改为失败
+            DownLoadDao dao = MyApplication.getInstances().getDaoSession().getDownLoadDao();
+            DownLoad task=dao.load(book.getId());
+            task.setStatus(Constant.DOWN_STATUS_FAILE);
+            dao.update(task);
+            finish();
+            return;
+        }
+        binding.pdfView.fromFile(bookDir)
 //        .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
         .enableSwipe(true) // allows to block changing pages using swipe
         .swipeHorizontal(true)
