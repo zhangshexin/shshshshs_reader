@@ -56,18 +56,39 @@ public class Api {
      * 推荐馆藏
      * bookId
      */
-    public static Request recommendPost(Context mContext, String bookId){
+    public static Request recommendPost(Context mContext, String bookId) {
         MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
         RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, "");
-        Request requestPost = new Request.Builder().url(baseUrl + "/recommendation/"+bookId).post(requestBody).build();
+        Request requestPost = new Request.Builder().url(baseUrl + "/recommendation/" + bookId).post(requestBody).build();
         return requestPost;
     }
 
     /**
      * 馆藏信息
      */
-    public static Request libaryInfoGet(){
+    public static Request libaryInfoGet() {
         Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/favorite/9").build();
+        return request;
+    }
+
+    /**
+     * 大类
+     *
+     * @return
+     */
+    public static Request typeBigGet() {
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/kind").build();
+        return request;
+    }
+
+    /**
+     * 小类
+     *
+     * @param id
+     * @return
+     */
+    public static Request typeLittleGet(String id) {
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/kind/" + id).build();
         return request;
     }
 

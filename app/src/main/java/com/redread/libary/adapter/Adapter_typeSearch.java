@@ -9,6 +9,9 @@ import com.redread.R;
 import com.redread.base.BaseRecycelAdapter;
 import com.redread.base.BaseViewHolder;
 import com.redread.databinding.LayoutTypesearchCellBinding;
+import com.redread.net.netbean.NetBeanType;
+
+import java.util.List;
 
 
 /**
@@ -16,13 +19,15 @@ import com.redread.databinding.LayoutTypesearchCellBinding;
  */
 
 public class Adapter_typeSearch extends BaseRecycelAdapter<BaseViewHolder> {
-    public Adapter_typeSearch(Context context) {
+    private  List<NetBeanType> types;
+    public Adapter_typeSearch(Context context, List<NetBeanType> types) {
         super(context);
+        this.types=types;
     }
 
     @Override
     public int getItemCount() {
-        return 7;
+        return types.size();
     }
 
 
@@ -43,9 +48,12 @@ public class Adapter_typeSearch extends BaseRecycelAdapter<BaseViewHolder> {
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         LayoutTypesearchCellBinding binding = (LayoutTypesearchCellBinding) holder.getBinding();
+        NetBeanType type=types.get(position);
         if (position == clickPosition)
             binding.typeSearchTag.setVisibility(View.VISIBLE);
         else
             binding.typeSearchTag.setVisibility(View.GONE);
+
+        binding.typeSearchName.setText(type.getName());
     }
 }

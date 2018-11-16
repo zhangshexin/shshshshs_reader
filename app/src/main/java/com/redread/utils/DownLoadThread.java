@@ -103,18 +103,19 @@ public class DownLoadThread {
                             bookDir.mkdirs();
                         }
                         File bookFile = new File(bookDir, task.getUrl());
-                        RandomAccessFile bookRWDFile = new RandomAccessFile(bookFile, "rwd");
-                        long totalLength = task.getDataLongth();//文件长度
+//                        RandomAccessFile bookRWDFile = new RandomAccessFile(bookFile, "rwd");
+                        long totalLength ;//文件长度
                         long currentLength = 0;//已下载的长度
                         if (bookFile.exists()) {
-                            currentLength = bookFile.length();
+                            bookFile.delete();
                         }
                         URL bookUrl = new URL(bookUrlStr);
                         HttpURLConnection bookUrlConnection = (HttpURLConnection) bookUrl.openConnection();
                         bookUrlConnection.addRequestProperty("Accept-Encoding", "identity");
-                        bookUrlConnection.setRequestProperty("Range", "bytes=" + currentLength + "-" + totalLength);//设置下载范围
+                        //后台不支持
+//                        bookUrlConnection.setRequestProperty("Range", "bytes=" + currentLength + "-" + totalLength);//设置下载范围
                         bookUrlConnection.connect();
-                        bookRWDFile.seek(currentLength);//指向上次的位置
+//                        bookRWDFile.seek(currentLength);//指向上次的位置
                         InputStream bookIns = bookUrlConnection.getInputStream();
                         totalLength = bookUrlConnection.getContentLength();
                         if (totalLength > 0) {
@@ -123,7 +124,7 @@ public class DownLoadThread {
                             boolean isInterrupt = false;//是否打断了当前的循环,对在下载过程中用户手动操作处理
                             while ((len = bookIns.read(buffer)) != -1 && !isInterrupt) {
                                 //写入文件
-                                bookRWDFile.write(buffer, 0, len);
+//                                bookRWDFile.write(buffer, 0, len);
                                 currentLength += len;
                                 task.setDownProgress(currentLength);
                                 //查一下状态是不是用户给暂停了或着删除了，进行相应的处理
@@ -138,11 +139,11 @@ public class DownLoadThread {
                                 switch (resTask.getStatus()) {
                                     case Constant.DOWN_STATUS_WAIT://等待下载
                                     case Constant.DOWN_STATUS_ING://下载中
-                                        task.setStatus(Constant.DOWN_STATUS_ING);
+                                        resTask.setStatus(Constant.DOWN_STATUS_ING);
                                         //状态正常需更新进度
-                                        if (task.getDataLongth() == currentLength) {
+                                        if (resTask.getDataLongth() == currentLength) {
                                             //下完了，更新状态
-                                            task.setStatus(Constant.DOWN_STATUS_SUCCESS);
+                                            resTask.setStatus(Constant.DOWN_STATUS_SUCCESS);
                                         }
                                         //更新
                                         dao.update(resTask);
@@ -159,17 +160,21 @@ public class DownLoadThread {
                                         //用户在书架用了删除，当时可能正在下载中所以在这里要作删除
                                         isInterrupt = true;
                                         dao.deleteByKey(task.getId());
-                                        bookRWDFile.close();
+//                                        bookRWDFile.close();
                                         bookIns.close();
                                         bookFile.delete();
                                         break;
                                 }
 
                             }
-                            //更新状态
-                            DownLoad resTask = dao.load(task.getId());
-                            resTask.setStatus(Constant.DOWN_STATUS_SUCCESS);
-                            dao.update(resTask);
+//                            //更新状态
+//                            DownLoad resTask = dao.load(task.getId());
+//                            //结束时可能是因为用户暂停。所以要判断一下当前的进度和文件长度是否一致
+//                            if(resTask.getDownProgress()==resTask.getDataLongth())
+//                                resTask.setStatus(Constant.DOWN_STATUS_SUCCESS);
+//                            else
+//                                resTask.setStatus(Constant.DOWN_STATUS_PAUS);
+//                            dao.update(resTask);
                         } else {
                             //更新状态
                             DownLoad resTask = dao.load(task.getId());
@@ -177,7 +182,7 @@ public class DownLoadThread {
                             dao.update(resTask);
                         }
                         //下载完成
-                        bookRWDFile.close();
+//                        bookRWDFile.close();
                         bookIns.close();
 
                     } catch (Exception e) {

@@ -75,6 +75,8 @@ public class Adapter_booktrack extends BaseRecycelAdapter<BaseViewHolder> {
         Book book = books.get(position);
         DownLoad resTask=dao.load(book.getId());
         book=Book.conver2Book(resTask);
+        book.setChecked(books.get(position).isChecked());
+        book.setShowCheckBtn(books.get(position).isShowCheckBtn());
         binding.booktrackCellName.setText(book.getBookName());
 
         //如果是下载完成的显示本地的封面否则显示网络的/sdcard/hanchuang/picture/4vza.jpg
@@ -199,7 +201,7 @@ public class Adapter_booktrack extends BaseRecycelAdapter<BaseViewHolder> {
                 int progress = 0;
                 do {
                     //判断下载状态，只手动删除非下载中状态的，对于下载中的修改数据库状态为删除
-                    if (checkBooks.get(progress).getStatus() == Constant.DOWN_STATUS_SUCCESS) {
+                    if (checkBooks.get(progress).getStatus() != Constant.DOWN_STATUS_ING) {
                         dao.deleteByKey(checkBooks.get(progress).getId());
                         //先删数据库记录，再删书
                         IOUtile.deleteFile(checkBooks.get(progress).getBookDir());

@@ -100,6 +100,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
             }
         });
         loadDataFromNet();
+        binding.cryImgNotify.setOnClickListener(this);
     }
 
 
@@ -154,12 +155,14 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
      * 从网络请求数据
      */
     private void loadDataFromNet() {
+        binding.cryImgNotify.setClickable(false);
         Request request= Api.libaryInfoGet();
         mCall= OkHttpManager.getInstance(mContext).getmOkHttpClient().newCall(request);
         mCall.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 mHandler.sendEmptyMessage(what_net_faile);
+                binding.cryImgNotify.setClickable(true);
             }
 
             @Override
@@ -174,6 +177,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                     //不管怎样，反正错了，提示吧
                     mHandler.sendEmptyMessage(what_net_faile);
                 }
+                binding.cryImgNotify.setClickable(true);
             }
         });
     }
@@ -205,6 +209,9 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                 //去通知页
                 //TODO---暂不处理
                 startActivity(Activity_notifyList.class);
+                break;
+            case R.id.cryImgNotify:
+                loadDataFromNet();
                 break;
         }
     }

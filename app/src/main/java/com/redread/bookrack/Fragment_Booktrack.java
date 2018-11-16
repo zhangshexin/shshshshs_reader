@@ -184,13 +184,16 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
                     DownLoad book= books.get(position);
                     DownLoad resTask= dao.load(book.getId());
                     //判断是下载完的还是没有
-                    switch (book.getStatus()){
+                    switch (resTask.getStatus()){
                         case Constant.DOWN_STATUS_ING:
                         case Constant.DOWN_STATUS_WAIT:
                             // 下载中/等待变成暂停
                             resTask.setStatus(Constant.DOWN_STATUS_PAUS);
                             resTask.setUpDate(new Date(System.currentTimeMillis()));
                             dao.update(resTask);
+                            DownLoadThread.getInstanc().downLoad(resTask);
+                            LayoutBooktrackCellBinding layoutBooktrackCellBinding =DataBindingUtil.getBinding(view);
+                            layoutBooktrackCellBinding.booktrackCellProgress.setText(R.string.down_text_pause);
                             break;
                         case Constant.DOWN_STATUS_FAILE:
                         case Constant.DOWN_STATUS_PAUS:
@@ -199,7 +202,6 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
                             resTask.setUpDate(new Date(System.currentTimeMillis()));
                             dao.update(resTask);
                             DownLoadThread.getInstanc().downLoad(resTask);
-                            adapter.notifyDataSetChanged();
                             break;
                         case Constant.DOWN_STATUS_SUCCESS:
                             //去阅读
@@ -208,7 +210,7 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
                             else if(book.getBookType().equals(Constant.BOOK_TYPE_PDF))
                             {
                                 Intent intent=new Intent(getContext(),Activity_pdfReader.class);
-                                Book _book=Book.conver2Book(book);
+                                Book _book=Book.conver2Book(resTask);
                                 intent.putExtra("book",_book);
                                 getActivity().startActivity(intent);
                             }

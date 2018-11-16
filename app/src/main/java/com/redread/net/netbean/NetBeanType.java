@@ -9,31 +9,60 @@ import java.util.List;
  */
 
 public class NetBeanType {
-    private String typeCode;//类型码/版块码
-    private String typeName;//类型名
-    private List<NetBeanType> typeContents;//类型内容，以列表形式返回类型对象
 
-    public String getTypeCode() {
-        return typeCode;
+    private Long id;//": 10537,
+    private String name;//": "综合性图书",
+    private String scode;//": "Z",
+    private String ccode;//": "021000000000000000",
+    private String type;//": "1",
+    private List<NetBeanType> subKindList;
+
+
+    public Long getId() {
+        return id;
     }
 
-    public void setTypeCode(String typeCode) {
-        this.typeCode = typeCode;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getName() {
+        return name;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<NetBeanType> getTypeContents() {
-        return typeContents;
+    public String getScode() {
+        return scode;
     }
 
-    public void setTypeContents(List<NetBeanType> typeContents) {
-        this.typeContents = typeContents;
+    public void setScode(String scode) {
+        this.scode = scode;
+    }
+
+    public String getCcode() {
+        return ccode;
+    }
+
+    public void setCcode(String ccode) {
+        this.ccode = ccode;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<NetBeanType> getSubKindList() {
+        return subKindList;
+    }
+
+    public void setSubKindList(List<NetBeanType> subKindList) {
+        this.subKindList = subKindList;
     }
 }
