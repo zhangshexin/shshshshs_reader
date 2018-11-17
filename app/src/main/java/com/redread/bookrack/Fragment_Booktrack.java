@@ -144,11 +144,9 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
                     layoutBooktrackCellBinding.circleIndicator.setMax((int)task.getDataLongth());
                     layoutBooktrackCellBinding.circleIndicator.setProgress((int)task.getDownProgress());
                 }
-
-                //对期状态也要处理，所以nofity一下
-                adapter.notifyDataSetChanged();
             }
-
+            //对期状态也要处理，所以nofity一下
+            adapter.notifyDataSetChanged();
             sendEmptyMessageDelayed(2,1000);
         }
     };
@@ -209,10 +207,13 @@ public class Fragment_Booktrack extends BaseFragment implements View.OnClickList
                                 Activity_txtReader.loadTxtFile(getContext(),book.getBookDir(),book.getBookName(),book.getId());
                             else if(book.getBookType().equals(Constant.BOOK_TYPE_PDF))
                             {
-                                Intent intent=new Intent(getContext(),Activity_pdfReader.class);
-                                Book _book=Book.conver2Book(resTask);
-                                intent.putExtra("book",_book);
-                                getActivity().startActivity(intent);
+                                Book book2=Book.conver2Book(resTask);
+                                Activity_pdfReader.loadPdfFile(getContext(),book2.getId(),book2);
+//                                Intent intent=new Intent(getContext(),Activity_pdfReader.class);
+//                                Book _book=Book.conver2Book(resTask);
+//                                intent.putExtra(Activity_pdfReader.extra_book,_book);
+//                                intent.putExtra(Activity_pdfReader.extra_bookId,_book.getId());
+//                                mContext.startActivity(intent);
                             }
                             break;
                     }

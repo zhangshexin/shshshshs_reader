@@ -8,24 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/pdfView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <!--<android.support.v4.view.ViewPager-->
-            <!--android:id="@+id/main_pagers"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_above="@+id/bottom_nav"-->
-            <!--android:background="@color/colorPrimary"></android.support.v4.view.ViewPager>-->
+            android:layout_height="match_parent" />
 
-        <!--<android.support.design.widget.BottomNavigationView-->
-            <!--android:id="@+id/bottom_nav"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--app:menu="@menu/bottom_nav">-->
-
-        <!--</android.support.design.widget.BottomNavigationView>-->
+        <TextView
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent" android:gravity="center" android:id="@+id/progress"
+            android:layout_height="30dp"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
     </RelativeLayout>
 </layout>

@@ -109,6 +109,7 @@ public class DownLoadThread {
                         if (bookFile.exists()) {
                             bookFile.delete();
                         }
+                        FileOutputStream fos=new FileOutputStream(bookFile);
                         URL bookUrl = new URL(bookUrlStr);
                         HttpURLConnection bookUrlConnection = (HttpURLConnection) bookUrl.openConnection();
                         bookUrlConnection.addRequestProperty("Accept-Encoding", "identity");
@@ -125,6 +126,7 @@ public class DownLoadThread {
                             while ((len = bookIns.read(buffer)) != -1 && !isInterrupt) {
                                 //写入文件
 //                                bookRWDFile.write(buffer, 0, len);
+                                fos.write(buffer, 0, len);
                                 currentLength += len;
                                 task.setDownProgress(currentLength);
                                 //查一下状态是不是用户给暂停了或着删除了，进行相应的处理
@@ -168,13 +170,13 @@ public class DownLoadThread {
 
                             }
 //                            //更新状态
-//                            DownLoad resTask = dao.load(task.getId());
-//                            //结束时可能是因为用户暂停。所以要判断一下当前的进度和文件长度是否一致
-//                            if(resTask.getDownProgress()==resTask.getDataLongth())
-//                                resTask.setStatus(Constant.DOWN_STATUS_SUCCESS);
-//                            else
-//                                resTask.setStatus(Constant.DOWN_STATUS_PAUS);
-//                            dao.update(resTask);
+                            DownLoad resTask = dao.load(task.getId());
+                            //结束时可能是因为用户暂停。所以要判断一下当前的进度和文件长度是否一致
+                            if(resTask.getDownProgress()>=resTask.getDataLongth())
+                                resTask.setStatus(Constant.DOWN_STATUS_SUCCESS);
+                            else
+                                resTask.setStatus(Constant.DOWN_STATUS_PAUS);
+                            dao.update(resTask);
                         } else {
                             //更新状态
                             DownLoad resTask = dao.load(task.getId());

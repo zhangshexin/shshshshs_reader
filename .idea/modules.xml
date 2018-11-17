@@ -3,9 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/reader.iml" filepath="$PROJECT_DIR$/reader.iml" />
+      <module fileurl="file://E:\workspace_studio\shshshshs_reader\app\app.iml" filepath="E:\workspace_studio\shshshshs_reader\app\app.iml" />
       <module fileurl="file://D:\workspace_android\shshshshs_reader\reader.iml" filepath="D:\workspace_android\shshshshs_reader\reader.iml" />
+      <module fileurl="file://E:\workspace_studio\shshshshs_reader\reader.iml" filepath="E:\workspace_studio\shshshshs_reader\reader.iml" />
       <module fileurl="file://$PROJECT_DIR$/shshshshs_reader.iml" filepath="$PROJECT_DIR$/shshshshs_reader.iml" />
+      <module fileurl="file://E:\workspace_studio\shshshshs_reader\shshshshs_reader.iml" filepath="E:\workspace_studio\shshshshs_reader\shshshshs_reader.iml" />
     </modules>
   </component>
 </project>

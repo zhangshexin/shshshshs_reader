@@ -1,7 +1,13 @@
 package com.redread.bookrack;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeProvider;
@@ -25,23 +31,33 @@ import java.util.List;
  * pdf类型的阅读
  */
 public class Activity_pdfReader extends AppCompatActivity implements OnLoadCompleteListener {
-
+public static String extra_book="extra_pdf_book";
+public static String extra_bookId="extra_bookId";
     private LayoutMainBinding binding;
 
     private long time;
 
-    private Book book;
+    private static Book book;
     private DownLoadDao dao;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public static void loadPdfFile(Context mContext,long id,Book book){
+        Intent intent = new Intent();
+        intent.putExtra(extra_bookId, id);
+        intent.putExtra(extra_bookId,book);
+        Activity_pdfReader.book=book;
+        intent.setClass(mContext, Activity_pdfReader.class);
+        mContext.startActivity(intent);
+    }
 
-        //处理一些需要的参数
-        book = (Book) getIntent().getSerializableExtra("book");
-        time = System.currentTimeMillis();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.layout_main);
+        Bundle bundle=getIntent().getExtras();
+        //处理一些需要的参数
+//        book = (Book) this.getIntent().getSerializableExtra(extra_book);
+//        long id=this.getIntent().getLongExtra(extra_bookId,-1);
 
+        time = System.currentTimeMillis();
 
         dao = MyApplication.getInstances().getDaoSession().getDownLoadDao();
 
@@ -50,7 +66,6 @@ public class Activity_pdfReader extends AppCompatActivity implements OnLoadCompl
         if (!bookDir.exists()) {
             Toast.makeText(this, "书不见了，重新下载吧！", Toast.LENGTH_LONG).show();
             //将书的状态改为失败
-            DownLoadDao dao = MyApplication.getInstances().getDaoSession().getDownLoadDao();
             DownLoad task = dao.load(book.getId());
             task.setStatus(Constant.DOWN_STATUS_FAILE);
             dao.update(task);
@@ -123,6 +138,7 @@ public class Activity_pdfReader extends AppCompatActivity implements OnLoadCompl
                         float p = page / (float)task.getTotalPage();
                         task.setReadProgress((int)(p*100));
                         dao.update(task);
+                        binding.progress.setText(page+"/"+task.getTotalPage());
                     }
                 })
                 .pageSnap(true) // snap pages to screen boundaries
@@ -143,11 +159,22 @@ public class Activity_pdfReader extends AppCompatActivity implements OnLoadCompl
 
         String payTime = (System.currentTimeMillis() - time) + "";
         Log.e(TAG, payTime + "     ========================loadComplete: ========================  跳转到上次阅读的地方,总页数：" + nbPages);
-        if (book.getCurrentPage() > 0) {
-            binding.pdfView.jumpTo(book.getCurrentPage());
+        if (task.getCurrentPage() > 0) {
+//            binding.pdfView.jumpTo(task.getCurrentPage());
+            binding.progress.setText(task.getCurrentPage()+"/"+task.getTotalPage());
+            mHandler.sendEmptyMessageDelayed(0,1000);
         }
+
 //        PdfDocument.Meta meta=binding.pdfView.getDocumentMeta();
 //        List<PdfDocument.Bookmark> bookmarks=binding.pdfView.getTableOfContents();
 //       AccessibilityNodeProvider provider= binding.pdfView.getAccessibilityNodeProvider();
     }
+
+
+    private Handler mHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            binding.pdfView.jumpTo(book.getCurrentPage());
+        }
+    };
 }
