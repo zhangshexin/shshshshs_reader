@@ -37,8 +37,10 @@
     <string name="login_organization_unit">学校/单位</string>
     <string name="login_organization_no">学号/工号/帐号</string>
     <string name="login_pwd">密码</string>
+    <string name="login_pwd_reentry">确认密码</string>
     <string name="login_login">登录</string>
     <string name="login_switch">其他登录方式</string>
+    <string name="login_uname">请输入用户名</string>
     <!--书架-->
     <string name="booktrack">书架</string>
     <string name="booktrack_delete">删除</string>
@@ -66,5 +68,6 @@
     <!--网络提示语-->
     <string name="net_notify_fail">网络开小差了，稍后再试！</string>
     <string name="net_notify_success">我们收到了！</string>
+    <string name="net_service_fail">服务器离家出走了，稍后再试！</string>
 
 </resources>

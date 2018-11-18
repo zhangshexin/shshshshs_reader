@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <include
+            android:id="@+id/includetitle"
+            layout="@layout/layout_title" />
+
+        <EditText
+            android:id="@+id/setpwd_uname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="@string/login_uname"
+            android:inputType="textPersonName"
+            android:padding="8dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includetitle" />
+
+        <EditText
+            android:id="@+id/setpwd_pwd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="@string/login_pwd"
+            android:inputType="textPassword"
+            android:padding="8dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/setpwd_uname"
+            app:layout_constraintStart_toStartOf="@+id/setpwd_uname"
+            app:layout_constraintTop_toBottomOf="@+id/setpwd_uname" />
+
+        <EditText
+            android:id="@+id/setpwd_repwd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="@string/login_pwd_reentry"
+            android:inputType="textPassword"
+            android:padding="8dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/setpwd_pwd"
+            app:layout_constraintStart_toStartOf="@+id/setpwd_pwd"
+            app:layout_constraintTop_toBottomOf="@+id/setpwd_pwd" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

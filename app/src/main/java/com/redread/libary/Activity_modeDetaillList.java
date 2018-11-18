@@ -40,22 +40,23 @@ public class Activity_modeDetaillList extends BaseActivity implements View.OnCli
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this, R.layout.layout_model_list);
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_model_list);
         initView();
         loadData();
     }
 
     private Adapter_modelList adapter_modelList;
     private RecyclerViewUtil util;
-    private List<NetBeanBook> books=new ArrayList<>();
+    private List<NetBeanBook> books = new ArrayList<>();
     private NetBeanModel model;
+
     private void initView() {
 
         binding.include5.titleLeft.setOnClickListener(this);
 
-        util=new RecyclerViewUtil(this,binding.modelListList);
-        adapter_modelList=new Adapter_modelList(this,books);
-        LinearLayoutManager manager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        util = new RecyclerViewUtil(this, binding.modelListList);
+        adapter_modelList = new Adapter_modelList(this, books);
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         binding.modelListList.setLayoutManager(manager);
         binding.modelListList.setAdapter(adapter_modelList);
@@ -64,55 +65,65 @@ public class Activity_modeDetaillList extends BaseActivity implements View.OnCli
             @Override
             public void onItemClick(int position, View view) {
                 //显示图书详情
-                startActivity(Activity_bookDetail.class,Activity_bookDetail.EXTR_BOOK,model.getBooks().get(position));
-                overridePendingTransition(R.anim.bottom_in,R.anim.bottom_out);
+                startActivity(Activity_bookDetail.class, Activity_bookDetail.EXTR_BOOK, model.getBooks().get(position));
+                overridePendingTransition(R.anim.bottom_in, R.anim.bottom_out);
             }
         });
     }
-    public static String MODULE_ID="_moduleid";
+
+    public static String MODULE_ID = "_moduleid";
     private Call mCall;
 
 
-    private final int WHAT_SUCCESS=1;
-    private Handler mHandler=new Handler(){
+    private final int WHAT_SUCCESS = 1;
+    private final int WHAT_FAIL = -1;
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case WHAT_SUCCESS:
                     adapter_modelList.notifyDataSetChanged();
                     //设置标题
-                    String eTitle=model.getName();
+                    String eTitle = model.getName();
                     binding.include5.titleTitle.setText(eTitle);
                     binding.pb.setVisibility(View.GONE);
+                    break;
+                case WHAT_FAIL:
+                    showToast(R.string.net_service_fail);
+                    finish2();
                     break;
             }
         }
     };
 
-    private void loadData(){
-        String moduleId=getIntent().getStringExtra(MODULE_ID);
-        if(TextUtils.isEmpty(moduleId)){
+    private void loadData() {
+        String moduleId = getIntent().getStringExtra(MODULE_ID);
+        if (TextUtils.isEmpty(moduleId)) {
             finish2();
             return;
         }
-        Request request= Api.modelListGet(this,moduleId);
-        mCall= OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
+        Request request = Api.modelListGet(this, moduleId);
+        mCall = OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
         mCall.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                finish2();
+                mHandler.sendEmptyMessage(WHAT_FAIL);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                    String json=response.body().string();
-                    model= JSON.parseObject(json,NetBeanModel.class);
-                    books.addAll(model.getBooks());
-                    mHandler.sendEmptyMessage(WHAT_SUCCESS);
+                    String json = response.body().string();
+                    model = JSON.parseObject(json, NetBeanModel.class);
+                    if (model != null &&model.getBooks()!=null&& model.getBooks().size() > 0) {
+                        books.addAll(model.getBooks());
+                        mHandler.sendEmptyMessage(WHAT_SUCCESS);
+                    }else{
+                        mHandler.sendEmptyMessage(WHAT_FAIL);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    finish2();
+                    mHandler.sendEmptyMessage(WHAT_FAIL);
                 }
             }
         });
@@ -120,7 +131,7 @@ public class Activity_modeDetaillList extends BaseActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.title_left:
                 finish2();
                 break;

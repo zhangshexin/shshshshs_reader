@@ -56,6 +56,39 @@ public class Api {
     }
 
     /**
+     * 验证码登录
+     * name = "phone", value = "登录手机号",
+     * name = "kaptcha", value = "登录验证码
+     * @param mContext
+     * @param params
+     * @return
+     */
+    public static Request kaptchaLoginPost(Context mContext, HashMap params){
+        String paramsStr = paramToString(params);
+        MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
+        Request requestPost = new Request.Builder().url(baseUrl + "/deptLogin").post(requestBody).build();
+        return requestPost;
+    }
+
+    /**
+     * 设置密码
+     * name = "userIs", value = "用户id",
+     name = "username", value = "登录用户名",
+     name = "password", value = "登录密码",
+     name = "deptId", value = "机构Id(普通用户的机构id固定为1)"
+     * @param mContext
+     * @param params
+     * @return
+     */
+    public static Request setPasswordPost(Context mContext, HashMap params){
+        String paramsStr = paramToString(params);
+        MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
+        Request requestPost = new Request.Builder().url(baseUrl + "/deptLogin").post(requestBody).build();
+        return requestPost;
+    }
+    /**
      * 下载地址前缀
      */
     public static final String downUrl = baseUrl + "/reader/api/v1/download/";
@@ -92,7 +125,7 @@ public class Api {
      * 馆藏信息
      */
     public static Request libaryInfoGet() {
-        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/favorite/9").build();
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/favorite/1").build();
         return request;
     }
 

@@ -142,21 +142,34 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
         });
     }
 
+    private Call varCall;
+
+    /**
+     * 验证码登录
+     */
+    private void kaptchaLogin(){
+
+    }
+
 
     private Call mCall;
+
+    /**
+     * 普通用户帐号登录
+     */
     private void doLogin(){
         ableBtn(false);
-        Editable phoneNum=binding.loginGeneralPhone.getText();
+        Editable username=binding.loginGeneralPhone.getText();
         Editable pwd=binding.loginGeneralInputVerificationCode.getText();
-        if(TextUtils.isEmpty(phoneNum)||TextUtils.isEmpty(pwd))
+        if(TextUtils.isEmpty(username)||TextUtils.isEmpty(pwd))
         {
             ableBtn(true);
-            showToast("帐号和验证码为必填！");
+            showToast("帐号和密码不能为空！");
             return;
         }
 
         HashMap<String,String> params=new HashMap<>();
-        params.put("username",phoneNum.toString());
+        params.put("username",username.toString());
         params.put("password",pwd.toString());
         Request request=Api.loginPost(this,params);
         mCall= OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
@@ -173,7 +186,7 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
                 Log.e(TAG, "onResponse: 登录了"+ json);
                 //记录用户信息
                 //TODO
-                SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this,USER_NAME,phoneNum.toString());
+                SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this,USER_NAME,username.toString());
                 finish2();
             }
         });

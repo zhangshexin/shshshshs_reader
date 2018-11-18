@@ -142,7 +142,13 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                     binding.marqueeView.startWithList(info);
 
                     //专业阅读
-                    modelList.addAll(libaryInfo.getModelList());
+                    //没有子项的不要
+                    for (int k=0;k<libaryInfo.getModelList().size();k++){
+                      NetBeanModel netBeanModel=  libaryInfo.getModelList().get(k);
+                      if(netBeanModel.getBooks()!=null&&netBeanModel.getBooks().size()!=0){
+                          modelList.add(libaryInfo.getModelList().get(k));
+                      }
+                    }
                     adapter.notifyDataSetChanged();
                     break;
             }
@@ -194,12 +200,12 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                 startActivity(Activity_libarySearch.class);
                 break;
             case R.id.libary_newbook:
-                //去查看该模块的列表
-                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"9");
+                //去查看该模块的列表--新书上架
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"6");
                 break;
             case R.id.libary_themine:
-                //去查看该模块的列表
-                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"9");
+                //去查看该模块的列表--主题阅读
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"10");
                 break;
             case R.id.libary_typesearch://TODO
                 //去分类检索
@@ -208,7 +214,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
             case R.id.libary_notifydetail_bnt:
                 //去通知页
                 //TODO---暂不处理
-                startActivity(Activity_notifyList.class);
+//                startActivity(Activity_notifyList.class);
                 break;
             case R.id.cryImgNotify:
                 loadDataFromNet();
