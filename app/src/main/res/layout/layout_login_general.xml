@@ -121,6 +121,7 @@
             app:layout_constraintVertical_bias="0.615" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/login_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

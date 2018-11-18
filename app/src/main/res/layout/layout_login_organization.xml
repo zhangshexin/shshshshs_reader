@@ -12,7 +12,7 @@
             android:id="@+id/login_organization_include"
             layout="@layout/layout_title" />
 
-        <EditText
+        <TextView
             android:id="@+id/login_organization_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -28,6 +28,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_organization_include" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/down_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/login_organization_name"
+            app:layout_constraintEnd_toEndOf="@+id/login_organization_name"
+            app:layout_constraintTop_toTopOf="@+id/login_organization_name" />
 
         <EditText
             android:id="@+id/login_organization_no"
@@ -78,9 +86,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="其他登录方式"
-            android:textColor="?attr/colorPrimaryDark"
+            android:textColor="@color/red"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/login_organization_pwd"
             app:layout_constraintTop_toBottomOf="@+id/login_organization_pwd" />
+
+        <!--用于显示机构列表-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/deptList"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/login_organization_name"
+            app:layout_constraintStart_toStartOf="@+id/login_organization_name"
+            app:layout_constraintTop_toBottomOf="@+id/login_organization_name"></android.support.v7.widget.RecyclerView>
+
     </android.support.constraint.ConstraintLayout>
 </layout>

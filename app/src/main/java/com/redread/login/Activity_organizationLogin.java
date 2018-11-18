@@ -2,27 +2,35 @@ package com.redread.login;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.icu.text.RelativeDateTimeFormatter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
 import com.redread.R;
 import com.redread.base.BaseActivity;
 import com.redread.databinding.LayoutLoginOrganizationBinding;
+import com.redread.login.adapter.Adapter_dept;
 import com.redread.net.Api;
 import com.redread.net.OkHttpManager;
+import com.redread.net.netbean.NetBeanDept;
 import com.redread.rxbus.RxBus;
 import com.redread.rxbus.RxSubscriptions;
 import com.redread.rxbus.bean.FinishRX;
+import com.redread.utils.RecyclerViewUtil;
 import com.redread.utils.SharePreferenceUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -42,6 +50,8 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
     private String TAG = getClass().getName();
     private final int what_net_fail=1;//网络失败
     private final int what_success=2;
+    private final int what_success_dept=3;
+
     private Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -52,6 +62,10 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
                 case what_net_fail:
                     showToast("网络开小差了！");
                     break;
+                case what_success_dept:
+                    adapter_dept.notifyDataSetChanged();
+                    binding.loginOrganizationName.setText(depts.get(0).getName());
+                break;
             }
         }
     };
@@ -60,17 +74,36 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.layout_login_organization);
         initView();
+        loadDeptList();
     }
 
+    private List<NetBeanDept> depts=new ArrayList<>();
+    private Adapter_dept adapter_dept;
+    private int currentDept=0;//默认0
     private void initView() {
         binding.loginOrganizationInclude.titleLeft.setOnClickListener(this);
         binding.loginOrganizationInclude.titleTitle.setText(getTitle().toString());
         binding.loginOrganizationLogin.setOnClickListener(this);
-        binding.loginOrganizationName.setVisibility(View.INVISIBLE);
         binding.loginOrganizationInclude.titleLeft.setVisibility(View.INVISIBLE);
 
+        adapter_dept=new Adapter_dept(this,depts);
+        LinearLayoutManager manager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        binding.deptList.setLayoutManager(manager);
+        binding.deptList.setAdapter(adapter_dept);
+        RecyclerViewUtil util=new RecyclerViewUtil(this,binding.deptList);
+        util.setOnItemClickListener(new RecyclerViewUtil.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View view) {
+               binding.loginOrganizationName.setText(depts.get(position).getName());;
+               currentDept=position;
+               binding.deptList.setVisibility(View.GONE);
+            }
+        });
+        binding.loginOrganizationName.setOnClickListener(this);
         binding.loginOrganizationNo.setText("admin");
         binding.loginOrganizationPwd.setText("111111");
+
+        binding.loginOrganizationOther.setOnClickListener(this);
     }
 
     @Override
@@ -86,6 +119,10 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
                 //去普通用户登录
                 startActivity(Activity_generalLogin.class);
                 break;
+            case R.id.login_organization_name:
+                binding.deptList.setVisibility(binding.deptList.getVisibility()==View.VISIBLE?View.GONE:View.VISIBLE);
+                break;
+
         }
     }
 
@@ -104,6 +141,7 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
         HashMap<String, String> params = new HashMap<>();
         params.put("username", phoneNum.toString());
         params.put("password", pwd.toString());
+        params.put("deptId",depts.get(currentDept).getId()+"");
         Request request = Api.loginPost(this, params);
         mCall = OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
         mCall.enqueue(new Callback() {
@@ -179,4 +217,31 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
         RxSubscriptions.remove(mSubscription);
     }
 
+    private Call mCall2;
+    /**
+     * 取机构列表
+     */
+    private void loadDeptList(){
+        Request request = Api.deptListGet();
+        mCall2 = OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
+        mCall2.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: 取机构列表失败了" + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String json = response.body().string();
+                    Log.e(TAG, "onResponse: 取机构列表了" + json);
+                    List<NetBeanDept> temp= JSON.parseArray(json,NetBeanDept.class);
+                    depts.addAll(temp);
+                    myHandler.sendEmptyMessage(what_success_dept);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

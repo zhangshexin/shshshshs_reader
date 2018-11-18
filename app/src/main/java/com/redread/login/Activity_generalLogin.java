@@ -80,7 +80,7 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
     }
 
     private void initView() {
-        binding.loginGeneralInclude.titleLeft.setVisibility(View.INVISIBLE);
+//        binding.loginGeneralInclude.titleLeft.setVisibility(View.INVISIBLE);
         binding.loginGeneralInclude.titleLeft.setOnClickListener(this);
         binding.loginGeneralInclude.titleTitle.setText(getTitle().toString());
         binding.loginGeneralVerificationCode.setOnClickListener(this);
@@ -96,10 +96,11 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.title_left:
-//                finish2();
+                finish2();
                 break;
             case R.id.login_general_verification_code://获取验证码,倒计时
                 myHandler.sendEmptyMessage(what_code);
+            getCode();
                 break;
             case R.id.login_switch:
                 startActivity(Activity_organizationLogin.class);
@@ -108,6 +109,37 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
                 doLogin();
                 break;
         }
+    }
+
+    private Call codeCall;
+    /**
+     * 取验证码
+     */
+    private void getCode() {
+        HashMap<String,String> params=new HashMap<>();
+        Editable phoneNum=binding.loginGeneralPhone.getText();
+        if(TextUtils.isEmpty(phoneNum))
+        {
+            ableBtn(true);
+            showToast("帐号不能为空");
+            return;
+        }
+        params.put("phone",phoneNum.toString());
+        Request request=Api.loginPost(this,params);
+        mCall= OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
+        mCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: 取验证码失败"+ e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json=response.body().string();
+                Log.e(TAG, "onResponse: 取验证码了"+ json);
+                //TODO
+            }
+        });
     }
 
 
@@ -145,16 +177,6 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
                 finish2();
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        //回home
-        Intent intent = new Intent();
-        // 为Intent设置Action、Category属性
-        intent.setAction(Intent.ACTION_MAIN);// "android.intent.action.MAIN"
-        intent.addCategory(Intent.CATEGORY_HOME); //"android.intent.category.HOME"
-        startActivity(intent);
     }
 
     /**

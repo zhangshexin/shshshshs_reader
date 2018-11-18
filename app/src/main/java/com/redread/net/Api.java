@@ -18,7 +18,7 @@ public class Api {
     public static final String baseUrl = "http://47.95.111.63:9999";
 
     /**
-     * 登录
+     * 普通登录
      * <p>
      * params:username,password
      */
@@ -27,6 +27,31 @@ public class Api {
         MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
         RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
         Request requestPost = new Request.Builder().url(baseUrl + "/login").post(requestBody).build();
+        return requestPost;
+    }
+
+    /**
+     * 生成验证码
+     * @param mContext
+     * @param params
+     * @return
+     */
+    public static Request codeGenPost(Context mContext, HashMap params){
+        String paramsStr = paramToString(params);
+        MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
+        Request requestPost = new Request.Builder().url(baseUrl + "/kaptcha").post(requestBody).build();
+        return requestPost;
+    }
+
+    /**
+     * 机构登录
+     */
+    public static Request deptLoginPost(Context mContext, HashMap params) {
+        String paramsStr = paramToString(params);
+        MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
+        Request requestPost = new Request.Builder().url(baseUrl + "/deptLogin").post(requestBody).build();
         return requestPost;
     }
 
@@ -92,6 +117,15 @@ public class Api {
         return request;
     }
 
+
+    /**
+     * 查询机构列表
+     * @return
+     */
+    public static Request deptListGet(){
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/dept" ).build();
+        return request;
+    }
     /**
      * 拼接参数
      *
