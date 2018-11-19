@@ -61,7 +61,8 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
                     }
                     break;
                 case 1:
-                    GlideUtils.glideLoader2(Activity_splash.this, Constant.picture + "/splash.jpg", R.drawable.ad, R.drawable.ad, binding.splashImg);
+                    GlideUtils.LoadImageWithSize(Activity_splash.this, Constant.picture + "/splash.jpg",800,1240,binding.splashImg);
+//                    GlideUtils.glideLoader2(Activity_splash.this, Constant.picture + "/splash.jpg", R.drawable.ad, R.drawable.ad, binding.splashImg);
                     mHandler.sendEmptyMessageDelayed(0, 1000);
                     break;
             }
@@ -76,7 +77,7 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
         binding.circleIndicator.setOnClickListener(this);
         File splashFile = new File(Constant.picture + "/splash.jpg");
         if (splashFile.exists()) {
-            GlideUtils.glideLoader2(this, Constant.picture + "/splash.jpg", R.drawable.ad, R.drawable.ad, binding.splashImg);
+            GlideUtils.LoadImageWithSize(this, Constant.picture + "/splash.jpg", 800,1240, binding.splashImg);
         } else {
             GlideUtils.LoadImageWithLocation(this, R.drawable.ad, binding.splashImg);
         }
