@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -26,21 +27,20 @@ public class Api {
         String paramsStr = paramToString(params);
         MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
         RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
-        Request requestPost = new Request.Builder().url(baseUrl + "/login").post(requestBody).build();
+        Request requestPost = new Request.Builder().url(baseUrl + "/reader/api/v1/login").post(requestBody).build();
         return requestPost;
     }
 
     /**
      * 生成验证码
+     *
      * @param mContext
-     * @param params
      * @return
      */
-    public static Request codeGenPost(Context mContext, HashMap params){
-        String paramsStr = paramToString(params);
+    public static Request codeGenPost(Context mContext, String phone) {
         MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
-        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
-        Request requestPost = new Request.Builder().url(baseUrl + "/kaptcha").post(requestBody).build();
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, "phone=" + phone);
+        Request requestPost = new Request.Builder().url(baseUrl + "/reader/api/v1/kaptcha").post(requestBody).build();
         return requestPost;
     }
 
@@ -51,7 +51,7 @@ public class Api {
         String paramsStr = paramToString(params);
         MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
         RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
-        Request requestPost = new Request.Builder().url(baseUrl + "/deptLogin").post(requestBody).build();
+        Request requestPost = new Request.Builder().url(baseUrl + "/reader/api/v1/deptLogin").post(requestBody).build();
         return requestPost;
     }
 
@@ -59,35 +59,42 @@ public class Api {
      * 验证码登录
      * name = "phone", value = "登录手机号",
      * name = "kaptcha", value = "登录验证码
+     *
      * @param mContext
      * @param params
      * @return
      */
-    public static Request kaptchaLoginPost(Context mContext, HashMap params){
+    public static Request kaptchaLoginPost(Context mContext,HashMap params, String phone, String kaptcha) {
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("phone", phone)
+//                .add("kaptcha", kaptcha)
+//                .build();
         String paramsStr = paramToString(params);
         MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
         RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
-        Request requestPost = new Request.Builder().url(baseUrl + "/deptLogin").post(requestBody).build();
+        Request requestPost = new Request.Builder().url(baseUrl + "/reader/api/v1/kaptchaLogin").post(requestBody).build();
         return requestPost;
     }
 
     /**
      * 设置密码
-     * name = "userIs", value = "用户id",
-     name = "username", value = "登录用户名",
-     name = "password", value = "登录密码",
-     name = "deptId", value = "机构Id(普通用户的机构id固定为1)"
+     * name = "userId", value = "用户id",
+     * name = "username", value = "登录用户名",
+     * name = "password", value = "登录密码",
+     * name = "deptId", value = "机构Id(普通用户的机构id固定为1)"
+     *
      * @param mContext
      * @param params
      * @return
      */
-    public static Request setPasswordPost(Context mContext, HashMap params){
+    public static Request setPasswordPost(Context mContext, HashMap params) {
         String paramsStr = paramToString(params);
         MediaType MEDIA_TYPE_NORAML_FORM = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
         RequestBody requestBody = RequestBody.create(MEDIA_TYPE_NORAML_FORM, paramsStr);
-        Request requestPost = new Request.Builder().url(baseUrl + "/deptLogin").post(requestBody).build();
+        Request requestPost = new Request.Builder().url(baseUrl + "/reader/api/v1/setPassword").post(requestBody).build();
         return requestPost;
     }
+
     /**
      * 下载地址前缀
      */
@@ -153,12 +160,14 @@ public class Api {
 
     /**
      * 查询机构列表
+     *
      * @return
      */
-    public static Request deptListGet(){
-        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/dept" ).build();
+    public static Request deptListGet() {
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/dept").build();
         return request;
     }
+
     /**
      * 拼接参数
      *
@@ -172,7 +181,7 @@ public class Api {
             Map.Entry ent = (Map.Entry) iterator.next();
             url = url + ent.getKey().toString() + "=" + ent.getValue().toString() + "&";
         }
-        return url;
+        return url.substring(0, url.length() - 1);
     }
 //    /**
 //     * 手机号查重接口

@@ -14,6 +14,15 @@ import java.util.List;
  */
 
 public class Constant {
+    public static String USER_ID_INT="user_id";
+    public static String USER_NAME_STR="user_name";
+    public static String USER_TOKEN_STR="user_token";
+    public static String USER_DEPTID_INT="user_dept_id";//机构id
+
+
+
+
+
     /**
      * 失败
      */

@@ -21,90 +21,6 @@
             app:layout_constraintEnd_toEndOf="@+id/login_general_include"
             app:layout_constraintStart_toStartOf="@+id/login_general_include" />
 
-        <LinearLayout
-            android:id="@+id/login_general_phone_lay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginTop="40dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_general_include">
-
-            <ImageView
-                android:id="@+id/icon_login_account"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="8dp"
-                android:src="@drawable/icon_login_account" />
-
-            <EditText
-                android:id="@+id/login_general_phone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="@string/login_phone"
-                android:inputType="textPersonName"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_general_phone_lay">
-
-            <ImageView
-                android:id="@+id/icon_login_pwd"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="8dp"
-                android:src="@drawable/icon_login_pwd" />
-
-            <EditText
-                android:id="@+id/login_general_input_verification_code"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="@string/login_input_verification_code"
-                android:inputType="textPersonName"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/login_general_verification_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/drawable_rectangle_red"
-                android:paddingBottom="3dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="3dp"
-                android:text="@string/login_verification_code"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
-        </LinearLayout>
-
         <TextView
             android:id="@+id/login_general_login"
             android:layout_width="wrap_content"
@@ -114,23 +30,117 @@
             android:padding="5dp"
             android:text="@string/login_login"
             android:textColor="@color/red"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="@+id/login_general_include"
             app:layout_constraintTop_toTopOf="@+id/login_general_include"
             app:layout_constraintVertical_bias="0.615" />
 
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/login_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/login_switch"
-            android:textColor="@color/red"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_general_include">
+
+            <LinearLayout
+                android:id="@+id/login_general_phone_lay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/icon_login_account"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/icon_login_account" />
+
+                <EditText
+                    android:id="@+id/login_general_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:hint="@string/login_uname"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_general_phone_lay">
+
+                <ImageView
+                    android:id="@+id/icon_login_pwd"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/icon_login_pwd" />
+
+                <EditText
+                    android:id="@+id/login_general_input_verification_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:ems="10"
+                    android:hint="@string/login_pwd"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/login_general_verification_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/drawable_rectangle_red"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:visibility="gone"
+                    android:paddingRight="5dp"
+                    android:paddingTop="3dp"
+                    android:text="@string/login_verification_code"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/login_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/login_switch_varcode"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

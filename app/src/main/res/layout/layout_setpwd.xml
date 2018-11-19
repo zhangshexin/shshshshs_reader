@@ -10,11 +10,36 @@
         <include
             android:id="@+id/includetitle"
             layout="@layout/layout_title" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@+id/includetitle"
+            app:layout_constraintEnd_toEndOf="@+id/includetitle"
+            app:layout_constraintStart_toStartOf="@+id/includetitle" />
+
+        <TextView
+            android:id="@+id/login_general_setpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:padding="5dp"
+            android:text="@string/login_register_setpwd"
+            android:textColor="@color/red"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="@+id/includetitle"
+            app:layout_constraintTop_toTopOf="@+id/includetitle"
+            app:layout_constraintVertical_bias="0.615" />
 
         <EditText
             android:id="@+id/setpwd_uname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@color/white"
             android:ems="10"

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.redread.R;
 import com.redread.base.BaseActivity;
 import com.redread.databinding.LayoutLoginOrganizationBinding;
@@ -24,6 +25,7 @@ import com.redread.net.netbean.NetBeanDept;
 import com.redread.rxbus.RxBus;
 import com.redread.rxbus.RxSubscriptions;
 import com.redread.rxbus.bean.FinishRX;
+import com.redread.utils.Constant;
 import com.redread.utils.RecyclerViewUtil;
 import com.redread.utils.SharePreferenceUtil;
 
@@ -57,10 +59,10 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case what_success:
-                    closeOtherLogin();
                     break;
                 case what_net_fail:
-                    showToast("网络开小差了！");
+                    ableBtn(true);
+                    showToast(loginMsg);
                     break;
                 case what_success_dept:
                     adapter_dept.notifyDataSetChanged();
@@ -100,8 +102,8 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
             }
         });
         binding.loginOrganizationName.setOnClickListener(this);
-        binding.loginOrganizationNo.setText("admin");
-        binding.loginOrganizationPwd.setText("111111");
+        binding.loginOrganizationNo.setText("18149040053");
+        binding.loginOrganizationPwd.setText("123456");
 
         binding.loginOrganizationOther.setOnClickListener(this);
     }
@@ -126,6 +128,7 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
         }
     }
 
+    private String loginMsg;
     private Call mCall;
 
     private void doLogin() {
@@ -142,23 +145,36 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
         params.put("username", phoneNum.toString());
         params.put("password", pwd.toString());
         params.put("deptId",depts.get(currentDept).getId()+"");
-        Request request = Api.loginPost(this, params);
+        Request request = Api.deptLoginPost(this, params);
         mCall = OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
         mCall.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                loginMsg=getString(R.string.net_notify_fail);
                 myHandler.sendEmptyMessage(what_net_fail);
-                ableBtn(true);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String json = response.body().string();
-                Log.e(TAG, "onResponse: 登录了" + json);
-                //记录用户信息
-                //TODO
-                SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Activity_generalLogin.USER_NAME, phoneNum.toString());
-                finish2();
+                String json=response.body().string();
+                Log.e(TAG, "onResponse: 登录了"+ json);
+                JSONObject jsonObject=JSON.parseObject(json);
+                if(jsonObject.containsKey("msg")){
+                    //失败
+                    loginMsg=jsonObject.getString("msg");
+                    myHandler.sendEmptyMessage(what_net_fail);
+                }else{
+                    //记录用户信息
+                    //TODO
+                    SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Constant.USER_ID_INT,jsonObject.getInteger("id"));
+                    SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Constant.USER_TOKEN_STR,jsonObject.getString("token"));
+                    SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Constant.USER_DEPTID_INT,jsonObject.getString("deptId"));
+                    SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Constant.USER_NAME_STR,jsonObject.getString("userNickname"));
+                    FinishRX finishRX=new FinishRX();
+                    finishRX.setWhat(FinishRX.ActivityName.generalLogin);
+                    RxBus.getDefault().post(finishRX);
+                    finish2();
+                }
             }
         });
     }
@@ -189,12 +205,7 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
         myHandler.removeMessages(what_success);
     }
 
-    private void closeOtherLogin() {
-        FinishRX finishRX = new FinishRX();
-        finishRX.setWhat(FinishRX.ActivityName.organizationLogin);
-        RxBus.getDefault().post(finishRX);
-        finish2();
-    }
+
     private Subscription mSubscription;
     @Override
     public void registerRxBus() {
@@ -203,7 +214,7 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
                 .subscribe(new Action1<FinishRX>() {
                     @Override
                     public void call(FinishRX what) {
-                        if (what.getWhat().getCode() == 1)
+                        if (what.getWhat().getCode() == 0)
                             finish();
                     }
                 });

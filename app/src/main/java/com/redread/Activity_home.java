@@ -19,6 +19,7 @@ import com.redread.login.Activity_generalLogin;
 import com.redread.login.Activity_organizationLogin;
 import com.redread.publish.Fragment_publish;
 import com.redread.setting.Activity_setting;
+import com.redread.utils.Constant;
 import com.redread.utils.SharePreferenceUtil;
 
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class Activity_home extends BaseActivity implements ViewPager.OnPageChang
     }
     //判断是否已登录，没登录跳转登录
     private void checkLogin() {
-        String userName= (String)SharePreferenceUtil.getSimpleData(this,Activity_generalLogin.USER_NAME,"null");
+        String userName= (String)SharePreferenceUtil.getSimpleData(this, Constant.USER_NAME_STR,"null");
         if(TextUtils.isEmpty(userName)||userName.equals("null")){
             startActivity(Activity_organizationLogin.class);
         }

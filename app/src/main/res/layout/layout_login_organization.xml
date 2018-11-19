@@ -75,7 +75,7 @@
             android:padding="5dp"
             android:text="@string/login_login"
             android:textColor="@color/red"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/login_organization_include"
             app:layout_constraintEnd_toEndOf="@+id/login_organization_include"
             app:layout_constraintTop_toTopOf="@+id/login_organization_include" />
