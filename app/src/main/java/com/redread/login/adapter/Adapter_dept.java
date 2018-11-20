@@ -10,7 +10,6 @@ import com.redread.base.BaseRecycelAdapter;
 import com.redread.base.BaseViewHolder;
 import com.redread.databinding.LayoutTypesearchCellBinding;
 import com.redread.net.netbean.NetBeanDept;
-import com.redread.net.netbean.NetBeanType;
 
 import java.util.List;
 

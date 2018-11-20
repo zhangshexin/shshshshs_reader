@@ -1,5 +1,6 @@
 package com.redread.libary;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,8 +17,8 @@ import com.redread.databinding.LayoutTypesearchBinding;
 import com.redread.libary.adapter.Adapter_typeSearch;
 import com.redread.net.Api;
 import com.redread.net.OkHttpManager;
-import com.redread.net.netbean.NetBeanModel;
-import com.redread.net.netbean.NetBeanType;
+import com.redread.net.netbean.NetBeanKind;
+import com.redread.net.netbean.NetBeanKindPage;
 import com.redread.utils.RecyclerViewUtil;
 
 import java.io.IOException;
@@ -72,8 +73,12 @@ public class Activity_typeSearch extends BaseActivity implements View.OnClickLis
         typeContentClickUtil.setOnItemClickListener(new RecyclerViewUtil.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
+                NetBeanKind kind=littleTypeList.get(position);
                 //类型内容单击，跳转到内容列表
-                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"9");
+                Intent intent=new Intent(Activity_typeSearch.this,Activity_modeDetaillList.class);
+                intent.putExtra(Activity_modeDetaillList.IS_KIND_BOOK,true);
+                intent.putExtra(Activity_modeDetaillList.MODULE_ID,kind.getId());
+                startActivity(intent);
             }
         });
 
@@ -104,9 +109,9 @@ public class Activity_typeSearch extends BaseActivity implements View.OnClickLis
     }
     private int clickPositon=0;
     //大类列表
-    private List<NetBeanType> bigTypeList=new ArrayList<>();
+    private List<NetBeanKind> bigTypeList=new ArrayList<>();
     //小类列表
-    private List<NetBeanType> littleTypeList=new ArrayList<>();
+    private List<NetBeanKind> littleTypeList=new ArrayList<>();
 
     private final int what_bigType_success=0;//大类加载成功
     private final int what_bigType_fail=1;//大类加载失败
@@ -159,8 +164,8 @@ public class Activity_typeSearch extends BaseActivity implements View.OnClickLis
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     String json=response.body().string();
-                    List<NetBeanType> temp=JSON.parseArray(json,NetBeanType.class);
-                    bigTypeList.addAll(temp);
+                    NetBeanKindPage temp=JSON.parseObject(json,NetBeanKindPage.class);
+                    bigTypeList.addAll(temp.getPageData());
                     mHandler.sendEmptyMessage(what_bigType_success);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -188,9 +193,9 @@ public class Activity_typeSearch extends BaseActivity implements View.OnClickLis
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     String json=response.body().string();
-                    NetBeanType temp=JSON.parseObject(json,NetBeanType.class);
+                    NetBeanKind temp=JSON.parseObject(json,NetBeanKind.class);
                     littleTypeList.clear();
-                    littleTypeList.addAll(temp.getSubKindList());
+                    littleTypeList.addAll(temp.getPageSubKindList().getPageData());
                     mHandler.sendEmptyMessage(what_littleType_success);
                 } catch (IOException e) {
                     e.printStackTrace();

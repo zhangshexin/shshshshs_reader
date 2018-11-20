@@ -112,8 +112,8 @@ public class Api {
     /**
      * 模块详情
      */
-    public static Request modelListGet(Context mContext, String modelId) {
-        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/module/" + modelId).build();
+    public static Request modelListGet(int modelId,int offset,int pageCount) {
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/module/" + modelId+"?limit="+pageCount+"&offset="+offset+"&order=asc").build();
         return request;
     }
 
@@ -138,26 +138,41 @@ public class Api {
 
     /**
      * 大类
-     *
+     * 有分页
      * @return
      */
     public static Request typeBigGet() {
-        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/kind").build();
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/kind?limit=100&offset=0&order=asc&sort=scode").build();
         return request;
     }
 
     /**
      * 小类
-     *
+     * 有分页
      * @param id
      * @return
      */
     public static Request typeLittleGet(String id) {
-        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/kind/" + id).build();
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/kind/" + id+"?limit=100&offset=0&order=asc&sort=scode").build();
         return request;
     }
 
 
+    /**
+     * 获取分类号下书籍信息
+     */
+    public static Request kindBookGet(int id,int offset,int pageCount){
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/kindBook/" + id+"?limit="+pageCount+"&offset="+offset+"&order=asc").build();
+        return request;
+    }
+
+    /**
+     * 搜索
+     */
+    public static Request searchBookGet(String bookName,int offset,int pageCount){
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/searchBook/keyword" + bookName+"?limit="+pageCount+"&offset="+offset+"&order=asc").build();
+        return request;
+    }
     /**
      * 查询机构列表
      *

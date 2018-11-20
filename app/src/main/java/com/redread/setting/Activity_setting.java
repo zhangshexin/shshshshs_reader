@@ -8,6 +8,7 @@ import android.view.View;
 import com.redread.R;
 import com.redread.base.BaseActivity;
 import com.redread.databinding.LayoutSettingBinding;
+import com.redread.utils.Constant;
 import com.redread.utils.SharePreferenceUtil;
 
 /**
@@ -41,6 +42,8 @@ public class Activity_setting extends BaseActivity implements View.OnClickListen
             case R.id.percenter_cancel:
                 //退出登录
                 SharePreferenceUtil.clearAll(this);
+                //非首次使标记要加上
+                SharePreferenceUtil.saveSimpleData(this, Constant.KEY_BOOLEAN_FIRST_USE, false);
                 finish2();
                 break;
         }

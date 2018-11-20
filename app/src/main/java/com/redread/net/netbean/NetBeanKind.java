@@ -1,6 +1,5 @@
 package com.redread.net.netbean;
 
-import java.util.List;
 
 /**
  * Created by zhangshexin on 2018/10/8.
@@ -8,21 +7,21 @@ import java.util.List;
  * 中图分类-类型
  */
 
-public class NetBeanType {
+public class NetBeanKind {
 
-    private Long id;//": 10537,
+    private int id;//": 10537,
     private String name;//": "综合性图书",
     private String scode;//": "Z",
     private String ccode;//": "021000000000000000",
     private String type;//": "1",
-    private List<NetBeanType> subKindList;
+    private NetBeanKindPage pageSubKindList;
 
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -58,11 +57,11 @@ public class NetBeanType {
         this.type = type;
     }
 
-    public List<NetBeanType> getSubKindList() {
-        return subKindList;
+    public NetBeanKindPage getPageSubKindList() {
+        return pageSubKindList;
     }
 
-    public void setSubKindList(List<NetBeanType> subKindList) {
-        this.subKindList = subKindList;
+    public void setPageSubKindList(NetBeanKindPage pageSubKindList) {
+        this.pageSubKindList = pageSubKindList;
     }
 }

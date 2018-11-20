@@ -93,7 +93,7 @@ public class Adapter_libaryModel extends BaseRecycelAdapter<BaseViewHolder> {
      */
     public void goModelDetailList(int position) {
         Intent goModelIntent = new Intent(mContext, Activity_modeDetaillList.class);
-        goModelIntent.putExtra(Activity_modeDetaillList.MODULE_ID, models.get(position).getId()+"");
+        goModelIntent.putExtra(Activity_modeDetaillList.MODULE_ID, models.get(position).getId());
         mContext.startActivity(goModelIntent);
     }
 }

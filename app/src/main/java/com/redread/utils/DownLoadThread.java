@@ -28,6 +28,29 @@ import java.util.concurrent.Executors;
  */
 
 public class DownLoadThread {
+
+    /**
+     * 将封面的url转在本地存储路径
+     * @param coverUrl 从数据库取出
+     * @return
+     */
+    public static String converCoverDir(String coverUrl){
+        String cu=coverUrl.substring(coverUrl.lastIndexOf("/")==-1?0:coverUrl.lastIndexOf("/"));
+        return Constant.picture+cu;
+    }
+
+
+    /**
+     * 将书的url转在本地存储路径
+     * @param bookUrl 从数据库取出
+     * @return
+     */
+    public static String converBookDir(String bookUrl){
+        String cu=bookUrl.substring(bookUrl.lastIndexOf("/")==-1?0:bookUrl.lastIndexOf("/"));
+        return Constant.bookPath+cu;
+    }
+
+
     private String TAG = getClass().getName();
     private static DownLoadThread instance;
 
@@ -135,8 +158,8 @@ public class DownLoadThread {
                                 resTask.setDownProgress(currentLength);
                                 if (resTask.getDataLongth() == 0)//这个只设置一次，因为用了断点下载不能重复设置
                                     resTask.setDataLongth(totalLength);
-                                resTask.setBookDir(Constant.bookPath + resTask.getUrl());//写入封面的本地路径
-                                resTask.setCoverDir(Constant.picture + resTask.getCoverUrl());//写入文件的本地路径
+                                resTask.setBookDir(converCoverDir(resTask.getUrl()));//写入封面的本地路径
+                                resTask.setCoverDir(converBookDir(resTask.getCoverUrl()));//写入文件的本地路径
 
                                 switch (resTask.getStatus()) {
                                     case Constant.DOWN_STATUS_WAIT://等待下载

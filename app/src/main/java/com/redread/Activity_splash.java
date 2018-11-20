@@ -52,6 +52,7 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
             switch (msg.what) {
                 case 0:
                     if (plus > 5) {
+                        mHandler.removeMessages(1);
                         Intent intent = new Intent(Activity_splash.this, Activity_home.class);
                         startActivity(intent);
                         finish();
@@ -61,9 +62,13 @@ public class Activity_splash extends BaseActivity implements View.OnClickListene
                     }
                     break;
                 case 1:
-                    GlideUtils.LoadImageWithSize(Activity_splash.this, Constant.picture + "/splash.jpg",801,1241,binding.splashImg);
+                    try {
+                        GlideUtils.LoadImageWithSize(Activity_splash.this, Constant.picture + "/splash.jpg",801,1241,binding.splashImg);
 //                    GlideUtils.glideLoader(Activity_splash.this, Constant.picture + "/splash.jpg", R.drawable.ad, R.drawable.ad, binding.splashImg);
-                    mHandler.sendEmptyMessageDelayed(0, 1000);
+                        mHandler.sendEmptyMessageDelayed(0, 1000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
         }

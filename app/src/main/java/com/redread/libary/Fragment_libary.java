@@ -117,6 +117,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                     //显示失败提示，收起加载提示
                     binding.loadingPb.setVisibility(View.GONE);
                     binding.cryImgNotify.setVisibility(View.VISIBLE);
+                    binding.cryImgNotifyText.setVisibility(View.VISIBLE);
                     break;
                 case what_net_success:
                     //直接收起失败布局
@@ -161,7 +162,10 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
      * 从网络请求数据
      */
     private void loadDataFromNet() {
+        binding.loadingPb.setVisibility(View.VISIBLE);
+        binding.cryImgNotify.setVisibility(View.GONE);
         binding.cryImgNotify.setClickable(false);
+        binding.cryImgNotifyText.setVisibility(View.GONE);
         Request request= Api.libaryInfoGet();
         mCall= OkHttpManager.getInstance(mContext).getmOkHttpClient().newCall(request);
         mCall.enqueue(new Callback() {
@@ -201,11 +205,11 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.libary_newbook:
                 //去查看该模块的列表--新书上架
-                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"6");
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,6);
                 break;
             case R.id.libary_themine:
                 //去查看该模块的列表--主题阅读
-                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,"10");
+                startActivity(Activity_modeDetaillList.class,Activity_modeDetaillList.MODULE_ID,10);
                 break;
             case R.id.libary_typesearch://TODO
                 //去分类检索
