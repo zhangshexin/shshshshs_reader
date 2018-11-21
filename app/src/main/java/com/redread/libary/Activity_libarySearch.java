@@ -63,7 +63,7 @@ public class Activity_libarySearch extends BaseActivity {
         util.setOnItemClickListener(new RecyclerViewUtil.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                startActivity(Activity_bookDetail.class);
+                startActivity(Activity_bookDetail.class, Activity_bookDetail.EXTR_BOOK, searchResultList.get(position));
                 overridePendingTransition(R.anim.bottom_in, R.anim.bottom_out);
             }
         });
