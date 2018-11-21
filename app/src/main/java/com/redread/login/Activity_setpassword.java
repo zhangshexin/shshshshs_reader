@@ -48,7 +48,7 @@ public class Activity_setpassword extends BaseActivity implements View.OnClickLi
 
     private void iniView() {
         binding.includetitle.titleLeft.setOnClickListener(this);
-        binding.includetitle.titleRight.setOnClickListener(this);
+        binding.loginGeneralSetpwd.setOnClickListener(this);
         binding.includetitle.titleTitle.setText(getTitle());
 
     }
@@ -59,7 +59,7 @@ public class Activity_setpassword extends BaseActivity implements View.OnClickLi
             case R.id.title_left:
                 finish2();
                 break;
-            case R.id.title_right:
+            case R.id.login_general_setpwd:
                 doSetPwd();
                 break;
         }
@@ -149,5 +149,6 @@ public class Activity_setpassword extends BaseActivity implements View.OnClickLi
 
     private void lockRightBtn(boolean lock) {
         binding.includetitle.titleRight.setClickable(!lock);
+        binding.setpwdPb.setVisibility(lock?View.VISIBLE:View.GONE);
     }
 }

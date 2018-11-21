@@ -182,7 +182,7 @@ public class Api {
      * @return
      */
     public static Request deptListGet() {
-        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/dept").build();
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/dept?limit=100&offset=0&order=asc").build();
         return request;
     }
 

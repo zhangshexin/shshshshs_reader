@@ -182,7 +182,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                     Log.e(TAG, "onResponse:页面信息"+ json);
                     libaryInfo= JSON.parseObject(json,NetBeanLibary.class);
                     mHandler.sendEmptyMessage(what_net_success);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     //不管怎样，反正错了，提示吧
                     mHandler.sendEmptyMessage(what_net_faile);

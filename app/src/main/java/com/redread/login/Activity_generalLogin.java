@@ -234,7 +234,7 @@ public class Activity_generalLogin extends BaseActivity implements View.OnClickL
                     //TODO
                     SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this, Constant.USER_ID_INT,jsonObject.getInteger("id"));
                     SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this, Constant.USER_TOKEN_STR,jsonObject.getString("token"));
-                    SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this, Constant.USER_DEPTID_INT,jsonObject.getString("deptId"));
+                    SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this, Constant.USER_DEPTID_INT,jsonObject.getInteger("deptId"));
                     SharePreferenceUtil.saveSimpleData(Activity_generalLogin.this, Constant.USER_NAME_STR,jsonObject.getString("userNickname"));
                     FinishRX finishRX=new FinishRX();
                     finishRX.setWhat(FinishRX.ActivityName.organizationLogin);

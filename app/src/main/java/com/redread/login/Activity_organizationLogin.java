@@ -22,6 +22,7 @@ import com.redread.login.adapter.Adapter_dept;
 import com.redread.net.Api;
 import com.redread.net.OkHttpManager;
 import com.redread.net.netbean.NetBeanDept;
+import com.redread.net.netbean.NetBeanDeptPage;
 import com.redread.rxbus.RxBus;
 import com.redread.rxbus.RxSubscriptions;
 import com.redread.rxbus.bean.FinishRX;
@@ -53,6 +54,7 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
     private final int what_net_fail=1;//网络失败
     private final int what_success=2;
     private final int what_success_dept=3;
+    private final int what_fail_dept=4;
 
     private Handler myHandler = new Handler() {
         @Override
@@ -67,7 +69,10 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
                 case what_success_dept:
                     adapter_dept.notifyDataSetChanged();
                     binding.loginOrganizationName.setText(depts.get(0).getName());
-                break;
+                    break;
+                case what_fail_dept:
+                    binding.loginOrganizationName.setClickable(true);
+                    break;
             }
         }
     };
@@ -122,7 +127,11 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
                 startActivity(Activity_generalLogin.class);
                 break;
             case R.id.login_organization_name:
-                binding.deptList.setVisibility(binding.deptList.getVisibility()==View.VISIBLE?View.GONE:View.VISIBLE);
+                if(depts.size()==0){
+                    loadDeptList();
+                }else {
+                    binding.deptList.setVisibility(binding.deptList.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                }
                 break;
 
         }
@@ -168,7 +177,7 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
                     //TODO
                     SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Constant.USER_ID_INT,jsonObject.getInteger("id"));
                     SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Constant.USER_TOKEN_STR,jsonObject.getString("token"));
-                    SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Constant.USER_DEPTID_INT,jsonObject.getString("deptId"));
+                    SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Constant.USER_DEPTID_INT,jsonObject.getInteger("deptId"));
                     SharePreferenceUtil.saveSimpleData(Activity_organizationLogin.this, Constant.USER_NAME_STR,jsonObject.getString("userNickname"));
                     FinishRX finishRX=new FinishRX();
                     finishRX.setWhat(FinishRX.ActivityName.generalLogin);
@@ -233,12 +242,14 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
      * 取机构列表
      */
     private void loadDeptList(){
+        binding.loginOrganizationName.setClickable(false);
         Request request = Api.deptListGet();
         mCall2 = OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
         mCall2.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: 取机构列表失败了" + e.getMessage());
+                myHandler.sendEmptyMessage(what_fail_dept);
             }
 
             @Override
@@ -246,11 +257,13 @@ public class Activity_organizationLogin extends BaseActivity implements View.OnC
                 try {
                     String json = response.body().string();
                     Log.e(TAG, "onResponse: 取机构列表了" + json);
-                    List<NetBeanDept> temp= JSON.parseArray(json,NetBeanDept.class);
-                    depts.addAll(temp);
+
+                    NetBeanDeptPage temp= JSON.parseObject(json,NetBeanDeptPage.class);
+                    depts.addAll(temp.getPageData());
                     myHandler.sendEmptyMessage(what_success_dept);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+                    myHandler.sendEmptyMessage(what_fail_dept);
                 }
             }
         });
