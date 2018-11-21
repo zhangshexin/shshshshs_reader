@@ -1,7 +1,5 @@
 package com.redread.net.netbean;
 
-import java.util.List;
-
 /**
  * Created by zhangshexin on 2018/10/16.
  *
@@ -12,7 +10,7 @@ public class NetBeanModel {
     private int id;//模块id，用于获取对应模块的图书列表
     private String name;//模块名
     private String description;//模块描述
-    private List<NetBeanBook> books;//图书列表
+    private NetBeanModelPage books;//图书列表
 
     public int getId() {
         return id;
@@ -38,11 +36,11 @@ public class NetBeanModel {
         this.description = description;
     }
 
-    public List<NetBeanBook> getBooks() {
+    public NetBeanModelPage getBooks() {
         return books;
     }
 
-    public void setBooks(List<NetBeanBook> books) {
+    public void setBooks(NetBeanModelPage books) {
         this.books = books;
     }
 }

@@ -23,8 +23,8 @@ import java.util.List;
  */
 
 public class Adapter_libarySearch extends BaseRecycelAdapter<BaseViewHolder> {
-    private List<String> searchResultList;
-    public Adapter_libarySearch(Context context,List<String> searchResultList) {
+    private List<NetBeanBook> searchResultList;
+    public Adapter_libarySearch(Context context,List<NetBeanBook> searchResultList) {
         super(context);
         this.searchResultList=searchResultList;
     }
@@ -79,13 +79,12 @@ public class Adapter_libarySearch extends BaseRecycelAdapter<BaseViewHolder> {
             });
             loadmoreBinding.loadMorePB.setVisibility(View.GONE);
         }else{
-            //TODO
             LayoutCellBookBinding binding = (LayoutCellBookBinding) holder.getBinding();
-//            NetBeanBook book = books.get(position);
-//            binding.bookAuthor.setText(book.getAuthor());
-//            binding.bookDes.setText(book.getIntroduction());
-//            binding.bookName.setText(book.getName());
-//            GlideUtils.LoadImage(mContext, Api.downUrl + book.getCoverPath(), binding.bookCover);
+            NetBeanBook book = searchResultList.get(position);
+            binding.bookAuthor.setText(book.getAuthor());
+            binding.bookDes.setText(book.getIntroduction());
+            binding.bookName.setText(book.getName());
+            GlideUtils.LoadImage(mContext, Api.downUrl + book.getCoverPath(), binding.bookCover);
         }
     }
 }

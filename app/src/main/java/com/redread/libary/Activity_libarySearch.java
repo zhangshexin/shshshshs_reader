@@ -20,12 +20,16 @@ import com.redread.databinding.LayoutLoadmoreBinding;
 import com.redread.libary.adapter.Adapter_libarySearch;
 import com.redread.net.Api;
 import com.redread.net.OkHttpManager;
+import com.redread.net.netbean.NetBeanBook;
+import com.redread.net.netbean.NetBeanBookPage;
 import com.redread.net.netbean.NetBeanKindBook;
 import com.redread.net.netbean.NetBeanModel;
+import com.redread.net.netbean.NetBeanModelPage;
 import com.redread.utils.RecyclerViewUtil;
 import com.redread.utils.SystemUtil;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +53,7 @@ public class Activity_libarySearch extends BaseActivity {
         initView();
     }
 
-    private List<String> searchResultList = new ArrayList<>();
+
     private Adapter_libarySearch adapter;
     private RecyclerViewUtil util;
     private LinearLayoutManager manager;
@@ -68,6 +72,7 @@ public class Activity_libarySearch extends BaseActivity {
         adapter = new Adapter_libarySearch(this, searchResultList);
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.libarySearchResultList.setLayoutManager(manager);
+        binding.libarySearchResultList.setAdapter(adapter);
 
         binding.include6.titleSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -95,17 +100,12 @@ public class Activity_libarySearch extends BaseActivity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            //加载更多按钮要收起加载中,且可以点击加载更多
-            if (adapter.isAdded()) {
-                View view = manager.findViewByPosition(searchResultList.size());
-                LayoutLoadmoreBinding loadmoreBinding = DataBindingUtil.getBinding(view);
-                loadmoreBinding.loadMorePB.setVisibility(View.GONE);
-                loadmoreBinding.loadMore.setClickable(true);
+
+            if(!page.isHasNext()){
+                adapter.setAddedFooterView(false);
+            }else{
+                adapter.setAddedFooterView(true);
             }
-            //TODO 是否要收起加载更多按钮
-//            if(!kindBook.getBooks().isHasNext()){
-//                adapter.setAddedFooterView(false);
-//            }
 
             binding.loadingPb.setVisibility(View.GONE);
 
@@ -122,6 +122,14 @@ public class Activity_libarySearch extends BaseActivity {
                         showNUllView();
                     break;
             }
+            //加载更多按钮要收起加载中,且可以点击加载更多
+            if (adapter.isAdded()) {
+                View view = manager.findViewByPosition(searchResultList.size());
+                LayoutLoadmoreBinding loadmoreBinding = DataBindingUtil.getBinding(view);
+                loadmoreBinding.loadMorePB.setVisibility(View.GONE);
+                loadmoreBinding.loadMore.setClickable(true);
+            }
+
         }
     };
 
@@ -133,38 +141,44 @@ public class Activity_libarySearch extends BaseActivity {
     }
 
     private int pageCount = 50;
-
+    private NetBeanBookPage page;
+    private List<NetBeanBook> searchResultList = new ArrayList<>();
+    private Call mCall;
     /**
      * 搜索
      */
     public void doSearch() {
         String keyword = binding.include6.titleSearch.getText().toString();
         binding.loadingPb.setVisibility(View.VISIBLE);
-        Request request = Api.searchBookGet(keyword, searchResultList.size(), pageCount);
-        Call mCall = OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
-        mCall.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                mHandler.sendEmptyMessage(WHAT_ERROR);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String json = response.body().string();
-                    //TODO
-//                    model = JSON.parseObject(json, NetBeanModel.class);
-//                    if (model != null && model.getBooks() != null && model.getBooks().size() > 0) {
-//                        books.addAll(model.getBooks());
-//                        mHandler.sendEmptyMessage(WHAT_SUCCESS);
-//                    } else {
-//                        mHandler.sendEmptyMessageDelayed(WHAT_FAIL, 2000);
-//                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+        try {
+            Request request = Api.searchBookGet(keyword, searchResultList.size(), pageCount);
+            mCall = OkHttpManager.getInstance(this).getmOkHttpClient().newCall(request);
+            mCall.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
                     mHandler.sendEmptyMessage(WHAT_ERROR);
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String json = response.body().string();
+                        page = JSON.parseObject(json, NetBeanBookPage.class);
+                        if (page != null && page.getPageData() != null && page.getPageData().size() > 0) {
+                            searchResultList.addAll(page.getPageData());
+                            mHandler.sendEmptyMessage(WHAT_SUCCESS);
+                        } else {
+                            mHandler.sendEmptyMessage(WHAT_FAIL);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        mHandler.sendEmptyMessage(WHAT_ERROR);
+                    }
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            mHandler.sendEmptyMessage(WHAT_ERROR);
+        }
     }
 }

@@ -2,6 +2,9 @@ package com.redread.net;
 
 import android.content.Context;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -169,8 +172,8 @@ public class Api {
     /**
      * 搜索
      */
-    public static Request searchBookGet(String bookName,int offset,int pageCount){
-        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/searchBook/keyword" + bookName+"?limit="+pageCount+"&offset="+offset+"&order=asc").build();
+    public static Request searchBookGet(String bookName,int offset,int pageCount) throws UnsupportedEncodingException {
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/search/" + URLEncoder.encode(bookName,"UTF-8")+"?limit="+pageCount+"&offset="+offset+"&order=asc&sort=id").build();
         return request;
     }
     /**

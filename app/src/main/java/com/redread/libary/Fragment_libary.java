@@ -146,7 +146,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                     //没有子项的不要
                     for (int k=0;k<libaryInfo.getModelList().size();k++){
                       NetBeanModel netBeanModel=  libaryInfo.getModelList().get(k);
-                      if(netBeanModel.getBooks()!=null&&netBeanModel.getBooks().size()!=0){
+                      if(netBeanModel.getBooks()!=null&&netBeanModel.getBooks().getPageData().size()!=0){
                           modelList.add(libaryInfo.getModelList().get(k));
                       }
                     }

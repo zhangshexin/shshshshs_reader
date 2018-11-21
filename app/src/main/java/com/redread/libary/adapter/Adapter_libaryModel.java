@@ -53,21 +53,21 @@ public class Adapter_libaryModel extends BaseRecycelAdapter<BaseViewHolder> {
         binding.libarymodelCellModelName.setText(model.getName());
         binding.libarymodelCellDescript.setText(model.getDescription());
         //处理一行的三本书的显示
-        if (model.getBooks().size() >= 1) {
-            GlideUtils.glideLoader(mContext, Api.downUrl + model.getBooks().get(0).getCoverPath(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.libarymodelCellCover1);
-            binding.libarymodelCellName1.setText(model.getBooks().get(0).getName());
+        if (model.getBooks().getPageData().size() >= 1) {
+            GlideUtils.glideLoader(mContext, Api.downUrl + model.getBooks().getPageData().get(0).getCoverPath(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.libarymodelCellCover1);
+            binding.libarymodelCellName1.setText(model.getBooks().getPageData().get(0).getName());
         } else {
             binding.libarymodelCell1.setVisibility(View.GONE);
         }
-        if (model.getBooks().size() >= 2) {
-            GlideUtils.glideLoader(mContext, Api.downUrl + model.getBooks().get(1).getCoverPath(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.libarymodelCellCover2);
-            binding.libarymodelCellName1.setText(model.getBooks().get(1).getName());
+        if (model.getBooks().getPageData().size() >= 2) {
+            GlideUtils.glideLoader(mContext, Api.downUrl + model.getBooks().getPageData().get(1).getCoverPath(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.libarymodelCellCover2);
+            binding.libarymodelCellName1.setText(model.getBooks().getPageData().get(1).getName());
         } else {
             binding.libarymodelCell2.setVisibility(View.GONE);
         }
-        if (model.getBooks().size() >= 3) {
-            GlideUtils.glideLoader(mContext, Api.downUrl + model.getBooks().get(2).getCoverPath(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.libarymodelCellCover2);
-            binding.libarymodelCellName1.setText(model.getBooks().get(2).getName());
+        if (model.getBooks().getPageData().size() >= 3) {
+            GlideUtils.glideLoader(mContext, Api.downUrl + model.getBooks().getPageData().get(2).getCoverPath(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.libarymodelCellCover2);
+            binding.libarymodelCellName1.setText(model.getBooks().getPageData().get(2).getName());
         } else {
             binding.libarymodelCell3.setVisibility(View.GONE);
         }
@@ -81,7 +81,7 @@ public class Adapter_libaryModel extends BaseRecycelAdapter<BaseViewHolder> {
     public void goBookDetail(int position, int bookP) {
         Log.e(TAG, bookP + "--------goBookDetail: ==================" + position);
         Intent intent = new Intent(mContext, Activity_bookDetail.class);
-        intent.putExtra(Activity_bookDetail.EXTR_BOOK,models.get(position).getBooks().get(bookP-1));
+        intent.putExtra(Activity_bookDetail.EXTR_BOOK,models.get(position).getBooks().getPageData().get(bookP-1));
         mContext.startActivity(intent);
         ((Activity_home) mContext).overridePendingTransition(R.anim.bottom_in, R.anim.bottom_out);
     }

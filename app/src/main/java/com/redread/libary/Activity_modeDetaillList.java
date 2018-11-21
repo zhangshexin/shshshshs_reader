@@ -77,7 +77,7 @@ public class Activity_modeDetaillList extends BaseActivity implements View.OnCli
             @Override
             public void onItemClick(int position, View view) {
                 //显示图书详情
-                startActivity(Activity_bookDetail.class, Activity_bookDetail.EXTR_BOOK, isKindBookList?kindBook.getBooks().getPageData().get(position):model.getBooks().get(position));
+                startActivity(Activity_bookDetail.class, Activity_bookDetail.EXTR_BOOK, isKindBookList?kindBook.getBooks().getPageData().get(position):model.getBooks().getPageData().get(position));
                 overridePendingTransition(R.anim.bottom_in, R.anim.bottom_out);
             }
         });
@@ -102,21 +102,21 @@ public class Activity_modeDetaillList extends BaseActivity implements View.OnCli
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            //加载更多按钮要收起加载中,且可以点击加载更多
-            if (adapter_modelList.isAdded()) {
-                View view = manager.findViewByPosition(books.size());
-                LayoutLoadmoreBinding loadmoreBinding = DataBindingUtil.getBinding(view);
-                loadmoreBinding.loadMorePB.setVisibility(View.GONE);
-                loadmoreBinding.loadMore.setClickable(true);
-            }
             //判断一下如保处理加载更多
             if(isKindBookList){
                 if(!kindBook.getBooks().isHasNext()){
                     adapter_modelList.setAddedFooterView(false);
                 }else{
-                    //TODO
+                    adapter_modelList.setAddedFooterView(true);
+                }
+            }else{
+                if(!model.getBooks().isHasNext()){
+                    adapter_modelList.setAddedFooterView(false);
+                }else{
+                    adapter_modelList.setAddedFooterView(true);
                 }
             }
+
             switch (msg.what) {
                 case WHAT_SUCCESS:
                     adapter_modelList.notifyDataSetChanged();
@@ -144,6 +144,13 @@ public class Activity_modeDetaillList extends BaseActivity implements View.OnCli
                         finish2();
                     }
                     break;
+            }
+            //加载更多按钮要收起加载中,且可以点击加载更多
+            if (adapter_modelList.isAdded()) {
+                View view = manager.findViewByPosition(books.size());
+                LayoutLoadmoreBinding loadmoreBinding = DataBindingUtil.getBinding(view);
+                loadmoreBinding.loadMorePB.setVisibility(View.GONE);
+                loadmoreBinding.loadMore.setClickable(true);
             }
         }
     };
@@ -184,8 +191,8 @@ public class Activity_modeDetaillList extends BaseActivity implements View.OnCli
                     }else{
                         //TODO
                         model = JSON.parseObject(json, NetBeanModel.class);
-                        if (model != null &&model.getBooks()!=null&& model.getBooks().size() > 0) {
-                            books.addAll(model.getBooks());
+                        if (model != null &&model.getBooks()!=null&&model.getBooks().getPageData()!=null&& model.getBooks().getPageData().size() > 0) {
+                            books.addAll(model.getBooks().getPageData());
                             mHandler.sendEmptyMessage(WHAT_SUCCESS);
                         }else{
                             mHandler.sendEmptyMessageDelayed(WHAT_FAIL,2000);
