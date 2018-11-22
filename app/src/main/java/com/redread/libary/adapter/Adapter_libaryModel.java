@@ -54,19 +54,19 @@ public class Adapter_libaryModel extends BaseRecycelAdapter<BaseViewHolder> {
         binding.libarymodelCellDescript.setText(model.getDescription());
         //处理一行的三本书的显示
         if (model.getBooks().getPageData().size() >= 1) {
-            GlideUtils.glideLoader(mContext, Api.downUrl + model.getBooks().getPageData().get(0).getCoverPath(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.libarymodelCellCover1);
+            GlideUtils.LoadImageRandomColor(mContext, Api.downUrl + model.getBooks().getPageData().get(0).getCoverPath(), binding.libarymodelCellCover1);
             binding.libarymodelCellName1.setText(model.getBooks().getPageData().get(0).getName());
         } else {
             binding.libarymodelCell1.setVisibility(View.GONE);
         }
         if (model.getBooks().getPageData().size() >= 2) {
-            GlideUtils.glideLoader(mContext, Api.downUrl + model.getBooks().getPageData().get(1).getCoverPath(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.libarymodelCellCover2);
+            GlideUtils.LoadImageRandomColor(mContext, Api.downUrl + model.getBooks().getPageData().get(1).getCoverPath(), binding.libarymodelCellCover2);
             binding.libarymodelCellName1.setText(model.getBooks().getPageData().get(1).getName());
         } else {
             binding.libarymodelCell2.setVisibility(View.GONE);
         }
         if (model.getBooks().getPageData().size() >= 3) {
-            GlideUtils.glideLoader(mContext, Api.downUrl + model.getBooks().getPageData().get(2).getCoverPath(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.libarymodelCellCover2);
+            GlideUtils.LoadImageRandomColor(mContext, Api.downUrl + model.getBooks().getPageData().get(2).getCoverPath(), binding.libarymodelCellCover2);
             binding.libarymodelCellName1.setText(model.getBooks().getPageData().get(2).getName());
         } else {
             binding.libarymodelCell3.setVisibility(View.GONE);

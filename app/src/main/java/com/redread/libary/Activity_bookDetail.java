@@ -142,7 +142,7 @@ public class Activity_bookDetail extends BaseActivity implements View.OnClickLis
         });
         if (book == null)
             return;
-        GlideUtils.LoadImage(this, Api.downUrl + book.getCoverPath(), binding.bookDetailCover);
+        GlideUtils.LoadImageRandomColor(this, Api.downUrl + book.getCoverPath(), binding.bookDetailCover);
         binding.bookDetailBookName.setText(book.getName());
         binding.introduction.setText(book.getIntroduction());
         downUrl = Api.downUrl + book.getBrowsPath();

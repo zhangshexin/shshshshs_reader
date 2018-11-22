@@ -89,7 +89,7 @@ public class Adapter_modelList extends BaseRecycelAdapter<BaseViewHolder> {
             binding.bookAuthor.setText(book.getAuthor());
             binding.bookDes.setText(book.getIntroduction());
             binding.bookName.setText(book.getName());
-            GlideUtils.LoadImage(mContext, Api.downUrl + book.getCoverPath(), binding.bookCover);
+            GlideUtils.LoadImageRandomColor(mContext, Api.downUrl + book.getCoverPath(), binding.bookCover);
         }
     }
 }

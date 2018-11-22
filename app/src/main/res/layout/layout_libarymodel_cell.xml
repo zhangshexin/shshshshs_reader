@@ -76,8 +76,8 @@
 
                 <ImageView
                     android:id="@+id/libarymodel_cell_cover1"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="120dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:onClick="@{()->adapter.goBookDetail(position,1)}"
@@ -112,8 +112,8 @@
 
                 <ImageView
                     android:id="@+id/libarymodel_cell_cover2"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="120dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:onClick="@{()->adapter.goBookDetail(position,2)}"
@@ -147,8 +147,8 @@
 
                 <ImageView
                     android:id="@+id/libarymodel_cell_cover3"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="120dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:onClick="@{()->adapter.goBookDetail(position,3)}"

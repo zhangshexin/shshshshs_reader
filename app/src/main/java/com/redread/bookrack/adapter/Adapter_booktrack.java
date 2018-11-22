@@ -84,7 +84,7 @@ public class Adapter_booktrack extends BaseRecycelAdapter<BaseViewHolder> {
             GlideUtils.glideLoader(mContext, book.getCoverDir(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.booktrackCellCover);
         } else {
             //如果有封面则显示
-            GlideUtils.glideLoader(mContext, Api.downUrl + book.getCoverUrl(), R.drawable.side_nav_bar, R.drawable.side_nav_bar, binding.booktrackCellCover);
+            GlideUtils.LoadImageRandomColor(mContext, Api.downUrl + book.getCoverUrl(), binding.booktrackCellCover);
         }
         //显示隐藏选中按钮
         binding.booktrackCellCheck.setVisibility(book.isShowCheckBtn() ? View.VISIBLE : View.GONE);

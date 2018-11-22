@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -87,7 +88,27 @@ public class GlideUtils {
         }).centerCrop().placeholder(R.mipmap.ic_launcher)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
     }
+    /**
+     * 加载网络图片
+     * @param mContext
+     * @param path
+     * @param imageview
+     */
+    public static void LoadImageRandomColor(Context mContext, String path,
+                                 ImageView imageview) {
+        Glide.with(mContext).load(path).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                return false;
+            }
 
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                return false;
+            }
+        }).centerCrop().placeholder(new ColorDrawable(ComputeUtile.getRandColorInt()))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+    }
     /**
      * 加载带尺寸的图片
      * @param mContext

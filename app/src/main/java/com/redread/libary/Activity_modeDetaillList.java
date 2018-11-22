@@ -70,7 +70,6 @@ public class Activity_modeDetaillList extends BaseActivity implements View.OnCli
 
 
         binding.modelListList.setLayoutManager(manager);
-        adapter_modelList.setAddedFooterView(true);
         binding.modelListList.setAdapter(adapter_modelList);
 
         util.setOnItemClickListener(new RecyclerViewUtil.OnItemClickListener() {
