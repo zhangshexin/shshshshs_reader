@@ -1,39 +1,37 @@
 package com.redread.net.netbean;
 
-import java.util.List;
-
 /**
  * Created by zhangshexin on 2018/9/20.
  * 馆藏页面信息
  */
 
 public class NetBeanLibary {
-    private List<NetBeanBanner> bannerList;//banner图
-    private List<NetBeanBook> notifyList;//滚动通知
-    private List<NetBeanModel> modelList;//版块列表
+    private NetBeanBannerPage bannerList;//banner图
+    private NetBeanBookPage notifyList;//滚动通知
+    private NetBeanLibaryModelPage modelList;//版块列表
 
 
-    public List<NetBeanBanner> getBannerList() {
+    public NetBeanBannerPage getBannerList() {
         return bannerList;
     }
 
-    public void setBannerList(List<NetBeanBanner> bannerList) {
+    public void setBannerList(NetBeanBannerPage bannerList) {
         this.bannerList = bannerList;
     }
 
-    public List<NetBeanBook> getNotifyList() {
+    public NetBeanBookPage getNotifyList() {
         return notifyList;
     }
 
-    public void setNotifyList(List<NetBeanBook> notifyList) {
+    public void setNotifyList(NetBeanBookPage notifyList) {
         this.notifyList = notifyList;
     }
 
-    public List<NetBeanModel> getModelList() {
+    public NetBeanLibaryModelPage getModelList() {
         return modelList;
     }
 
-    public void setModelList(List<NetBeanModel> modelList) {
+    public void setModelList(NetBeanLibaryModelPage modelList) {
         this.modelList = modelList;
     }
 }

@@ -135,7 +135,7 @@ public class Api {
      * 馆藏信息
      */
     public static Request libaryInfoGet() {
-        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/favorite/1").build();
+        Request request = new Request.Builder().url(baseUrl + "/reader/api/v1/favorite/1?limit=100&offset=0&order=asc").build();
         return request;
     }
 

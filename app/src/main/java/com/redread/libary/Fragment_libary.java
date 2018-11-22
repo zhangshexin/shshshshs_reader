@@ -95,7 +95,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
         binding.marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
             @Override
             public void onItemClick(int position, TextView textView) {
-                startActivity(Activity_bookDetail.class,Activity_bookDetail.EXTR_BOOK,libaryInfo.getNotifyList().get(position));
+                startActivity(Activity_bookDetail.class,Activity_bookDetail.EXTR_BOOK,libaryInfo.getNotifyList().getPageData().get(position));
                 getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_out);
             }
         });
@@ -126,10 +126,11 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
                     //banner
                     List images=new ArrayList<String>();
                     List titles=new ArrayList<String>();
-                    for (int i=0;i<libaryInfo.getBannerList().size();i++){
-                        images.add(libaryInfo.getBannerList().get(i).getImageUrl());
-                        titles.add(libaryInfo.getBannerList().get(i).getName());
-                    }
+                    if(libaryInfo.getBannerList()!=null&&libaryInfo.getBannerList().getPageData()!=null&&libaryInfo.getBannerList().getPageData().size()>0)
+                        for (int i=0;i<libaryInfo.getBannerList().getPageData().size();i++){
+                            images.add(libaryInfo.getBannerList().getPageData().get(i).getImageUrl());
+                            titles.add(libaryInfo.getBannerList().getPageData().get(i).getName());
+                        }
                     binding.libaryBanner.setImageLoader(new GlideImageLoader());
                     binding.libaryBanner.setImages(images);
                     binding.libaryBanner.setBannerTitles(titles);
@@ -137,19 +138,21 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
 
                     //通知
                     List<String> info = new ArrayList<>();
-                    for (int i=0;i<libaryInfo.getNotifyList().size();i++){
-                        info.add(libaryInfo.getNotifyList().get(i).getName());
-                    }
+                    if (libaryInfo.getNotifyList() != null && libaryInfo.getNotifyList().getPageData() != null && libaryInfo.getNotifyList().getPageData().size() > 0)
+                        for (int i = 0; i < libaryInfo.getNotifyList().getPageData().size(); i++) {
+                            info.add(libaryInfo.getNotifyList().getPageData().get(i).getName());
+                        }
                     binding.marqueeView.startWithList(info);
 
                     //专业阅读
                     //没有子项的不要
-                    for (int k=0;k<libaryInfo.getModelList().size();k++){
-                      NetBeanModel netBeanModel=  libaryInfo.getModelList().get(k);
-                      if(netBeanModel.getBooks()!=null&&netBeanModel.getBooks().getPageData().size()!=0){
-                          modelList.add(libaryInfo.getModelList().get(k));
-                      }
-                    }
+                    if (libaryInfo.getModelList() != null && libaryInfo.getModelList().getPageData() != null)
+                        for (int k = 0; k < libaryInfo.getModelList().getPageData().size(); k++) {
+                            NetBeanModel netBeanModel = libaryInfo.getModelList().getPageData().get(k);
+                            if (netBeanModel.getBooks() != null && netBeanModel.getBooks().getPageData().size() != 0) {
+                                modelList.add(libaryInfo.getModelList().getPageData().get(k));
+                            }
+                        }
                     adapter.notifyDataSetChanged();
                     break;
             }
