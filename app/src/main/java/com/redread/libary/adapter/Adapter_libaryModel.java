@@ -46,10 +46,10 @@ public class Adapter_libaryModel extends BaseRecycelAdapter<BaseViewHolder> {
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        NetBeanModel model = models.get(0);
+        NetBeanModel model = models.get(position);
         LayoutLibarymodelCellBinding binding = (LayoutLibarymodelCellBinding) holder.getBinding();
         binding.setAdapter(this);
-        binding.setPosition(0);
+        binding.setPosition(position);
         binding.libarymodelCellModelName.setText(model.getName());
         binding.libarymodelCellDescript.setText(model.getDescription());
         //处理一行的三本书的显示
