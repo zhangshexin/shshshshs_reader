@@ -75,6 +75,7 @@ public class Fragment_libary extends BaseFragment implements View.OnClickListene
         adapter=new Adapter_libaryModel(mContext,modelList);
         LinearLayoutManager manager=new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
         binding.libaryModellist.setLayoutManager(manager);
+        binding.libaryModellist.setNestedScrollingEnabled(false);
         binding.libaryModellist.setAdapter(adapter);
         //去查看该模块的列表
         binding.libaryNewbook.setOnClickListener(this);
