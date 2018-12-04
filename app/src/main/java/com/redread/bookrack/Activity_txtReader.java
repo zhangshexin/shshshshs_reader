@@ -115,6 +115,10 @@ public class Activity_txtReader extends AppCompatActivity {
         this.mBottomDecoration = this.findViewById(R.id.activity_hwtxtplay_bottom);
         this.mTxtReaderView = (TxtReaderView)this.findViewById(R.id.activity_hwtxtplay_readerView);
         this.mChapterNameText = (TextView)this.findViewById(R.id.activity_hwtxtplay_chaptername);
+
+
+        //书名显示
+        mChapterNameText.setText(FileName);
         this.mChapterMenuText = (TextView)this.findViewById(R.id.activity_hwtxtplay_chapter_menutext);
         this.mProgressText = (TextView)this.findViewById(R.id.activity_hwtxtplay_progress_text);
         this.mSettingText = (TextView)this.findViewById(R.id.activity_hwtxtplay_setting_text);
@@ -319,13 +323,14 @@ public class Activity_txtReader extends AppCompatActivity {
                 d.setReadProgress(((int)((float)p / 10.0)));
                 dao.update(d);
 
-                Activity_txtReader.this.mMenuHolder.mSeekBar.setProgress((int)(progress * 100.0F));
-                IChapter currentChapter = Activity_txtReader.this.mTxtReaderView.getCurrentChapter();
-                if(currentChapter != null) {
-                    Activity_txtReader.this.mChapterNameText.setText((currentChapter.getTitle() + "").trim());
-                } else {
-                    Activity_txtReader.this.mChapterNameText.setText("无章节");
-                }
+                //这里不再更新显示章节
+//                Activity_txtReader.this.mMenuHolder.mSeekBar.setProgress((int)(progress * 100.0F));
+//                IChapter currentChapter = Activity_txtReader.this.mTxtReaderView.getCurrentChapter();
+//                if(currentChapter != null) {
+//                    Activity_txtReader.this.mChapterNameText.setText((currentChapter.getTitle() + "").trim());
+//                } else {
+//                    Activity_txtReader.this.mChapterNameText.setText("无章节");
+//                }
 
             }
         });
