@@ -19,7 +19,7 @@ import okhttp3.RequestBody;
  */
 
 public class Api {
-    public static final String baseUrl = "http://47.95.111.63:9999";
+    public static final String baseUrl = "http://125.76.225.32:8888";
 
     /**
      * 普通登录
